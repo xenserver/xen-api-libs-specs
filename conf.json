@@ -1,0 +1,50 @@
+[
+    {
+	'spec' : 'nbd.spec',
+	'sources' : [ { 'url' : 'git:///repos/nbd' } ]
+    },
+    {
+	'spec' : 'cdrom.spec',
+	'sources' : [ { 'url' : 'git:///repos/cdrom' } ]
+    },
+    {
+	'spec' : 'netdev.spec',
+	'sources' : [ { 'url' : 'git:///repos/netdev' } ]
+    },
+    {
+	'spec' : 'stdext.spec',
+	'sources' : [ { 'url' : 'git:///repos/stdext' } ]
+    },
+    {
+	'spec' : 'tapctl.spec',
+	'sources' : [ { 'url' : 'git:///repos/tapctl' } ]
+    },
+    {
+	'spec' : 'libvhd.spec',
+	'sources' : [ { 'url' : 'git:///repos/libvhd' } ]
+    },
+    {
+	'spec' : 'forkexecd.spec',
+	'sources' : [ { 'url' : 'git:///repos/forkexecd' } ]
+    },
+    {
+	'spec' : 'fd-send-recv.spec',
+	'sources' : [ { 'url' : 'git:///repos/ocaml-fd-send-recv' } ]
+    },
+    {
+	'spec' : 'xen-api-libs-transitional.spec',
+	'sources' : [ { 'url' : 'git:///repos/xen-api-libs-transitional' } ]
+    },
+    {
+	'spec' : 'xenstore.spec',
+	'sources' : [ { 'url' : 'git:///repos/ocaml-xenstore' } ]
+    },
+    {
+	'spec' : 'xenstore-clients.spec',
+	'sources' : [ { 'url' : 'git:///repos/ocaml-xenstore-clients' } ]
+    },
+    {
+	'spec' : 'xen-lowlevel-libs.spec',
+	'sources' : [ { 'url' : 'git:///repos/ocaml-xen-lowlevel-libs' } ]
+    },
+]
