@@ -43,9 +43,9 @@ rm -rf %{buildroot}
 %files devel
 %defattr(-,root,root)
 %doc ChangeLog README.md
-%{_libdir}/ocaml/libvhd/*
-%{_libdir}/ocaml/stublibs/dlllibvhd_stubs.so
-%{_libdir}/ocaml/stublibs/dlllibvhd_stubs.so.owner
+%{_libdir}/ocaml/vhdlib/*
+%{_libdir}/ocaml/stublibs/dllvhdlib_stubs.so
+%{_libdir}/ocaml/stublibs/dllvhdlib_stubs.so.owner
 
 %changelog
 * Wed May 29 2013 David Scott <dave.scott@eu.citrix.com>
