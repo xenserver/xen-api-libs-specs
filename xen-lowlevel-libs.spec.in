@@ -27,7 +27,6 @@ developing applications that use %{name}.
 %setup -q -n @PREFIX@
 
 %build
-./configure
 make
 
 %install
