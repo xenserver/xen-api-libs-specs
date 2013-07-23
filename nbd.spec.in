@@ -5,7 +5,7 @@ Summary:        Pure OCaml implementation of the Network Block Device protocol
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
 URL:            http://github.com/xen-org/nbd
-Source0:        @SOURCE@
+Source0:        git:///repos/nbd
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-bitstring-devel ocaml-lwt-devel ocaml-obuild ocaml-camlp4-devel ocaml-camlp4
 Requires:       ocaml ocaml-findlib
