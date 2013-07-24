@@ -70,5 +70,10 @@
     {
 	'spec' : 'xcp-networkd.spec',
 	'sources' : [ { 'url' : 'git:///repos/xcp-networkd' } ]
+    },
+    {
+	'spec' : 'xen-api-client.spec',
+	'sources' : [ { 'url' : 'git:///repos/xen-api-client' } ]
     }
+
 ]
