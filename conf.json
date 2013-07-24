@@ -28,6 +28,10 @@
 	'sources' : [ { 'url' : 'git:///repos/forkexecd' } ]
     },
     {
+	'spec' : 'xcp-inventory.spec',
+        'sources' : [ { 'url' : 'git:///repos/xcp-inventory' } ]
+    },
+    {
 	'spec' : 'fd-send-recv.spec',
 	'sources' : [ { 'url' : 'git:///repos/ocaml-fd-send-recv' } ]
     },
