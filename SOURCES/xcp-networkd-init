@@ -1,90 +1,99 @@
-#!/bin/bash
+#! /bin/bash
 #
-#  xcp-networkd        Startup script for network management service
+# xcp-networkd     Start/Stop the XCP networking daemon
 #
-# chkconfig: 2345 13 88
-# description: Manages host networking for VMs.
-### BEGIN INIT INFO
-# Provides: xcp-networkd
-# Required-Start: $local_fs $network $syslog message-switch
-# Required-Stop: $local_fs $syslog
-# Should-Start: $syslog message-switch
-# Should-Stop: $network $syslog
-# Default-Start: 2 3 4 5
-# Default-Stop: 0 1 6
-# Short-Description: Network management service
-# Description:       Manages host networking for VMs.
-### END INIT INFO
+# chkconfig: 2345 13 76
+# description: XCP networking daemon
+# processname: xcp-networkd
+# pidfile: /var/run/xcp-networkd.pid
 
 # Source function library.
 . /etc/init.d/functions
 
-RETVAL=0
-PIDFILE=/var/run/xcp-networkd.pid
+# v6 licensing daemon
 
-prog=xcp-networkd
-exec=/usr/sbin/xcp-networkd
-lockfile=/var/lock/subsys/$prog
+# location of the executable:
+NETWORKD="@LIBEXECDIR@/xcp-networkd"
 
-# Source config
-if [ -f /etc/sysconfig/$prog ] ; then
-    . /etc/sysconfig/$prog
-fi
+# pidfile:
+PID_FILE="/var/run/xcp-networkd.pid"
+
+# lock file
+SUBSYS_FILE="/var/lock/subsys/xcp-networkd"
 
 start() {
-	[ -x $exec ] || exit 5
+	echo -n $"Starting the XCP networking daemon: "
+	
+	if [ -e ${SUBSYS_FILE} ]; then
+		if [ -e ${PID_FILE} ] && [ -e /proc/`cat ${PID_FILE}` ]; then
+			echo -n $"cannot start xcp-networkd: already running."
+			failure $"cannot start xcp-networkd: already running."
+			echo
+			return 1
+		fi
+	fi
 
-	umask 077
+	# Enable backtraces
+	export OCAMLRUNPARAM="b"
 
-        echo -n $"Starting xcp-networkd: "
-        daemon --pidfile="$PIDFILE" $exec -pidfile "$PIDFILE" -daemon true $XCP_NETWORKD_OPTIONS
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && touch $lockfile
-        return $RETVAL
+	${NETWORKD} -daemon -pidfile ${PID_FILE} >/dev/null 2>&1 </dev/null
+
+	MAX_RETRIES=100
+	RETRY=0
+	while [ ${RETRY} -lt ${MAX_RETRIES} ]; do
+		PID=$(cat ${PID_FILE} 2>/dev/null)
+		kill -0 ${PID} 2> /dev/null
+		if [ $? -eq 0 ]; then
+			touch ${SUBSYS_FILE}
+			success
+			echo
+			return 0
+		fi
+		sleep 1
+		echo -n .
+		RETRY=$(( ${RETRY} + 1 ))
+	done
+	echo -n $"failed to start xcp-networkd."
+	failure $"failed to start xcp-networkd."
+	killproc xcp-networkd
+	rm -f ${SUBSYS_FILE} ${PID_FILE}
+	echo
+	return 1
 }
+
 stop() {
-        echo -n $"Shutting down xcp-networkd: "
-        killproc -p "$PIDFILE" $exec
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && rm -f $lockfile
-        return $RETVAL
+	echo -n $"Stopping the XCP networking daemon: "
+
+	if [ ! -e ${SUBSYS_FILE} ]; then
+		echo -n $"cannot stop xcp-networkd: daemon is not running."
+		failure $"cannot stop xcp-networkd: daemon is not running."
+		echo
+		return 1;
+	fi
+
+	killproc xcp-networkd
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f ${SUBSYS_FILE} ${PID_FILE}
+	return $RETVAL
 }
-rhstatus() {
-        status -p "$PIDFILE" -l $prog $exec
-}
+
 restart() {
-        stop
-        start
+	stop
+	start
 }
 
 case "$1" in
-  start)
-        start
-        ;;
-  stop)
-        stop
-        ;;
-  restart)
-        restart
-        ;;
-  reload)
-        exit 3
-        ;;
-  force-reload)
-        restart
-        ;;
-  status)
-        rhstatus
-        ;;
-  condrestart|try-restart)
-        rhstatus >/dev/null 2>&1 || exit 0
-        restart
-        ;;
-  *)
-        echo $"Usage: $0 {start|stop|restart|condrestart|try-restart|reload|force-reload|status}"
-        exit 3
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart}"
+		exit 1
 esac
-
-exit $?
