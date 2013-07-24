@@ -1,3 +1,4 @@
 [
-    { 'package-name' : 'forkexec' }
+     { 'package-name' : 'forkexec' }
+    ,{ 'package-name' : 'xcp-networkd' }
 ]
