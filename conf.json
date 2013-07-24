@@ -47,4 +47,16 @@
 	'spec' : 'xen-lowlevel-libs.spec',
 	'sources' : [ { 'url' : 'git:///repos/ocaml-xen-lowlevel-libs' } ]
     },
+    {
+	'spec' : 'xcp-idl.spec',
+	'sources' : [ { 'url' : 'git:///repos/xcp-idl' } ]
+    },
+    {
+	'spec' : 'message-switch.spec',
+	'sources' : [ { 'url' : 'git:///repos/message-switch' } ]
+    },
+    {
+	'spec' : 'xcp-rrd.spec',
+	'sources' : [ { 'url' : 'git:///repos/xcp-rrd' } ]
+    }
 ]
