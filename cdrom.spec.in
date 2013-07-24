@@ -23,7 +23,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n cdrom-%{version}
 
 %build
 if [ -x ./configure ]; then

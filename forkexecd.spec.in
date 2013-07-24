@@ -19,7 +19,7 @@ A service which starts and manages subprocesses, avoiding the need to manually
 fork() and exec() in a multithreaded program.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n forkexecd-%{version}
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
