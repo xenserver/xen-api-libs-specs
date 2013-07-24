@@ -58,5 +58,9 @@
     {
 	'spec' : 'xcp-rrd.spec',
 	'sources' : [ { 'url' : 'git:///repos/xcp-rrd' } ]
+    },
+    {
+	'spec' : 'xenops.spec',
+	'sources' : [ { 'url' : 'git:///repos/xenops' } ]
     }
 ]
