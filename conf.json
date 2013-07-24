@@ -62,5 +62,9 @@
     {
 	'spec' : 'xenops.spec',
 	'sources' : [ { 'url' : 'git:///repos/xenops' } ]
+    },
+    {
+	'spec' : 'xcp-networkd.spec',
+	'sources' : [ { 'url' : 'git:///repos/xcp-networkd' } ]
     }
 ]
