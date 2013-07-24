@@ -74,6 +74,11 @@
     {
 	'spec' : 'xen-api-client.spec',
 	'sources' : [ { 'url' : 'git:///repos/xen-api-client' } ]
+    },
+    {
+	'spec' : 'xenopsd.spec',
+	'sources' : [ { 'url' : 'git:///repos/xenopsd' } ]
     }
+
 
 ]
