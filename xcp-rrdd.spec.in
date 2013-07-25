@@ -1,11 +1,11 @@
 Name: xcp-rrdd
-Version: $VERSION$
+Version: @VERSION@
 Release: 1
 Summary: Statistics gathering daemon for the xapi toolstack
 License: LGPL
 Group: Development/Other
 URL: https://github.com/xen-org/xcp-rrdd/archive/%{version}.tar.gz
-Source0: $SOURCE$
+Source0: @SOURCE@
 Source1: xcp-rrdd-init
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires: ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
@@ -20,7 +20,7 @@ BuildRequires: xen-devel
 Statistics gathering daemon for the xapi toolstack.
 
 %prep
-%setup -q
+%setup -q -n @PREFIX@
 
 %build
 make
