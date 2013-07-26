@@ -16,7 +16,7 @@ FULL_NAME="the XCP RRDD daemon"
 NAME="xcp-rrdd"
 
 # executable command:
-CMD="/usr/sbin/${NAME} -daemon"
+CMD="/usr/sbin/${NAME}"
 
 # pidfile:
 PID_FILE="/var/run/${NAME}.pid"
