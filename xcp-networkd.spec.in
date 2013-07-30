@@ -5,7 +5,7 @@ Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/xen-org/xcp-networkd/archive/xcp-networkd-%{version}.tar.gz
-Source0:        @SOURCE@
+Source0:        git:///repos/xcp-networkd
 # Need to copy these over from xen-api? Or are these guys better?
 Source1:        xcp-networkd-init
 Source2:        xcp-networkd-conf
@@ -24,7 +24,7 @@ BuildRequires:  ocaml-oclock-devel libnl
 Simple host networking management service for the xapi toolstack.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n xcp-networkd-%{version}
 %patch1 -p1
 
 %build
