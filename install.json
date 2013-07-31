@@ -1,5 +1,5 @@
 [
      { 'package-name' : 'forkexec' }
     ,{ 'package-name' : 'xcp-networkd' }
-    ,{ 'package-name' : 'rrdd' }
+    ,{ 'package-name' : 'xcp-rrdd' }
 ]
