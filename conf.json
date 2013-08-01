@@ -43,8 +43,4 @@
 	'spec' : 'xenstore-clients.spec',
 	'sources' : [ { 'url' : 'git:///repos/ocaml-xenstore-clients' } ]
     },
-    {
-	'spec' : 'xen-lowlevel-libs.spec',
-	'sources' : [ { 'url' : 'git:///repos/ocaml-xen-lowlevel-libs' } ]
-    },
 ]
