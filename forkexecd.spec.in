@@ -1,4 +1,4 @@
-Name:           forkexec
+Name:           forkexecd
 Version:        @VERSION@
 Release:        1
 Summary:        A subprocess management service
@@ -19,7 +19,7 @@ A service which starts and manages subprocesses, avoiding the need to manually
 fork() and exec() in a multithreaded program.
 
 %prep
-%setup -q -n forkexecd-%{version}
+%setup -q 
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
