@@ -1,17 +1,17 @@
-Name:           ocaml-stdext
+Name:           ocaml-fd-send-recv
 Version:        @VERSION@
 Release:        1
-Summary:        Deprecated misc library functions for OCaml
+Summary:        Bindings to sendmsg/recvmsg for fd passing under Linux
 License:        LGPL
 Group:          Development/Other
-URL:            https://github.com/xen-org/stdext/archive/stdext-%{version}.tar.gz
-Source0:        @SOURCE@
+URL:            https://github.com/xapi-project/fd-send-recv
+Source0:        git:///repos/ocaml-fd-send-recv
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-fd-send-recv-devel ocaml-uuidm-devel
+BuildRequires:  ocaml ocaml-findlib
 Requires:       ocaml ocaml-findlib
 
 %description
-Deprecated misc library functions for OCaml.
+Bindings to sendmsg/recvmsg for fd passing under Linux.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -23,10 +23,11 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q
 
 %build
-make
+ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
+ocaml setup.ml -build
 
 %install
 rm -rf %{buildroot}
@@ -34,19 +35,19 @@ mkdir -p %{buildroot}/%{_libdir}/ocaml
 mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_LDCONF=ignore
-make install DESTDIR=${buildroot}
+ocaml setup.ml -install
 
 %clean
 rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc README.md
-%{_libdir}/ocaml/stdext/*
-%{_libdir}/ocaml/stublibs/dllstdext_stubs.so
-%{_libdir}/ocaml/stublibs/dllstdext_stubs.so.owner
+%doc README.md LICENSE
+%{_libdir}/ocaml/fd-send-recv/*
+%{_libdir}/ocaml/stublibs/dllfd_send_recv_stubs.so
+%{_libdir}/ocaml/stublibs/dllfd_send_recv_stubs.so.owner
 
 %changelog
-* Mon Jun  3 2013 David Scott <dave.scott@eu.citrix.com>
+* Fri May 31 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 

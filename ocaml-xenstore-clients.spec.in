@@ -1,19 +1,18 @@
-Name:           ocaml-xenops
-Version:        @VERSION@ 
+Name:           ocaml-xenstore-clients
+Version:        @VERSION@
 Release:        0
-Summary:        Low-level xen control operations OCaml
+Summary:        Unix xenstore clients for OCaml
 License:        LGPL
 Group:          Development/Other
-URL:            https://github.com/xen-org/xenops/archive/xenops-%{version}.tar.gz
-Source0:        @SOURCE@
+URL:            https://github.com/xapi-project/ocaml-xenstore-clients/archive/ocaml-xenstore-clients-%{version}.tar.gz
+Source0:        git:///repos/ocaml-xenstore-clients
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-stdext-devel ocaml-rpc-devel ocaml-camlp4-devel
-BuildRequires:  ocaml-xen-lowlevel-libs-devel ocaml-xenstore-devel ocaml-xenstore-clients-devel
-BuildRequires:  ocaml-xen-api-libs-transitional-devel
+BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
+BuildRequires:  ocaml-lwt-devel ocaml-xenstore-devel
 Requires:       ocaml ocaml-findlib
 
 %description
-Low-level xen control operations in OCaml.
+Unix xenstore clients for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -25,7 +24,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q
 
 %build
 make
@@ -35,17 +34,17 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_LDCONF=ignore
-make install
+make install DESTDIR=${buildroot}
 
 %clean
 rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc LICENSE README.md ChangeLog MAINTAINERS
-%{_libdir}/ocaml/xenops/*
+%doc README.md LICENSE MAINTAINERS
+%{_libdir}/ocaml/xenstore_transport/*
 
 %changelog
-* Tue Jun 18 2013 David Scott <dave.scott@eu.citrix.com>
+* Mon Jun  3 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 

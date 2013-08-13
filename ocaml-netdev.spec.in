@@ -1,17 +1,19 @@
-Name:           ocaml-libvhd
+Name:           ocaml-netdev
 Version:        @VERSION@
 Release:        1
-Summary:        vhd manipulation via libvhd
-License:        BSD3
+Summary:        Manipulate Linux bridges, network devices and openvswitch instances in OCaml
+License:        LGPL
 Group:          Development/Other
-URL:            http://github.com/xen-org/libvhd
-Source0:        @SOURCE@
+URL:            https://github.com/xapi-project/netdev/archive/netdev-0.9.0.tar.gz
+Source0:        git:///repos/netdev
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib xen-devel e2fsprogs-devel
+BuildRequires:  ocaml ocaml-findlib forkexecd-devel ocaml-stdext-devel
+#required by forkexecd
+BuildRequires:  ocaml-syslog-devel
 Requires:       ocaml ocaml-findlib
 
 %description
-Simple C bindings which allow .vhd files to be manipulated.
+Manipulate Linux bridges, network devices and openvswitch instances in OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -23,7 +25,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n netdev-%{version}
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
@@ -42,12 +44,12 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc ChangeLog README.md
-%{_libdir}/ocaml/vhdlib/*
-%{_libdir}/ocaml/stublibs/dllvhdlib_stubs.so
-%{_libdir}/ocaml/stublibs/dllvhdlib_stubs.so.owner
+%doc LICENSE README.md ChangeLog MAINTAINERS
+%{_libdir}/ocaml/netdev/*
+%{_libdir}/ocaml/stublibs/dllnetdev_stubs.so
+%{_libdir}/ocaml/stublibs/dllnetdev_stubs.so.owner
 
 %changelog
-* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com>
+* Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 

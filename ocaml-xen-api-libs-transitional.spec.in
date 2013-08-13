@@ -4,11 +4,11 @@ Release:        1
 Summary:        Deprecated standard library extension for OCaml.
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
-URL:            http://github.com/xen-org/xen-api-libs-transitional
-Source0:        @SOURCE@
+URL:            http://github.com/xapi-project/xen-api-libs-transitional
+Source0:        git:///repos/xen-api-libs-transitional
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-stdext-devel ocaml-xmlm-devel forkexec-devel
-BuildRequires:  ocaml-rpc-devel ocaml-xen-lowlevel-libs-devel ocaml-xenstore-devel
+BuildRequires:  ocaml ocaml-findlib ocaml-stdext-devel ocaml-xmlm-devel forkexecd-devel
+BuildRequires:  ocaml-rpc-devel xen-ocaml-devel ocaml-xenstore-devel
 BuildRequires:  ocaml-xenstore-clients-devel xen-devel ocaml-camlp4-devel
 BuildRequires:  ocaml-syslog-devel
 Requires:       ocaml ocaml-findlib xen-libs
@@ -25,7 +25,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n xen-api-libs-transitional-%{version}
 
 %build
 if [ -x ./configure ]; then

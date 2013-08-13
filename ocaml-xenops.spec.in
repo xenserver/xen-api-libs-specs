@@ -1,17 +1,19 @@
-Name:           ocaml-xcp-rrd
-Version:        @VERSION@
+Name:           ocaml-xenops
+Version:        @VERSION@ 
 Release:        0
-Summary:        Round-Robin Datasources in OCaml
+Summary:        Low-level xen control operations OCaml
 License:        LGPL
 Group:          Development/Other
-URL:            https://github.com/xen-org/xcp-rrd/archive/xcp-rrd-%{version}.tar.gz
-Source0:        @SOURCE@
+URL:            https://github.com/xapi-project/xenops/archive/xenops-%{version}.tar.gz
+Source0:        git:///repos/xenops
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-stdext-devel ocaml-rpc-devel ocaml-camlp4-devel
+BuildRequires:  xen-ocaml-devel ocaml-xenstore-devel ocaml-xenstore-clients-devel
+BuildRequires:  ocaml-xen-api-libs-transitional-devel
 Requires:       ocaml ocaml-findlib
 
 %description
-Round-Robin Datasources in OCaml.
+Low-level xen control operations in OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -23,7 +25,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n xenops-%{version}
 
 %build
 make
@@ -32,6 +34,7 @@ make
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+export OCAMLFIND_LDCONF=ignore
 make install
 
 %clean
@@ -40,9 +43,9 @@ rm -rf %{buildroot}
 %files devel
 %defattr(-,root,root)
 %doc LICENSE README.md ChangeLog MAINTAINERS
-%{_libdir}/ocaml/xcp-rrd/*
+%{_libdir}/ocaml/xenops/*
 
 %changelog
-* Thu Jun  6 2013 David Scott <dave.scott@eu.citrix.com>
+* Tue Jun 18 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 

@@ -1,18 +1,19 @@
-Name:           ocaml-cdrom
+Name:           ocaml-qmp
 Version:        @VERSION@
-Release:        2
-Summary:        Query the state of CDROM devices
+Release:        0
+Summary:        Pure OCaml implementation of the Qemu Message Protocol (QMP)
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
-URL:            http://github.com/xen-org/ocaml
-Source0:        @SOURCE@
+URL:            http://github.com/xapi-project/ocaml-qmp
+Source0:        git:///repos/ocaml-qmp
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-obuild
+BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-yojson-devel cmdliner-devel ocaml-ounit-devel
 Requires:       ocaml ocaml-findlib
 
 %description
-Simple C bindings which allow the state of CDROM devices (and discs
-inside) to be queried under Linux.
+An implementation of the Qemu Message Protocol (QMP) that allows
+an application to command, and receive events from, a running qemu
+process.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -23,7 +24,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q
 
 %build
 if [ -x ./configure ]; then
@@ -34,8 +35,6 @@ make
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
-mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
-export OCAMLFIND_LDCONF=ignore
 make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
 
 %clean
@@ -43,12 +42,11 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc ChangeLog README.md
-%{_libdir}/ocaml/cdrom/*
-%{_libdir}/ocaml/stublibs/dllstubs_cdrom.so
-%{_libdir}/ocaml/stublibs/dllstubs_cdrom.so.owner
+%doc ChangeLog README.md LICENSE
+
+%{_libdir}/ocaml/qmp/*
 
 %changelog
-* Tue May 28 2013 David Scott <dave.scott@eu.citrix.com>
+* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 
