@@ -16,7 +16,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  ocaml-xcp-idl-devel ocaml-syslog-devel ocaml-rpc-devel
 BuildRequires:  ocaml-re-devel ocaml-cohttp-devel cmdliner-devel
-BuildRequires:  ocaml-oclock-devel ocaml-uuidm-devel forkexec-devel
+BuildRequires:  ocaml-oclock-devel ocaml-uuidm-devel forkexecd-devel
 BuildRequires:  ocaml-qmp-devel
 #BuildRequires:  ocaml-libvirt-devel libvirt-devel
 BuildRequires:  ocaml-xen-lowlevel-libs-devel ocaml-sexplib
@@ -41,7 +41,11 @@ Simple VM manager for the xapi toolstack.
 Summary:        %{name} using xc
 Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
-Requires:       xen-libs vncterm forkexec
+# xen-libs on CentOS 6.4
+#Requires:       xen-libs
+# blktap and xen-tools on XenServer
+Requires:       blktap xen-tools
+Requires:       vncterm forkexecd
 
 %description    xc
 Simple VM manager for Xen using libxc.
