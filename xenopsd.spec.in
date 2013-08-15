@@ -17,7 +17,8 @@ BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  ocaml-xcp-idl-devel ocaml-syslog-devel ocaml-rpc-devel
 BuildRequires:  ocaml-re-devel ocaml-cohttp-devel cmdliner-devel
 BuildRequires:  ocaml-oclock-devel ocaml-uuidm-devel forkexec-devel
-BuildRequires:  ocaml-libvirt-devel libvirt-devel ocaml-qmp-devel
+BuildRequires:  ocaml-qmp-devel
+#BuildRequires:  ocaml-libvirt-devel libvirt-devel
 BuildRequires:  ocaml-xen-lowlevel-libs-devel ocaml-sexplib
 BuildRequires:  ocaml-xenstore-clients-devel ocaml-xenstore-devel
 BuildRequires:  xen-devel ocaml-xcp-inventory-devel
@@ -26,14 +27,14 @@ Requires:       message-switch xenops-cli
 %description
 Simple VM manager for the xapi toolstack.
 
-%package        libvirt
-Summary:        %{name} using libvirt
-Group:          Development/Other
-Requires:       %{name} = %{version}-%{release}
-Requires:       libvirt
-
-%description    libvirt
-Simple VM manager for Xen and KVM using libvirt.
+#%package        libvirt
+#Summary:        %{name} using libvirt
+#Group:          Development/Other
+#Requires:       %{name} = %{version}-%{release}
+#Requires:       libvirt
+#
+#%description    libvirt
+#Simple VM manager for Xen and KVM using libvirt.
 
 
 %package        xc
@@ -62,7 +63,7 @@ Requires:       %{name} = %{version}-%{release}
 Simple VM manager for Xen using libxenlight
 
 %prep
-%setup -q -n @PREFIX@
+%setup -q -n %{name}-%{version}
 
 %build
 ./configure
@@ -72,7 +73,7 @@ make
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sbindir}
 
-install -D dist/build/xenopsd_libvirt/xenopsd_libvirt %{buildroot}/%{_sbindir}/xenopsd-libvirt
+#install -D dist/build/xenopsd_libvirt/xenopsd_libvirt %{buildroot}/%{_sbindir}/xenopsd-libvirt
 install -D dist/build/xenopsd/xenopsd %{buildroot}/%{_sbindir}/xenopsd-xc
 install -D dist/build/xenopsd_simulator/xenopsd_simulator %{buildroot}/%{_sbindir}/xenopsd-simulator
 install -D dist/build/xenopsd_xenlight/xenopsd_xenlight %{buildroot}/%{_sbindir}/xenopsd-xenlight
@@ -87,7 +88,7 @@ install -D scripts/common.py %{buildroot}/%{_libexecdir}/%{name}/common.py
 install -D scripts/network.conf %{buildroot}/%{_libexecdir}/%{name}/network.conf
 
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
-install -m 0755 %{_sourcedir}/xenopsd-libvirt-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-libvirt
+#install -m 0755 %{_sourcedir}/xenopsd-libvirt-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-libvirt
 install -m 0755 %{_sourcedir}/xenopsd-xc-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xc
 install -m 0755 %{_sourcedir}/xenopsd-simulator-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-simulator
 install -m 0755 %{_sourcedir}/xenopsd-xenlight-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xenlight
@@ -113,19 +114,19 @@ rm -rf %{buildroot}
 /etc/xenopsd.conf
 /etc/xapi/network.conf
 
-%files libvirt
-%defattr(-,root,root)
-%{_sbindir}/xenopsd-libvirt
-%{_sysconfdir}/init.d/xenopsd-libvirt
-
-%post libvirt
-/sbin/chkconfig --add xenopsd-libvirt
-
-%preun libvirt
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-libvirt stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-libvirt
-fi
+#%files libvirt
+#%defattr(-,root,root)
+#%{_sbindir}/xenopsd-libvirt
+#%{_sysconfdir}/init.d/xenopsd-libvirt
+#
+#%post libvirt
+#/sbin/chkconfig --add xenopsd-libvirt
+#
+#%preun libvirt
+#if [ $1 -eq 0 ]; then
+#  /sbin/service xenopsd-libvirt stop > /dev/null 2>&1
+#  /sbin/chkconfig --del xenopsd-libvirt
+#fi
 
 %files xc
 %defattr(-,root,root)
