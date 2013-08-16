@@ -70,7 +70,9 @@ Simple VM manager for Xen using libxenlight
 %setup -q -n %{name}-%{version}
 
 %build
-./configure
+if [ -e ./configure ]; then
+  ./configure
+fi
 make
 
 %install
