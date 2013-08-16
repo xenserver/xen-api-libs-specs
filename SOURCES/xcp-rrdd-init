@@ -2,7 +2,7 @@
 #
 # xcp-rrdd     Start/Stop the XCP RRD daemon
 #
-# chkconfig: 2345 25 83
+# chkconfig: 2345 17 83
 # description: XCP RRD daemon
 # processname: xcp-rrdd
 # pidfile: /var/run/xcp-rrdd.pid
