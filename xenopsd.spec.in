@@ -79,12 +79,12 @@ make
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sbindir}
 
-#install -D dist/build/xenopsd_libvirt/xenopsd_libvirt %{buildroot}/%{_sbindir}/xenopsd-libvirt
-install -D dist/build/xenopsd/xenopsd %{buildroot}/%{_sbindir}/xenopsd-xc
-install -D dist/build/xenopsd_simulator/xenopsd_simulator %{buildroot}/%{_sbindir}/xenopsd-simulator
-install -D dist/build/xenopsd_xenlight/xenopsd_xenlight %{buildroot}/%{_sbindir}/xenopsd-xenlight
+#install -D _build/libvirt/xenops_libvirt_main.native     %{buildroot}/%{_sbindir}/xenopsd-libvirt
+install -D _build/simulator/xenops_simulator_main.native %{buildroot}/%{_sbindir}/xenopsd-simulator
+install -D _build/xc/xenops_xc_main.native               %{buildroot}/%{_sbindir}/xenopsd-xc
+install -D _build/xl/xenops_xl_main.native               %{buildroot}/%{_sbindir}/xenopsd-xenlight
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
-install -D dist/build/xenguest/xenguest %{buildroot}/%{_libexecdir}/%{name}/xenguest
+install -D _build/xenguest/xenguest_main.native          %{buildroot}/%{_libexecdir}/%{name}/xenguest
 install -D scripts/vif %{buildroot}/%{_libexecdir}/%{name}/vif
 install -D scripts/vif-xl %{buildroot}/%{_libexecdir}/%{name}/vif-xl
 install -D scripts/qemu-dm-wrapper %{buildroot}/%{_libexecdir}/%{name}/qemu-dm-wrapper
