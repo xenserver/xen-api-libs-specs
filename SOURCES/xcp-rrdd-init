@@ -44,6 +44,9 @@ start() {
 	# Enable backtraces
 	export OCAMLRUNPARAM="b"
 
+	# Enable core dumps
+	ulimit -c unlimited
+
 	${CMD} -pidfile ${PID_FILE} -daemon true $XCP_RRDD_OPTIONS >/dev/null 2>&1 </dev/null
 
 	MAX_RETRIES=30
