@@ -39,6 +39,8 @@ install -m 0755 %{_sourcedir}/xcp-networkd-init %{buildroot}%{_sysconfdir}/init.
 mkdir -p %{buildroot}/etc/xensource
 install -m 0644 %{_sourcedir}/xcp-networkd-network-conf %{buildroot}/etc/xensource/network.conf
 install -m 0644 %{_sourcedir}/xcp-networkd-conf %{buildroot}/etc/xcp-networkd.conf
+mkdir -p %{buildroot}/usr/bin
+install dist/build/networkd_db/networkd_db %{buildroot}/%{_bindir}/networkd_db
 
 %clean
 rm -rf %{buildroot}
@@ -47,6 +49,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README.markdown LICENSE MAINTAINERS
 %{_sbindir}/xcp-networkd
+%{_bindir}/networkd_db
 %{_sysconfdir}/init.d/xcp-networkd
 %config(noreplace) /etc/xensource/network.conf
 %config(noreplace) /etc/xcp-networkd.conf
