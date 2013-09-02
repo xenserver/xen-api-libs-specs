@@ -45,7 +45,8 @@ Requires:       %{name} = %{version}-%{release}
 #Requires:       xen-libs
 # blktap and xen-tools on XenServer
 Requires:       blktap xen-tools
-Requires:       vncterm forkexecd
+Requires:       forkexecd
+# removed vncterm here
 
 %description    xc
 Simple VM manager for Xen using libxc.
