@@ -2,4 +2,7 @@
      { 'package-name' : 'forkexecd' }
     ,{ 'package-name' : 'xcp-networkd' }
     ,{ 'package-name' : 'xcp-rrdd' }
+    ,{ 'package-name' : 'squeezed' }
+    ,{ 'package-name' : 'xenopsd' }
+    ,{ 'package-name' : 'xenopsd-xc' }
 ]
