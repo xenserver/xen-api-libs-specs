@@ -15,7 +15,7 @@ BuildRequires:  ocaml-xen-lowlevel-libs-devel ocaml-xenstore-devel ocaml-xenstor
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-re-devel ocaml-cohttp-devel
 BuildRequires:  ocaml-oclock-devel xen-devel message-switch-devel
-Requires:       xen-libs redhat-lsb-core message-switch
+#Requires:       xen-libs redhat-lsb-core message-switch
 
 %description
 Memory ballooning daemon for the xapi toolstack.
