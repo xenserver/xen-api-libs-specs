@@ -2,7 +2,7 @@
 #
 #  squeeze        Startup script for memory ballooning daemon
 #
-# chkconfig: 2345 21 88
+# chkconfig: 2345 22 88
 # description: Manages host memory by ballooning VMs
 
 # Source function library.
