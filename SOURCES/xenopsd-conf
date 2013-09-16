@@ -3,6 +3,9 @@
 # Omit some sources of log-spam by default
 disable-logging-for=http
 
+# We don't run the hotplug scripts ourself until the netback is fixed (breaks windows PV drivers)
+run-hotplug-scripts=false
+
 xenguest=/usr/lib/xen/bin/xenguest
 
 network-conf=/etc/xensource/network.conf
@@ -12,8 +15,9 @@ vif-xl-script=/usr/libexec/xenopsd/vif-xl
 qemu-vif-script=/usr/libexec/xenopsd/qemu-vif-script
 qemu-dm-wrapper=/usr/libexec/xenopsd/qemu-dm-wrapper
 setup-vif-rules=/usr/libexec/xenopsd/setup-vif-rules
-vbd-script=/etc/xensource/scripts/block
+vbd-script=/usr/libexec/xenopsd/block
 qemu-system-i386=/bin/false
+
 
 hvmloader=/usr/lib/xen/boot/hvmloader
 pygrub=/usr/bin/pygrub

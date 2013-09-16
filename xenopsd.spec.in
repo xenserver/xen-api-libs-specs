@@ -93,6 +93,9 @@ install -D scripts/qemu-vif-script %{buildroot}/%{_libexecdir}/%{name}/qemu-vif-
 install -D scripts/setup-vif-rules %{buildroot}/%{_libexecdir}/%{name}/setup-vif-rules
 install -D scripts/common.py %{buildroot}/%{_libexecdir}/%{name}/common.py
 install -D scripts/network.conf %{buildroot}/%{_libexecdir}/%{name}/network.conf
+install -D scripts/xen-backend.rules %{buildroot}/etc/udev/rules.d/xen-backend.rules
+install -D scripts/tap %{buildroot}/%{_libexecdir}/%{name}/tap
+install -D scripts/block %{buildroot}/%{_libexecdir}/%{name}/block
 
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
 #install -m 0755 %{_sourcedir}/xenopsd-libvirt-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-libvirt
@@ -102,6 +105,8 @@ install -m 0755 %{_sourcedir}/xenopsd-xenlight-init %{buildroot}/%{_sysconfdir}/
 mkdir -p %{buildroot}/etc/xapi
 install -m 0644 %{_sourcedir}/xenopsd-conf %{buildroot}/etc/xenopsd.conf
 install -m 0644 %{_sourcedir}/xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
+
+
 
 %clean
 rm -rf %{buildroot}
@@ -118,8 +123,11 @@ rm -rf %{buildroot}
 %{_libexecdir}/%{name}/common.py
 %{_libexecdir}/%{name}/common.pyo
 %{_libexecdir}/%{name}/common.pyc
+%{_libexecdir}/%{name}/tap
+%{_libexecdir}/%{name}/block
 /etc/xenopsd.conf
 /etc/xapi/network.conf
+/etc/udev/rules.d/xen-backend.rules
 
 #%files libvirt
 #%defattr(-,root,root)
