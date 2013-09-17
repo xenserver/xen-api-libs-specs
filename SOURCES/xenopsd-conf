@@ -4,7 +4,7 @@
 disable-logging-for=http
 
 # We don't run the hotplug scripts ourself until the netback is fixed (breaks windows PV drivers)
-run-hotplug-scripts=false
+run_hotplug_scripts=false
 
 xenguest=/usr/lib/xen/bin/xenguest
 
