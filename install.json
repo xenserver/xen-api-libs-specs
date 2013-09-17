@@ -4,6 +4,6 @@
     ,{ 'package-name' : 'xcp-rrdd' }
     ,{ 'package-name' : 'squeezed' }
     ,{ 'package-name' : 'xenopsd' }
-    ,{ 'package-name' : 'xenopsd-xc' }
+    ,{ 'package-name' : 'xenopsd-xenlight' }
     ,{ 'package-name' : 'xenops-cli' }
 ]
