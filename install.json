@@ -6,4 +6,5 @@
     ,{ 'package-name' : 'xenopsd' }
     ,{ 'package-name' : 'xenopsd-xc' }
     ,{ 'package-name' : 'xenops-cli' }
+    ,{ 'package-name' : 'sm-cli' }
 ]
