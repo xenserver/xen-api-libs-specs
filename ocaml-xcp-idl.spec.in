@@ -9,7 +9,7 @@ Source0:        git:///repos/xcp-idl
 Patch1:		xcp-idl-dont-use-switch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
-BuildRequires:  ocaml-cohttp-devel ocaml-xmlm-devel ocaml-rpc-devel ocaml-syslog-devel message-switch-devel cmdliner-devel ocaml-fd-send-recv-devel ocaml-xcp-rrd-devel
+BuildRequires:  ocaml-cohttp-devel ocaml-xmlm-devel ocaml-rpc-devel message-switch-devel cmdliner-devel ocaml-fd-send-recv-devel ocaml-xcp-rrd-devel
 BuildRequires:  ocaml-ounit-devel
 
 # XXX transitive dependencies of message-switch-devel
@@ -49,6 +49,7 @@ ocaml setup.ml -build
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
 ocaml setup.ml -install
 
 %clean
@@ -58,6 +59,8 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc LICENSE README.md ChangeLog MAINTAINERS
 %{_libdir}/ocaml/xcp/*
+%{_libdir}/ocaml/stublibs/dllxcp_stubs.so
+%{_libdir}/ocaml/stublibs/dllxcp_stubs.so.owner
 
 %changelog
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>

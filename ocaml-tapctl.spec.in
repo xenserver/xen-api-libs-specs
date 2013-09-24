@@ -10,7 +10,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  forkexecd-devel ocaml-stdext-devel ocaml-rpc-devel
 # required by forkexecd
-BuildRequires:  ocaml-syslog-devel
+BuildRequires:  ocaml-xcp-idl-devel
 Requires:       ocaml ocaml-findlib
 
 %description
