@@ -94,7 +94,7 @@ install -D scripts/qemu-vif-script %{buildroot}/%{_libexecdir}/%{name}/qemu-vif-
 install -D scripts/setup-vif-rules %{buildroot}/%{_libexecdir}/%{name}/setup-vif-rules
 install -D scripts/common.py %{buildroot}/%{_libexecdir}/%{name}/common.py
 install -D scripts/network.conf %{buildroot}/%{_libexecdir}/%{name}/network.conf
-install -D scripts/xen-backend.rules %{buildroot}/etc/udev/rules.d/xen-backend.rules
+install -D scripts/xen-backend-xl.rules %{buildroot}/etc/udev/rules.d/xen-backend.rules
 install -D scripts/tap %{buildroot}/%{_libexecdir}/%{name}/tap
 install -D scripts/block %{buildroot}/%{_libexecdir}/%{name}/block
 install -D scripts/block-xl %{buildroot}/%{_libexecdir}/%{name}/block-xl
