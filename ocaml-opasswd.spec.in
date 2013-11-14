@@ -45,17 +45,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README.md
 
-%{_libdir}/ocaml/oPasswd/META
-%{_libdir}/ocaml/oPasswd/common.mli
-%{_libdir}/ocaml/oPasswd/dlloPasswd_stubs.so
-%{_libdir}/ocaml/oPasswd/liboPasswd_stubs.a
-%{_libdir}/ocaml/oPasswd/oPasswd.a
-%{_libdir}/ocaml/oPasswd/oPasswd.cma
-%{_libdir}/ocaml/oPasswd/oPasswd.cmi
-%{_libdir}/ocaml/oPasswd/oPasswd.cmxa
-%{_libdir}/ocaml/oPasswd/oPasswd.cmxs
-%{_libdir}/ocaml/oPasswd/passwd.mli
-%{_libdir}/ocaml/oPasswd/shadow.mli
+%{_libdir}/ocaml/oPasswd/*
 
 %changelog
 * Thu Oct 31 2013 Mike McClurg <mike.mcclurg@citrix.com>
