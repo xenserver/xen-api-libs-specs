@@ -64,6 +64,10 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/sha/sha512.cmi
 %{_libdir}/ocaml/sha/sha512.cmx
 %{_libdir}/ocaml/sha/sha512.cmxa
+%{_libdir}/ocaml/sha/dllsha.so
+%{_libdir}/ocaml/sha/dllsha1.so
+%{_libdir}/ocaml/sha/dllsha256.so
+%{_libdir}/ocaml/sha/dllsha512.so
 
 %changelog
 * Fri Nov 18 2013 David Scott <dave.scott@eu.citrix.com>
