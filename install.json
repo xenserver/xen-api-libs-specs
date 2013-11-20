@@ -8,4 +8,5 @@
     ,{ 'package-name' : 'xenops-cli' }
     ,{ 'package-name' : 'sm-cli' }
     ,{ 'package-name' : 'vhdd' }
+    ,{ 'package-name' : 'vhd-tool' }
 ]
