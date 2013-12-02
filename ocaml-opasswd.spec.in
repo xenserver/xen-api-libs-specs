@@ -5,7 +5,7 @@ Summary:        OCaml interface to the glibc passwd/shadow password functions
 License:        ISC
 Group:          Development/Other
 URL:            http://github.com/xapi-project/ocaml-opasswd
-Source0:        git:///repos/ocaml-opasswd
+Source0:        git://github.com/xapi-project/ocaml-opasswd
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-ctypes
 Requires:       ocaml ocaml-findlib

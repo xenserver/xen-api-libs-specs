@@ -5,7 +5,7 @@ Summary:        OCaml implementation of LVM
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
 URL:            http://github.com/jonludlam/mlvm
-Source0:        git:///repos/mlvm
+Source0:        git://github.com/jonludlam/mlvm
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper ocaml-camldm-devel ocaml-stdext-devel ocaml-rpc-devel ocaml-uuidm-devel
 Requires:       ocaml ocaml-findlib device-mapper
