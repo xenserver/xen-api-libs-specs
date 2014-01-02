@@ -154,7 +154,7 @@ rm -rf %{buildroot}
 #%{_libexecdir}/%{name}/xenguest
 
 %post xc
-/sbin/chkconfig --add xenopsd-xc
+#/sbin/chkconfig --add xenopsd-xc
 
 %preun xc
 if [ $1 -eq 0 ]; then
@@ -182,7 +182,7 @@ fi
 %{_sysconfdir}/init.d/xenopsd-xenlight
 
 %post xenlight
-#/sbin/chkconfig --add xenopsd-xenlight
+/sbin/chkconfig --add xenopsd-xenlight
 
 %preun xenlight
 if [ $1 -eq 0 ]; then
