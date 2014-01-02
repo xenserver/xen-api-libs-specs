@@ -26,7 +26,7 @@ start() {
 	umask 077
 
         echo -n $"Starting vhdd: "
-        daemon -pidfile="$PIDFILE" $exec -pidfile "$PIDFILE" $VHDD_OPTIONS
+        $exec -pidfile "$PIDFILE" $VHDD_OPTIONS
         RETVAL=$?
         echo
         [ $RETVAL -eq 0 ] && touch $lockfile

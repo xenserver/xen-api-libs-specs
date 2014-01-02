@@ -7,7 +7,7 @@ Summary:        command-line tools for manipulating and streaming .vhd format fi
 License:        LGPL+linking exception
 Group:          System/Hypervisor
 URL:            https://github.com/djs55/vhd-tool
-Source0:        git:///repos/vhd-tool
+Source0:        git://github.com/xapi-project/vhd-tool#trunk-ring3
 Source1:        vhd-tool-sparse_dd-conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires: ocaml ocaml-findlib ocaml-camlp4-devel ocaml-ocamldoc

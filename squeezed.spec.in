@@ -5,7 +5,7 @@ Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/xapi-project/squeezed/archive/%{version}.tar.gz
-Source0:	git:///repos/squeezed
+Source0:	git://github.com/xapi-project/squeezed
 Source1:        squeezed-init
 Source2:        squeezed-conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}

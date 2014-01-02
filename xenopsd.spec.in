@@ -5,7 +5,7 @@ Summary:        Simple VM manager
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/xen-org/xenopsd/archive/xenopsd-%{version}.tar.gz
-Source0:        git:///repos/xenopsd
+Source0:        git://github.com/xapi-project/xenopsd
 Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
 Source3:        xenopsd-libvirt-init
@@ -154,7 +154,7 @@ rm -rf %{buildroot}
 #%{_libexecdir}/%{name}/xenguest
 
 %post xc
-/sbin/chkconfig --add xenopsd-xc
+#/sbin/chkconfig --add xenopsd-xc
 
 %preun xc
 if [ $1 -eq 0 ]; then

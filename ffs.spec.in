@@ -5,7 +5,7 @@ Summary:        The "flat file system" SR
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/djs55/ffs
-Source0:        git:///repos/ffs
+Source0:        git://github.com/xapi-project/ffs#trunk-ring3
 Source1:        ffs-init
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel

@@ -5,7 +5,7 @@ Summary:        OCaml SHA
 License:        LGPL2.1
 Group:          Development/Other
 URL:            http://github.com/vincenthz/ocaml-sha
-Source0:        git:///repos/ocaml-sha
+Source0:        git://github.com/xapi-project/ocaml-sha#trunk-ring3
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-findlib
 Requires:       ocaml ocaml-findlib
