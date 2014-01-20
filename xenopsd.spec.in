@@ -72,7 +72,7 @@ Simple VM manager for Xen using libxenlight
 
 %build
 if [ -e ./configure ]; then
-  ./configure
+  ./configure --libexecdir %{_libexecdir}/%{name}
 fi
 make
 
