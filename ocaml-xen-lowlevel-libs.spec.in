@@ -29,7 +29,7 @@ developing applications that use %{name}.
 %build
 make configure
 ./configure --disable-xenctrl
-make
+make build
 
 %install
 rm -rf %{buildroot}
