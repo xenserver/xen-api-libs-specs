@@ -7,9 +7,9 @@ Summary:        Efficient handling of I/O memory pages on Unix and Xen.
 License:        ISC
 Group:          Development/Other
 URL:            https://github.com/mirage/io-page
-Source0:        https://github.com/mirage/io-page/archive/v%{version}/io-page-%{version}.tar.gz
+Source0:        http://github.com/mirage/io-page/archive/v%{version}/io-page-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-cstruct-devel ocaml-ounit-devel
+BuildRequires:  ocaml ocaml-findlib ocaml-cstruct-devel ocaml-ounit-devel ocaml-mirage-types-devel
 Requires:       ocaml ocaml-findlib
 
 %description
@@ -21,13 +21,14 @@ IO pages are page-aligned, and wrapped in the Cstruct library to avoid copying t
 Summary:        Development files for %{name}
 Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-mirage-types-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%setup -q -n io-page-%{version}
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}%{_libdir}/ocaml
@@ -52,13 +53,20 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc ChangeLog README.md
+%doc CHANGES README.md
 %{_libdir}/ocaml/io-page/io_page.a
 %{_libdir}/ocaml/io-page/io_page.cmx
 %{_libdir}/ocaml/io-page/io_page.cmxa
 %{_libdir}/ocaml/io-page/io_page.cmxs
 %{_libdir}/ocaml/io-page/io_page.mli
 %{_libdir}/ocaml/io-page/libio_page_unix_stubs.a
+%{_libdir}/ocaml/io-page/io_page_unix.a
+%{_libdir}/ocaml/io-page/io_page_unix.cma
+%{_libdir}/ocaml/io-page/io_page_unix.cmi
+%{_libdir}/ocaml/io-page/io_page_unix.cmx
+%{_libdir}/ocaml/io-page/io_page_unix.cmxa
+%{_libdir}/ocaml/io-page/io_page_unix.cmxs
+%{_libdir}/ocaml/io-page/io_page_unix.ml
 
 %changelog
 * Mon Jan 20 2014 David Scott <dave.scott@citrix.com> - 1.0.0-1
