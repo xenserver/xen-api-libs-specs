@@ -71,9 +71,8 @@ Simple VM manager for Xen using libxenlight
 %setup -q -n %{name}-%{version}
 
 %build
-if [ -e ./configure ]; then
-  ./configure --libexecdir %{_libexecdir}/%{name}
-fi
+make configure
+./configure --libexecdir %{_libexecdir}/%{name}
 make
 
 %install
