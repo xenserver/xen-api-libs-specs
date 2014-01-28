@@ -1,13 +1,13 @@
 [
-     { 'package-name' : 'forkexecd' }
-    ,{ 'package-name' : 'xcp-networkd' }
-    ,{ 'package-name' : 'xcp-rrdd' }
-    ,{ 'package-name' : 'squeezed' }
-    ,{ 'package-name' : 'xenopsd' }
-    ,{ 'package-name' : 'xenopsd-xc' }
-    ,{ 'package-name' : 'xenopsd-xenlight' }
-    ,{ 'package-name' : 'xenops-cli' }
-    ,{ 'package-name' : 'sm-cli' }
-    ,{ 'package-name' : 'vhdd' }
-    ,{ 'package-name' : 'vhd-tool' }
+     { "package-name" : "forkexecd" }
+    ,{ "package-name" : "xcp-networkd" }
+    ,{ "package-name" : "xcp-rrdd" }
+    ,{ "package-name" : "squeezed" }
+    ,{ "package-name" : "xenopsd" }
+    ,{ "package-name" : "xenopsd-xc" }
+    ,{ "package-name" : "xenopsd-xenlight" }
+    ,{ "package-name" : "xenops-cli" }
+    ,{ "package-name" : "sm-cli" }
+    ,{ "package-name" : "vhdd" }
+    ,{ "package-name" : "vhd-tool" }
 ]
