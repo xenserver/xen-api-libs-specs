@@ -12,6 +12,7 @@ Source3:        xenopsd-libvirt-init
 Source4:        xenopsd-xenlight-init
 Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
+Source7:	xenopsd-64-conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  ocaml-xcp-idl-devel ocaml-rpc-devel
@@ -104,7 +105,11 @@ install -m 0755 %{_sourcedir}/xenopsd-xc-init %{buildroot}/%{_sysconfdir}/init.d
 install -m 0755 %{_sourcedir}/xenopsd-simulator-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-simulator
 install -m 0755 %{_sourcedir}/xenopsd-xenlight-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xenlight
 mkdir -p %{buildroot}/etc/xapi
+%ifarch x86_64
+install -m 0644 %{_sourcedir}/xenopsd-64-conf %{buildroot}/etc/xenopsd.conf
+%else
 install -m 0644 %{_sourcedir}/xenopsd-conf %{buildroot}/etc/xenopsd.conf
+%endif
 install -m 0644 %{_sourcedir}/xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 
 
