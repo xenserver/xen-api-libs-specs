@@ -28,3 +28,5 @@ vncterm=/usr/lib/xen/bin/vncterm
 eliloader=/usr/bin/eliloader
 
 use-switch=false
+
+default-vbd-backend-kind=vbd3
