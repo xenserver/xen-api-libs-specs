@@ -24,6 +24,16 @@ Group:          Development/Other
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
+%package        tools
+Summary:        Debugging tools for %{name}
+Group:          Development/Libraries
+Requires:       xen-libs
+BuildRequires:  xen-devel
+
+%description   tools
+A set of debugging tools which showcase the features of %{name}-devel.
+
+
 %prep
 %setup -q -n xenops-%{version}
 
@@ -36,6 +46,8 @@ mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_LDCONF=ignore
 make install
+mkdir -p %{buildroot}/opt/xensource/bin
+make install BINDIR=%{buildroot}/opt/xensource/bin
 
 %clean
 rm -rf %{buildroot}
@@ -44,6 +56,9 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc LICENSE README.md ChangeLog MAINTAINERS
 %{_libdir}/ocaml/xenops/*
+
+%files tools
+/opt/xensource/bin/list_domains
 
 %changelog
 * Tue Jun 18 2013 David Scott <dave.scott@eu.citrix.com>
