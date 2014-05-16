@@ -1,6 +1,9 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 Name:           sm-cli
-Version:        0.9.3
-Release:        1
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        CLI for xapi toolstack storage managers.
 License:        LGPL
 Group:          Development/Other

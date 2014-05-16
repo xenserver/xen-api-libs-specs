@@ -1,8 +1,10 @@
+%define planex_version 0.0.0
+%define planex_release 1
 %define debug_package %{nil}
 
 Name:           ocaml-crc
-Version:        @VERSION@
-Release:        1
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        CRC implementation for OCaml
 License:        ISC
 Group:          Development/Other

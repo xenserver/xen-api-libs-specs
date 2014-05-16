@@ -1,6 +1,9 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 Name:           vhdd
-Version:        @VERSION@
-Release:        1
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        A VHD management SMAPI daemon
 License:        LGPL
 Group:          Development/Other
