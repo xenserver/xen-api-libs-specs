@@ -35,6 +35,9 @@ if [ -f /etc/sysconfig/$prog ] ; then
     . /etc/sysconfig/$prog
 fi
 
+# Enable core dumps
+DAEMON_COREFILE_LIMIT='unlimited'
+
 # Use 'blktap 2.5' if it has been installed
 if [ -d /usr/lib64/blktap ]; then
 	export XCP_PATH=/usr/lib64/blktap/sbin
