@@ -15,6 +15,7 @@ vif-xl-script=/usr/libexec/xenopsd/vif-xl
 qemu-vif-script=/usr/libexec/xenopsd/qemu-vif-script
 qemu-dm-wrapper=/usr/libexec/xenopsd/qemu-dm-wrapper
 setup-vif-rules=/usr/libexec/xenopsd/setup-vif-rules
+vgpu=/usr/lib64/xen/bin/vgpu
 vbd-script=/usr/libexec/xenopsd/block
 vbd-xl-script=/usr/libexec/xenopsd/block-xl
 qemu-system-i386=/bin/false
