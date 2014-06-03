@@ -31,14 +31,14 @@ make
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sbindir}
-install dist/build/xcp-networkd/xcp-networkd %{buildroot}/%{_sbindir}/xcp-networkd
+mkdir -p %{buildroot}/%{_bindir}
+make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
 install -m 0755 %{_sourcedir}/xcp-networkd-init %{buildroot}%{_sysconfdir}/init.d/xcp-networkd
 mkdir -p %{buildroot}/etc/xensource
 install -m 0644 %{_sourcedir}/xcp-networkd-network-conf %{buildroot}/etc/xensource/network.conf
 install -m 0644 %{_sourcedir}/xcp-networkd-conf %{buildroot}/etc/xcp-networkd.conf
 mkdir -p %{buildroot}/usr/bin
-install dist/build/networkd_db/networkd_db %{buildroot}/%{_bindir}/networkd_db
 
 %clean
 rm -rf %{buildroot}
