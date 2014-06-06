@@ -15,7 +15,7 @@ BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  ocaml-xcp-idl-devel ocaml-rpc-devel
 BuildRequires:  ocaml-stdext-devel forkexecd-devel ocaml-xen-api-libs-transitional-devel
 BuildRequires:  ocaml-xcp-inventory-devel ocaml-ounit-devel
-BuildRequires:  ocaml-re-devel ocaml-cohttp-devel cmdliner-devel
+BuildRequires:  ocaml-re-devel ocaml-cohttp-devel ocaml-cmdliner-devel
 BuildRequires:  ocaml-xen-api-client-devel
 BuildRequires:  ocaml-oclock-devel libnl
 

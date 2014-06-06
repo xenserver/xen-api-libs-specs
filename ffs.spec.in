@@ -10,7 +10,7 @@ Source1:        ffs-init
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml ocaml-obuild ocaml-findlib ocaml-camlp4-devel
 BuildRequires:  ocaml-xcp-idl-devel ocaml-rpc-devel
-BuildRequires:  ocaml-re-devel ocaml-cohttp-devel cmdliner-devel
+BuildRequires:  ocaml-re-devel ocaml-cohttp-devel ocaml-cmdliner-devel
 BuildRequires:  ocaml-oclock-devel ocaml-libvhd-devel xen-devel
 BuildRequires:  ocaml-tapctl-devel message-switch-devel forkexecd-devel
 Requires:       ocaml-libvhd-devel 

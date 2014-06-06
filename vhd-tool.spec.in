@@ -16,7 +16,7 @@ BuildRequires: ocaml-xcp-idl-devel ocaml-vhd-devel ocaml-obuild
 BuildRequires: ocaml-nbd-devel ocaml-cstruct-devel ocaml-lwt-devel
 BuildRequires: ocaml-ounit-devel ocaml-rpc-devel ocaml-ssl-devel ocaml-stdext-devel
 BuildRequires: ocaml-tapctl-devel
-BuildRequires: ocaml-xenstore-devel cmdliner-devel ocaml-oclock-devel
+BuildRequires: ocaml-xenstore-devel ocaml-cmdliner-devel ocaml-oclock-devel
 BuildRequires: ocaml-xenstore-clients-devel message-switch-devel
 BuildRequires: openssl openssl-devel
 BuildRequires: ocaml-xmlm-devel ocaml-uuidm-devel ocaml-uri-devel ocaml-type-conv ocaml-re-devel forkexecd-devel ocaml-fd-send-recv-devel ocaml-cohttp-devel

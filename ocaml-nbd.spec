@@ -8,7 +8,7 @@ Source0:        https://github.com/xapi-project/nbd/archive/v%{version}/nbd-%{ve
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
-BuildRequires:  cmdliner-devel
+BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-cstruct-devel
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-lwt-devel

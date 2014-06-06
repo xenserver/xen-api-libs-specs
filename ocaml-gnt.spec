@@ -16,7 +16,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cstruct-devel
 BuildRequires:  ocaml-io-page-devel
 BuildRequires:  ocaml-lwt-devel
-BuildRequires:  cmdliner-devel
+BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  xen-devel
 Requires:       ocaml
 Requires:       ocaml-findlib

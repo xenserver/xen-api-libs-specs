@@ -7,7 +7,7 @@ Group:          Development/Other
 URL:            http://github.com/xapi-project/ocaml-qmp
 Source0:        git://github.com/xapi-project/ocaml-qmp
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-yojson-devel cmdliner-devel ocaml-ounit-devel
+BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-yojson-devel ocaml-cmdliner-devel ocaml-ounit-devel
 Requires:       ocaml ocaml-findlib
 
 %description
