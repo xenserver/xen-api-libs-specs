@@ -3,14 +3,19 @@
 Name:           ocaml-vhd
 Version:        @VERSION@
 Release:        0
-Summary:        A pure OCaml library for reading, writing, streaming, converting vhd format files
-License:        LGPL2.1 + Ocaml linking exception
-Group:          Development/Other
-URL:            http://github.com/djs55/ocaml-vhd
-Source0:        git://github.com/xapi-project/ocaml-vhd#trunk-ring3
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib cmdliner-devel ocaml-ounit-devel ocaml-cstruct-devel ocaml-lwt-devel ocaml-uuidm-devel ocaml-camlp4-devel
-Requires:       ocaml ocaml-findlib
+Summary:        Pure OCaml library for reading, writing, streaming, converting vhd format files
+License:        LGPL2.1 + OCaml linking exception
+URL:            https://github.com/djs55/ocaml-vhd
+Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  ocaml
+BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-uuidm-devel
+BuildRequires:  ocaml-io-page-devel
+BuildRequires:  ocaml-mirage-types-devel
 
 %description
 A pure OCaml parser and printer for vhd format data. The library allows
@@ -18,12 +23,25 @@ vhd files to be read, written and streamed with on-the-fly format conversion.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
-Requires:       ocaml ocaml-findlib ocaml-cstruct-devel ocaml-lwt-devel ocaml-uuidm-devel ocaml-camlp4-devel
+Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-cstruct-devel%{?_isa}
+Requires:       ocaml-io-page-devel%{?_isa}
+Requires:       ocaml-lwt-devel%{?_isa}
+Requires:       ocaml-ounit-devel%{?_isa}
+Requires:       ocaml-mirage-types-devel%{?_isa}
+Requires:       ocaml-uuidm-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
+
+# The auto-requirements script can't handle packed libraries.
+%{?filter_setup:
+%filter_from_requires /ocaml(Patterns)/d
+%filter_from_requires /ocaml(S)/d
+%filter_setup
+}
+
 
 %prep
 %setup -q
@@ -35,41 +53,42 @@ fi
 make
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 ocaml setup.ml -install
 
-%clean
-rm -rf %{buildroot}
 
 %files
-# This space intentionally left blank
+%doc CHANGES
+%doc LICENSE
+%doc README.md
+%{_libdir}/ocaml/vhd-format
+%{_libdir}/ocaml/stublibs/dllvhd*
+%exclude %{_libdir}/ocaml/vhd-format/*.a
+%exclude %{_libdir}/ocaml/vhd-format/*.cmxa
+%exclude %{_libdir}/ocaml/vhd-format/*.cmx
+%exclude %{_libdir}/ocaml/vhd-format/*.ml
+%exclude %{_libdir}/ocaml/vhd-format/*.mli
+
 
 %files devel
-%defattr(-,root,root)
-%doc CHANGES README.md LICENSE
+%{_libdir}/ocaml/vhd-format/*.a
+%{_libdir}/ocaml/vhd-format/*.cmx
+%{_libdir}/ocaml/vhd-format/*.cmxa
+%{_libdir}/ocaml/vhd-format/*.mli
 
-%{_libdir}/ocaml/vhd-format/*
-%{_libdir}/ocaml/stublibs/dllvhd*
 
 %changelog
-* Mon Nov 18 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.5-0
-- Update to trunk (will be 0.6.5)
+* Tue Apr 1 2014 Euan Harris <euan.harris@citrix.com> - 0.7.0-1
+- Update to 0.7.0
 
-* Wed Nov 6 2013 Si Beaumont <simon.beaumont@citrix.com> - 0.6.4-1
+* Thu Nov 21 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.4-1
 - Update to 0.6.4
-- Fixes for identifying parent locators
-* Fri Nov 1 2013 Si Beaumont <simon.beaumont@citrix.com> - 0.6.3-1
-- Update to 0.6.3
-- Fixes for opening RO VHD files
-* Thu Oct 31 2013 Si Beaumont <simon.beaumont@citrix.com> - 0.6.2-1
-- Update to 0.6.2
-- Fixes for 32-bit machines
-* Wed Oct 30 2013 Si Beaumont <simon.beaumont@citrix.com> - 0.6.1-1
+
+* Wed Oct 30 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.1-1
 - Update to 0.6.1
-- Get from xapi-project Github instead of djs55
+
 * Wed Oct 02 2013 David Scott <dave.scott@eu.citrix.com> - 0.6.0-1
 - Initial package
 

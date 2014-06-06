@@ -9,7 +9,7 @@ Group:          Development/Other
 URL:            https://github.com/xapi-project/rrd-transport/
 Source0:        git://github.com/xapi-project/rrd-transport
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-cstruct-devel ocaml-crc-devel ocaml-xcp-rrd-devel ocaml-xcp-idl-devel cmdliner-devel xen-ocaml-devel
+BuildRequires:  ocaml ocaml-findlib ocaml-cstruct-devel ocaml-crc-devel ocaml-xcp-rrd-devel ocaml-xcp-idl-devel ocaml-cmdliner-devel xen-ocaml-devel
 Requires:       ocaml ocaml-findlib
 
 %description
