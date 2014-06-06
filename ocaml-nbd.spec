@@ -1,6 +1,6 @@
 Name:           ocaml-nbd
-Version:        @VERSION@
-Release:        1
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Pure OCaml implementation of the Network Block Device protocol
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/nbd
