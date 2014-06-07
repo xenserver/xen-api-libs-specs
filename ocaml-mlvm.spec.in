@@ -1,6 +1,9 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 Name:           ocaml-mlvm
-Version:        @VERSION@
-Release:        1
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        OCaml implementation of LVM
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other

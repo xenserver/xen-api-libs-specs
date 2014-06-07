@@ -1,6 +1,9 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 Name:           ocaml-xenstore-clients
-Version:        @VERSION@
-Release:        0
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        Unix xenstore clients for OCaml
 License:        LGPL
 Group:          Development/Other

@@ -1,8 +1,10 @@
+%define planex_version 0.0.0
+%define planex_release 1
 %global debug_package %{nil}
 
 Name:           ocaml-vhd
-Version:        @VERSION@
-Release:        0
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        Pure OCaml library for reading, writing, streaming, converting vhd format files
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/djs55/ocaml-vhd

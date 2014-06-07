@@ -1,8 +1,11 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 # -*- rpm-spec -*-
 
 Name:           vhd-tool
-Version:        @VERSION@
-Release:        1
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        command-line tools for manipulating and streaming .vhd format files
 License:        LGPL+linking exception
 Group:          System/Hypervisor

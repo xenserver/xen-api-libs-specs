@@ -1,6 +1,9 @@
+%define planex_version 0.0.0
+%define planex_release 1
+
 Name:           ocaml-xen-lowlevel-libs
-Version:        @VERSION@
-Release:        0
+Version:        %{planex_version}
+Release:        %{planex_release}
 Summary:        Xen hypercall bindings for OCaml
 License:        LGPL
 Group:          Development/Other
