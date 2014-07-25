@@ -34,3 +34,5 @@ eliloader=/usr/bin/eliloader
 use-switch=false
 
 default-vbd-backend-kind=vbd3
+
+ca-140252-workaround=true
