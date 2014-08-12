@@ -91,7 +91,6 @@ mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 #install -D _build/xenguest/xenguest_main.native          %{buildroot}/%{_libexecdir}/%{name}/xenguest
 install -D scripts/vif %{buildroot}/%{_libexecdir}/%{name}/vif
 install -D scripts/vif-real %{buildroot}/%{_libexecdir}/%{name}/vif-real
-install -D scripts/vif-xl %{buildroot}/%{_libexecdir}/%{name}/vif-xl
 install -D scripts/qemu-dm-wrapper %{buildroot}/%{_libexecdir}/%{name}/qemu-dm-wrapper
 install -D scripts/qemu-vif-script %{buildroot}/%{_libexecdir}/%{name}/qemu-vif-script
 install -D scripts/setup-vif-rules %{buildroot}/%{_libexecdir}/%{name}/setup-vif-rules
@@ -100,7 +99,6 @@ install -D scripts/network.conf %{buildroot}/%{_libexecdir}/%{name}/network.conf
 install -D scripts/xen-backend.rules %{buildroot}/etc/udev/rules.d/xen-backend.rules
 install -D scripts/tap %{buildroot}/%{_libexecdir}/%{name}/tap
 install -D scripts/block %{buildroot}/%{_libexecdir}/%{name}/block
-install -D scripts/block-xl %{buildroot}/%{_libexecdir}/%{name}/block-xl
 
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
 #install -m 0755 %{_sourcedir}/xenopsd-libvirt-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-libvirt
@@ -125,7 +123,6 @@ rm -rf %{buildroot}
 %doc README.md LICENSE
 %{_libexecdir}/%{name}/vif
 %{_libexecdir}/%{name}/vif-real
-%{_libexecdir}/%{name}/vif-xl
 %{_libexecdir}/%{name}/qemu-dm-wrapper
 %{_libexecdir}/%{name}/qemu-vif-script
 %{_libexecdir}/%{name}/setup-vif-rules
@@ -135,7 +132,6 @@ rm -rf %{buildroot}
 %{_libexecdir}/%{name}/common.pyc
 %{_libexecdir}/%{name}/tap
 %{_libexecdir}/%{name}/block
-%{_libexecdir}/%{name}/block-xl
 /etc/xenopsd.conf
 /etc/xapi/network.conf
 /etc/udev/rules.d/xen-backend.rules
