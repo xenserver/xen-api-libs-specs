@@ -14,9 +14,9 @@ run_hotplug_scripts=false
 network-conf=/etc/xensource/network.conf
 
 vif-script=vif
-vif-xl-script=vif-xl
+vif-xl-script=vif
 vbd-script=block
-vbd-xl-script=block-xl
+vbd-xl-script=block
 qemu-system-i386=/bin/false
 
 pygrub=/usr/bin/pygrub
