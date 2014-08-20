@@ -60,7 +60,7 @@ rm -rf %{buildroot}
 
 %files devel
 %defattr(-,root,root)
-%doc LICENSE README.md ChangeLog MAINTAINERS
+%doc LICENSE README.md CHANGES MAINTAINERS
 %{_libdir}/ocaml/xcp/*
 %{_libdir}/ocaml/stublibs/dllxcp_stubs.so
 %{_libdir}/ocaml/stublibs/dllxcp_stubs.so.owner
