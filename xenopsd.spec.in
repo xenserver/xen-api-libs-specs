@@ -85,8 +85,11 @@ mkdir -p %{buildroot}/%{_sbindir}
 
 #install -D _build/libvirt/xenops_libvirt_main.native     %{buildroot}/%{_sbindir}/xenopsd-libvirt
 install -D _build/simulator/xenops_simulator_main.native %{buildroot}/%{_sbindir}/xenopsd-simulator
+install -D xenopsd-simulator.1 %{buildroot}/%{_mandir}/man1/xenopsd-simulator.1
 install -D _build/xc/xenops_xc_main.native               %{buildroot}/%{_sbindir}/xenopsd-xc
+install -D xenopsd-xc.1 %{buildroot}/%{_mandir}/man1/xenopsd-xc.1
 install -D _build/xl/xenops_xl_main.native               %{buildroot}/%{_sbindir}/xenopsd-xenlight
+install -D xenopsd-xenlight.1 %{buildroot}/%{_mandir}/man1/xenopsd-xenlight.1
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 #install -D _build/xenguest/xenguest_main.native          %{buildroot}/%{_libexecdir}/%{name}/xenguest
 install -D scripts/vif %{buildroot}/%{_libexecdir}/%{name}/vif
@@ -155,6 +158,7 @@ rm -rf %{buildroot}
 %{_sbindir}/xenopsd-xc
 %{_sysconfdir}/init.d/xenopsd-xc
 #%{_libexecdir}/%{name}/xenguest
+%{_mandir}/man1/xenopsd-xc.1
 
 %post xc
 /sbin/chkconfig --add xenopsd-xc
@@ -169,6 +173,7 @@ fi
 %defattr(-,root,root)
 %{_sbindir}/xenopsd-simulator
 %{_sysconfdir}/init.d/xenopsd-simulator
+%{_mandir}/man1/xenopsd-simulator.1
 
 %post simulator
 /sbin/chkconfig --add xenopsd-simulator
@@ -183,6 +188,7 @@ fi
 %defattr(-,root,root)
 %{_sbindir}/xenopsd-xenlight
 %{_sysconfdir}/init.d/xenopsd-xenlight
+%{_mandir}/man1/xenopsd-xenlight.1
 
 %post xenlight
 #/sbin/chkconfig --add xenopsd-xenlight
