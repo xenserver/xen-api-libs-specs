@@ -158,7 +158,7 @@ rm -rf %{buildroot}
 %{_sbindir}/xenopsd-xc
 %{_sysconfdir}/init.d/xenopsd-xc
 #%{_libexecdir}/%{name}/xenguest
-%{_mandir}/man1/xenopsd-xc.1
+%{_mandir}/man1/xenopsd-xc.1.gz
 
 %post xc
 /sbin/chkconfig --add xenopsd-xc
@@ -173,7 +173,7 @@ fi
 %defattr(-,root,root)
 %{_sbindir}/xenopsd-simulator
 %{_sysconfdir}/init.d/xenopsd-simulator
-%{_mandir}/man1/xenopsd-simulator.1
+%{_mandir}/man1/xenopsd-simulator.1.gz
 
 %post simulator
 /sbin/chkconfig --add xenopsd-simulator
@@ -188,7 +188,7 @@ fi
 %defattr(-,root,root)
 %{_sbindir}/xenopsd-xenlight
 %{_sysconfdir}/init.d/xenopsd-xenlight
-%{_mandir}/man1/xenopsd-xenlight.1
+%{_mandir}/man1/xenopsd-xenlight.1.gz
 
 %post xenlight
 #/sbin/chkconfig --add xenopsd-xenlight
