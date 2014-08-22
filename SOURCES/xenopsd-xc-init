@@ -29,7 +29,7 @@ start() {
 	umask 077
 
         echo -n $"Starting xenopsd-xc: "
-        daemon --pidfile="$PIDFILE" $exec -pidfile "$PIDFILE" -config /etc/xenopsd.conf -daemon true $XENOPSD_XC_OPTIONS
+        daemon --pidfile="$PIDFILE" $exec --pidfile "$PIDFILE" --config /etc/xenopsd.conf --daemon true $XENOPSD_XC_OPTIONS
         RETVAL=$?
         echo
         [ $RETVAL -eq 0 ] && touch $lockfile
