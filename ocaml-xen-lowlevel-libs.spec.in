@@ -30,7 +30,6 @@ developing applications that use %{name}.
 %setup -q -n %{name}-%{version}
 
 %build
-make configure
 ./configure --disable-xenctrl --disable-xenguest
 make build
 
