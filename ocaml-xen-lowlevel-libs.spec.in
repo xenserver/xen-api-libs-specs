@@ -31,7 +31,7 @@ developing applications that use %{name}.
 
 %build
 make configure
-./configure --disable-xenctrl
+./configure --disable-xenctrl --disable-xenguest
 make build
 
 %install
