@@ -11,4 +11,5 @@
     ,{ "package-name" : "vhdd" }
     ,{ "package-name" : "vhd-tool" }
     ,{ "package-name" : "ocaml-xenops-tools" }
+    ,{ "package-name" : "opam" }
 ]
