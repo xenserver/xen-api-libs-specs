@@ -1,48 +1,44 @@
 %define planex_version 0.0.0
 %define planex_release 1
 
-Name:           sm-cli
 Version:        %{planex_version}
 Release:        %{planex_release}
-Summary:        CLI for xapi toolstack storage managers.
-License:        LGPL
-Group:          Development/Other
-URL:            https://github.com/xapi-project/sm-cli/archive/sm-cli-%{version}.tar.gz
-Source0:        git://github.com/xapi-project/sm-cli
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
-BuildRequires:  ocaml-obuild ocaml-xcp-idl-devel ocaml-cmdliner-devel ocaml-uuidm-devel
-BuildRequires:  message-switch-devel
 
-# XXX transitively required by message_switch
-BuildRequires:  ocaml-oclock-devel
+Name:           sm-cli
+Summary:        CLI for xapi toolstack storage managers
+License:        LGPL
+URL:            https://github.com/xapi-project/sm-cli
+Source0:        git://github.com/xapi-project/sm-cli
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-cmdliner-devel
+BuildRequires:  ocaml-obuild
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-rpc-devel
+BuildRequires:  ocaml-xcp-idl-devel
 
 %description
 Command-line interface for xapi toolstack storage managers.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 make
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sbindir}
 install dist/build/sm-cli/sm-cli %{buildroot}/%{_sbindir}/sm-cli
-mkdir -p %{buildroot}/opt/xensource/debug
-ln -s %{_sbindir}/sm-cli %{buildroot}/opt/xensource/debug/sm
 
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc README.md LICENSE MAINTAINERS
 %{_sbindir}/sm-cli
-/opt/xensource/debug/sm
 
 %changelog
+* Fri Oct 25 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.4-1
+- Update to 0.9.4
+
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 
