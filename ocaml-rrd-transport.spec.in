@@ -1,18 +1,26 @@
 %define planex_version 0.0.0
 %define planex_release 1
+
+Version:        %{planex_version}
+Release:        %{planex_release}
+
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
-Version:        %{planex_version}
-Release:        %{planex_release}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
-Group:          Development/Other
 URL:            https://github.com/xapi-project/rrd-transport/
 Source0:        git://github.com/xapi-project/rrd-transport
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-cstruct-devel ocaml-crc-devel ocaml-xcp-rrd-devel ocaml-xcp-idl-devel ocaml-cmdliner-devel xen-ocaml-devel
-Requires:       ocaml ocaml-findlib
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-crc-devel
+BuildRequires:  ocaml-xcp-rrd-devel
+BuildRequires:  ocaml-xcp-idl-devel
+BuildRequires:  ocaml-cmdliner-devel
+BuildRequires:  ocaml-gnt-devel
+Requires:       ocaml
+Requires:       ocaml-findlib
 
 %description
 Shared-memory protocol for transmitting RRD data, supporting in-memory files
@@ -20,8 +28,9 @@ and shared Xen pages.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-gnt-devel
+Requires:       ocaml-crc-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -41,11 +50,7 @@ export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
 export OCAMLFIND_LDCONF=%{buildroot}%{_libdir}/ocaml/ld.conf
 ocaml setup.ml -install
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc LICENSE
 %{_libdir}/ocaml/rrd-transport/META
 %{_libdir}/ocaml/rrd-transport/rrd_transport.cma
@@ -59,7 +64,6 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/rrd-transport/rrd_writer.cmi
 
 %files devel
-%defattr(-,root,root)
 %doc ChangeLog README.md
 %{_libdir}/ocaml/rrd-transport/rrd_transport.a
 %{_libdir}/ocaml/rrd-transport/rrd_transport.cmxa
@@ -82,5 +86,8 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/rrd-transport/rrd_writer.mli
 
 %changelog
+* Sat Apr 26 2014 David Scott <dave.scott@citrix.com> - 0.7.1-1
+- Update to 0.7.1
+
 * Mon Dec 16 2013 John Else <john.else@citrix.com> - 0.5.0-1
 - Initial package

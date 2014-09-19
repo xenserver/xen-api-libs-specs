@@ -11,9 +11,26 @@ URL:            https://github.com/jonludlam/vhdd
 Source0:        git://github.com/jonludlam/vhdd
 Source1:        vhdd-init
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
-BuildRequires:  ocaml-rpc-devel ocaml-fd-send-recv-devel ocaml-re-devel ocaml-xcp-idl-devel ocaml-uuidm-devel ocaml-stdext-devel
-BuildRequires:  ocaml-mlvm-devel ocaml-camldm-devel ocaml-cstruct-devel ocaml-rpc-devel ocaml-netdev-devel
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-camlp4-devel
+BuildRequires:  ocaml-rpc-devel
+BuildRequires:  ocaml-fd-send-recv-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-xcp-idl-devel
+BuildRequires:  ocaml-uuidm-devel
+BuildRequires:  ocaml-stdext-devel
+BuildRequires:  ocaml-mlvm-devel
+BuildRequires:  ocaml-camldm-devel
+BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-rpc-devel
+BuildRequires:  ocaml-netdev-devel
+BuildRequires:  ocaml-libvhd-devel
+BuildRequires:  ocaml-tapctl-devel
+BuildRequires:  ocaml-xen-api-libs-transitional-devel
+BuildRequires:  ocaml-camlzip-devel
+BuildRequires:  device-mapper-devel
+
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts

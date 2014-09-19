@@ -18,6 +18,9 @@ BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml-rrd-transport-devel
 BuildRequires:  ocaml-stdext-devel
+BuildRequires:  ocaml-xenstore-devel
+BuildRequires:  ocaml-xenstore-clients-devel
+BuildRequires:  ocaml-ocamldoc
 
 %description
 Plugin library for the XenServer RRD daemon.

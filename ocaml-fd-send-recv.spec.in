@@ -1,56 +1,65 @@
 %define planex_version 0.0.0
 %define planex_release 1
 
-Name:           ocaml-fd-send-recv
 Version:        %{planex_version}
 Release:        %{planex_release}
+
+%global debug_package %{nil}
+
+Name:           ocaml-fd-send-recv
 Summary:        Bindings to sendmsg/recvmsg for fd passing under Linux
 License:        LGPL
-Group:          Development/Other
-URL:            https://github.com/xapi-project/fd-send-recv
+URL:            https://github.com/xapi-project/ocaml-fd-send-recv
 Source0:        git://github.com/xapi-project/ocaml-fd-send-recv
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib
-Requires:       ocaml ocaml-findlib
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
 
 %description
 Bindings to sendmsg/recvmsg for fd passing under Linux.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
-#Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%setup -q 
 
 %build
-ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
+ocaml setup.ml -configure
 ocaml setup.ml -build
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/ocaml
-mkdir -p %{buildroot}/%{_libdir}/ocaml/stublibs
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p $OCAMLFIND_DESTDIR
+mkdir -p $OCAMLFIND_DESTDIR/stublibs
 export OCAMLFIND_LDCONF=ignore
-ocaml setup.ml -install
+make install
 
-%clean
-rm -rf %{buildroot}
-
-%files devel
-%defattr(-,root,root)
-%doc README.md LICENSE
-%{_libdir}/ocaml/fd-send-recv/*
+%files
+%doc LICENSE
+%doc README.md
+%{_libdir}/ocaml/fd-send-recv
+%exclude %{_libdir}/ocaml/fd-send-recv/*.a
+%exclude %{_libdir}/ocaml/fd-send-recv/*.cmxa
+%exclude %{_libdir}/ocaml/fd-send-recv/*.cmx
+%exclude %{_libdir}/ocaml/fd-send-recv/*.mli
 %{_libdir}/ocaml/stublibs/dllfd_send_recv_stubs.so
 %{_libdir}/ocaml/stublibs/dllfd_send_recv_stubs.so.owner
 
+%files devel
+%{_libdir}/ocaml/fd-send-recv/*.a
+%{_libdir}/ocaml/fd-send-recv/*.cmx
+%{_libdir}/ocaml/fd-send-recv/*.cmxa
+%{_libdir}/ocaml/fd-send-recv/*.mli
+
 %changelog
-* Fri May 31 2013 David Scott <dave.scott@eu.citrix.com>
+* Fri May 30 2014 Euan Harris <euan.harris@citrix.com> - 1.0.1-2
+- Split files correctly between base and devel packages
+
+* Fri May 31 2013 David Scott <dave.scott@eu.citrix.com> - 1.0.1-1
 - Initial package
 

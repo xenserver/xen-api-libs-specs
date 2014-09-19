@@ -10,7 +10,7 @@ Group:          Development/Other
 URL:            http://github.com/xapi-project/camldm
 Source0:        git://github.com/jonludlam/camldm
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper
+BuildRequires:  ocaml ocaml-findlib ocaml-rpc-devel device-mapper device-mapper-devel ocaml-camlp4-devel
 Requires:       ocaml ocaml-findlib device-mapper
 
 %description

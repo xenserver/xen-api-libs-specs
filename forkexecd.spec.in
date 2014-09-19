@@ -1,18 +1,24 @@
 %define planex_version 0.0.0
 %define planex_release 1
 
-Name:           forkexecd
 Version:        %{planex_version}
 Release:        %{planex_release}
+
+Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
-Group:          Development/Other
-URL:            https://github.com/xapi-project/forkexecd/archive/forkexecd-0.9.0.tar.gz
+URL:            https://github.com/xapi-project/forkexecd
 Source0:        git://github.com/xapi-project/forkexecd
 Source1:        forkexecd-init
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-camlp4-devel
-BuildRequires:  ocaml-rpc-devel ocaml-fd-send-recv-devel ocaml-re-devel ocaml-xcp-idl-devel ocaml-uuidm-devel ocaml-stdext-devel
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-fd-send-recv-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-rpc-devel
+BuildRequires:  ocaml-stdext-devel
+BuildRequires:  ocaml-uuidm-devel
+BuildRequires:  ocaml-xcp-idl-devel
+Requires:  redhat-lsb-core
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts
@@ -22,14 +28,14 @@ A service which starts and manages subprocesses, avoiding the need to manually
 fork() and exec() in a multithreaded program.
 
 %prep
-%setup -q 
+%setup -q
+cp %{SOURCE1} forkexecd-init
 
 %build
-ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml
+ocaml setup.ml -configure
 ocaml setup.ml -build
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 ocaml setup.ml -install
@@ -37,13 +43,10 @@ mkdir -p %{buildroot}/%{_sbindir}
 install fe_main.native %{buildroot}/%{_sbindir}/forkexecd
 install fe_cli.native %{buildroot}/%{_sbindir}/forkexecd-cli
 mkdir -p %{buildroot}/%{_sysconfdir}/init.d
-install -m 0755 %{_sourcedir}/forkexecd-init %{buildroot}%{_sysconfdir}/init.d/forkexecd
+install -m 0755 forkexecd-init %{buildroot}%{_sysconfdir}/init.d/forkexecd
 
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %{_sbindir}/forkexecd
 %{_sbindir}/forkexecd-cli
 %{_sysconfdir}/init.d/forkexecd
@@ -59,20 +62,28 @@ fi
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
-Requires:       ocaml ocaml-findlib
+Requires:       ocaml-fd-send-recv-devel%{?_isa}
+Requires:       ocaml-rpc-devel%{?_isa}
+Requires:       ocaml-stdext-devel%{?_isa}
+Requires:       ocaml-uuidm-devel%{?_isa}
+Requires:       ocaml-xcp-idl-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %files devel
-%defattr(-,root,root)
 %doc LICENSE README.md ChangeLog MAINTAINERS
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.2-1
+- Update to 0.9.2
+
+* Wed Sep 25 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.1-1
+- Update to 0.9.1
+
 * Fri May 31 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
 

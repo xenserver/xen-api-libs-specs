@@ -1,17 +1,22 @@
 %define planex_version 0.0.0
 %define planex_release 1
 
-Name:           ocaml-qmp
 Version:        %{planex_version}
 Release:        %{planex_release}
+
+%global debug_package %{nil}
+
+Name:           ocaml-qmp
 Summary:        Pure OCaml implementation of the Qemu Message Protocol (QMP)
 License:        LGPL2.1 + OCaml linking exception
-Group:          Development/Other
-URL:            http://github.com/xapi-project/ocaml-qmp
+URL:            https://github.com/xapi-project/ocaml-qmp
 Source0:        git://github.com/xapi-project/ocaml-qmp
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml ocaml-findlib ocaml-obuild ocaml-yojson-devel ocaml-cmdliner-devel ocaml-ounit-devel
-Requires:       ocaml ocaml-findlib
+BuildRequires:  ocaml
+BuildRequires:  ocaml-cmdliner-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-obuild
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-yojson-devel
 
 %description
 An implementation of the Qemu Message Protocol (QMP) that allows
@@ -20,7 +25,8 @@ process.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
+Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-yojson-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -30,26 +36,40 @@ developing applications that use %{name}.
 %setup -q
 
 %build
-if [ -x ./configure ]; then
-  ./configure
-fi
 make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/ocaml
+export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
+mkdir -p $OCAMLFIND_DESTDIR
 make install DESTDIR=%{buildroot}/%{_libdir}/ocaml
 
-%clean
-rm -rf %{buildroot}
+%files
+%doc ChangeLog
+%doc README.md
+%doc LICENSE
+%{_libdir}/ocaml/qmp
+%exclude %{_libdir}/ocaml/qmp/*.a
+%exclude %{_libdir}/ocaml/qmp/*.cmxa
+%exclude %{_libdir}/ocaml/qmp/*.cmx
 
 %files devel
-%defattr(-,root,root)
-%doc ChangeLog README.md LICENSE
-
-%{_libdir}/ocaml/qmp/*
+%{_libdir}/ocaml/qmp/*.a
+%{_libdir}/ocaml/qmp/*.cmx
+%{_libdir}/ocaml/qmp/*.cmxa
 
 %changelog
-* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com>
+* Fri May 30 2014 Euan Harris <euan.harris@citrix.com> - 0.9.2-2
+- Split files correctly between base and devel packages
+
+* Thu Mar 27 2014 Euan Harris <euan.harris@citrix.com> - 0.9.2-1
+- Add support for QMP 'change' command, used to change removable media
+  and reconfigure VNC.
+
+* Fri Aug 09 2013 Euan Harris <euan.harris@citrix.com> - 0.9.1-1
+- Change representation of message timestamps from a tuple of ints to
+  a float.  This avoids problems on 32-bit architectures and  follows
+  the example of the OCaml standard library.
+
+* Wed May 29 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.0-1
 - Initial package
 
