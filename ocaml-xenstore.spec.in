@@ -28,7 +28,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       ocaml-cstruct-devel%{?_isa}
 Requires:       ocaml-lwt-devel%{?_isa}
-Conflicts:      xen-ocaml-devel
+#Conflicts:      xen-ocaml-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
