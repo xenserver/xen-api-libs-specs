@@ -42,7 +42,7 @@ Requires:       message-switch
 #Requires:       redhat-lsb-core
 Requires:       xenops-cli
 Requires:       vncterm
-Requires:       linux-guest-loader
+#Requires:       linux-guest-loader
 Requires:       ocaml-xen-lowlevel-libs-runtime
 
 %description
