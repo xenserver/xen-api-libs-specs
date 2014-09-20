@@ -26,7 +26,7 @@ BuildRequires:  forkexecd-devel
 BuildRequires:  xen-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
-Requires:       redhat-lsb-core
+#Requires:       redhat-lsb-core
 
 %description
 Statistics gathering daemon for the xapi toolstack.
