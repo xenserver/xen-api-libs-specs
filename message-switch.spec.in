@@ -19,7 +19,7 @@ BuildRequires: ocaml-cmdliner-devel
 BuildRequires: ocaml-re-devel
 BuildRequires: ocaml-rpc-devel
 BuildRequires: ocaml-oclock-devel
-Requires:      redhat-lsb-core
+#Requires:      redhat-lsb-core
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts

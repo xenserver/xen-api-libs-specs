@@ -26,7 +26,7 @@ BuildRequires:  ocaml-xen-api-client-devel
 BuildRequires:  ocaml-netlink-devel
 BuildRequires:  libffi-devel
 Requires:       ethtool
-Requires:       redhat-lsb-core
+#Requires:       redhat-lsb-core
 
 %description
 Simple host networking management service for the xapi toolstack.

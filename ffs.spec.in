@@ -21,7 +21,7 @@ BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-libvhd-devel
 BuildRequires:  ocaml-tapctl-devel
 Requires:       nfs-utils
-Requires:       redhat-lsb-core
+#Requires:       redhat-lsb-core
 Requires:       blktap
 
 %description
