@@ -41,7 +41,7 @@ BuildRequires:  ocaml-xcp-rrd-devel
 Requires:       message-switch
 #Requires:       redhat-lsb-core
 Requires:       xenops-cli
-Requires:       vncterm
+#Requires:       vncterm
 #Requires:       linux-guest-loader
 Requires:       ocaml-xen-lowlevel-libs-runtime
 
@@ -61,7 +61,7 @@ Simple VM manager for the xapi toolstack.
 Summary:        Xenopsd using xc
 Requires:       %{name} = %{version}-%{release}
 Requires:       forkexecd
-Requires:       vncterm
+#Requires:       vncterm
 Requires:       xen-libs
 
 %description    xc

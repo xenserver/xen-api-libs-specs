@@ -11,7 +11,7 @@ Summary:        Common interface definitions for XCP services
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-idl
 Source0:        git://github.com/xapi-project/xcp-idl
-
+Patch0:         xcp-idl-dont-use-switch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cmdliner-devel
@@ -48,6 +48,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n xcp-idl-%{version}
+%patch1 -p1
 
 %build
 ocaml setup.ml -configure
