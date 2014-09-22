@@ -26,6 +26,7 @@ BuildRequires:  ocaml-xen-api-client-devel
 BuildRequires:  ocaml-netlink-devel
 BuildRequires:  libffi-devel
 Requires:       ethtool
+Requires:       libnl3
 #Requires:       redhat-lsb-core
 
 %description
