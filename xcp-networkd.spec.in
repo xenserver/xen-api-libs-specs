@@ -48,7 +48,7 @@ mkdir -p %{buildroot}/%{_bindir}
 make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
 install -m 0755 xcp-networkd-init %{buildroot}%{_sysconfdir}/init.d/xcp-networkd
-mkdir -p %{buildroot}/etc/xcp
+mkdir -p %{buildroot}/etc/xensource
 install -m 0644 xcp-networkd-network-conf %{buildroot}/etc/xensource/network.conf
 install -m 0644 xcp-networkd-conf %{buildroot}/etc/xcp-networkd.conf
 mkdir -p %{buildroot}/etc/modprobe.d
