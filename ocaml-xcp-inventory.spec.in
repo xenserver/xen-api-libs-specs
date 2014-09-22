@@ -36,7 +36,7 @@ developing applications that use %{name}.
 
 %build
 if [ -x ./configure ]; then
-  ./configure --default_inventory=/etc/xcp/inventory
+  ./configure --default_inventory=/etc/xensource-inventory
 fi
 make
 
