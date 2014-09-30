@@ -74,7 +74,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %files devel
-%doc LICENSE README.md ChangeLog
+%doc LICENSE README.md CHANGES
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
