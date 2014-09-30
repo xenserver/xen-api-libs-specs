@@ -13,6 +13,7 @@ Source1:        message-switch-init
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-findlib-devel
 BuildRequires: ocaml-cohttp-devel
 BuildRequires: ocaml-rpc-devel
 BuildRequires: ocaml-cmdliner-devel
