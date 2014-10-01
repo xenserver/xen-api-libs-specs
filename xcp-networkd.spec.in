@@ -59,6 +59,7 @@ mkdir -p %{buildroot}/etc/modprobe.d
 %{_sbindir}/xcp-networkd
 %{_bindir}/networkd_db
 %{_sysconfdir}/init.d/xcp-networkd
+%{_mandir}/man1/xcp-networkd.1.gz
 #/etc/modprobe.d/bridge.conf
 %config(noreplace) /etc/xensource/network.conf
 %config(noreplace) /etc/xcp-networkd.conf
