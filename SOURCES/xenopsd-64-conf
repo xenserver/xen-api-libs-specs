@@ -1,6 +1,6 @@
 # Configuration file for xenopsd
 
-search-path=/usr/lib64/xen/bin:/usr/libexec/xenopsd:/usr/lib/xen/boot
+search-path=/usr/libexec/xen/bin:/usr/libexec/xen/boot:/usr/lib64/xen/bin:/usr/libexec/xenopsd:/usr/lib/xen/boot
 
 # Number of threads which will service the VM operation queues
 worker-pool-size=16
