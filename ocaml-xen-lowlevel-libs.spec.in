@@ -69,6 +69,11 @@ make install BINDIR=%{buildroot}/%{_libexecdir}/xenopsd/
 %exclude %{_libdir}/ocaml/xenlight/*.cmxa
 %exclude %{_libdir}/ocaml/xenlight/*.cmx
 %exclude %{_libdir}/ocaml/xenlight/*.mli
+%{_libdir}/ocaml/xentoollog
+%exclude %{_libdir}/ocaml/xentoollog/*.a
+%exclude %{_libdir}/ocaml/xentoollog/*.cmxa
+%exclude %{_libdir}/ocaml/xentoollog/*.cmx
+%exclude %{_libdir}/ocaml/xentoollog/*.mli
 %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so
 %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so.owner
 %{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so
@@ -83,6 +88,10 @@ make install BINDIR=%{buildroot}/%{_libexecdir}/xenopsd/
 %{_libdir}/ocaml/xenlight/*.cmxa
 %{_libdir}/ocaml/xenlight/*.cmx
 %{_libdir}/ocaml/xenlight/*.mli
+%{_libdir}/ocaml/xentoollog/*.a
+%{_libdir}/ocaml/xentoollog/*.cmxa
+%{_libdir}/ocaml/xentoollog/*.cmx
+%{_libdir}/ocaml/xentoollog/*.mli
 
 %files runtime
 %{_libexecdir}/xenopsd/xenguest
