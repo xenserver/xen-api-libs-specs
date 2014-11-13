@@ -29,7 +29,7 @@ BuildRequires:  ocaml-uuidm-devel
 #BuildRequires:  ocaml-libvirt-devel
 BuildRequires:  ocaml-qmp-devel
 BuildRequires:  ocaml-sexplib-devel
-BuildRequires:  ocaml-xen-lowlevel-libs-devel
+BuildRequires:  xen-ocaml-devel
 BuildRequires:  ocaml-xenstore-clients-devel
 BuildRequires:  ocaml-xenstore-devel
 BuildRequires:  ocaml-xcp-inventory-devel
@@ -43,7 +43,7 @@ Requires:       message-switch
 Requires:       xenops-cli
 #Requires:       vncterm
 #Requires:       linux-guest-loader
-Requires:       ocaml-xen-lowlevel-libs-runtime
+Requires:       xen-dom0-tools
 
 %description
 Simple VM manager for the xapi toolstack.

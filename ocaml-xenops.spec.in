@@ -15,7 +15,7 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-obuild
-BuildRequires:  ocaml-xen-lowlevel-libs-devel
+BuildRequires:  xen-ocaml-devel
 BuildRequires:  ocaml-xenstore-clients-devel
 BuildRequires:  ocaml-xenstore-devel
 BuildRequires:  ocaml-xcp-idl-devel
@@ -31,7 +31,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       ocaml-xcp-idl-devel%{?_isa}
 Requires:       ocaml-stdext-devel%{?_isa}
-Requires:       ocaml-xen-lowlevel-libs-devel%{?_isa}
+Requires:       xen-ocaml-devel%{?_isa}
 Requires:       ocaml-xenstore-devel%{?_isa}
 Requires:       ocaml-xenstore-clients-devel%{?_isa}
 
