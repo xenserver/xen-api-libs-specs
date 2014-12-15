@@ -26,6 +26,7 @@ BuildRequires:  forkexecd-devel
 BuildRequires:  xen-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
+BuildRequires:  blktap-devel
 #Requires:       redhat-lsb-core
 
 %description
