@@ -65,6 +65,9 @@ ocaml setup.ml -install
 
 %files devel
 %doc ChangeLog README.md
+%exclude %{_libdir}/ocaml/rrd-transport/*.annot
+%exclude %{_libdir}/ocaml/rrd-transport/*.cmt
+%exclude %{_libdir}/ocaml/rrd-transport/*.cmti
 %{_libdir}/ocaml/rrd-transport/rrd_transport.a
 %{_libdir}/ocaml/rrd-transport/rrd_transport.cmxa
 %{_libdir}/ocaml/rrd-transport/rrd_transport.cmxs
