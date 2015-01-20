@@ -38,6 +38,7 @@ BuildRequires:  xen-libs-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
+BuildRequires:  python-devel
 Requires:       message-switch
 #Requires:       redhat-lsb-core
 Requires:       xenops-cli
