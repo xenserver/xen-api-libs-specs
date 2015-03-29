@@ -12,7 +12,6 @@ Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
 Source3:        xenopsd-libvirt-init
 Source4:        xenopsd-xenlight-init
-Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
 Source7:        xenopsd-64-conf
 BuildRequires:  ocaml
