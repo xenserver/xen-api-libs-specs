@@ -1,10 +1,11 @@
-Name:           message-switch
-Version:        0.10.5.1
+Version:        0.10.3
 Release:        1%{?dist}
+
+Name:           message-switch
 Summary:        A store and forward message switch
 License:        FreeBSD
 URL:            https://github.com/xapi-project/message-switch
-Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/message-switch/archive/v%{version}/message-switch-%{version}.tar.gz
 Source1:        message-switch-init
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
