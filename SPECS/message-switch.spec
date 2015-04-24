@@ -1,23 +1,22 @@
-Version:        0.10.3
-Release:        1%{?dist}
-
 Name:           message-switch
-Summary:        A store and forward message switch
+Version:        0.11.0
+Release:        1%{?dist}
 License:        FreeBSD
-URL:            https://github.com/xapi-project/message-switch
-Source0:        https://github.com/xapi-project/message-switch/archive/v%{version}/message-switch-%{version}.tar.gz
+URL:            https://github.com/djs55/message-switch
+Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        message-switch-init
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-findlib-devel
 BuildRequires: ocaml-cohttp-devel
 BuildRequires: ocaml-rpc-devel
 BuildRequires: ocaml-cmdliner-devel
 BuildRequires: ocaml-re-devel
 BuildRequires: ocaml-rpc-devel
-BuildRequires: ocaml-oclock-devel
-#Requires:      redhat-lsb-core
+BuildRequires: ocaml-async-devel
+BuildRequires: ocaml-shared-block-ring-devel
+BuildRequires: ocaml-mtime-devel
+Requires:      redhat-lsb-core
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts
@@ -30,8 +29,8 @@ A store and forward message switch for OCaml.
 cp %{SOURCE1} message-switch-init
 
 %build
-./configure
-make
+ocaml setup.ml -configure
+ocaml setup.ml -build
 
 %install
 mkdir -p %{buildroot}/%{_libdir}/ocaml
@@ -62,7 +61,6 @@ fi
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       ocaml-cohttp-devel%{?_isa}
-Requires:       ocaml-oclock-devel%{?_isa}
 Requires:       ocaml-re-devel%{?_isa}
 Requires:       ocaml-rpc-devel%{?_isa}
 
@@ -75,6 +73,18 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
+* Thu Apr 23 2015 David Scott <dave.scott@citrix.com> - 0.11.0-1
+- Update to 0.11.0
+
+* Sun Apr 19 2015 David Scott <dave.scott@citrix.com> - 0.10.5.1-2
+- Fix for bug exposed by cohttp upgrade
+
+* Thu Apr  2 2015 David Scott <dave.scott@citrix.com> - 0.10.5.1-1
+- Update to 0.10.5.1
+
+* Tue Oct 14 2014 David Scott <dave.scott@citrix.com> - 0.10.4-1
+- Update to 0.10.4, enable core/async
+
 * Thu Jun 19 2014 David Scott <dave.scott@citrix.com> - 0.10.3-1
 - Update to 0.10.3
 
