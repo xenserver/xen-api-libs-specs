@@ -1,13 +1,10 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           xenopsd
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
-Source0:        git://github.com/xapi-project/xenopsd
+Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
 Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
 Source3:        xenopsd-libvirt-init

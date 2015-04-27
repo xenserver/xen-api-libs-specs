@@ -1,8 +1,5 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.1
+Release:        1
 
 %global debug_package %{nil}
 
@@ -10,7 +7,7 @@ Name:           ocaml-libvhd
 Summary:        VHD manipulation via libvhd
 License:        BSD3
 URL:            https://github.com/xapi-project/libvhd
-Source0:        git://github.com/xapi-project/libvhd
+Source0:        https://github.com/xapi-project/libvhd/archive/libvhd-0.9.1.tar.gz
 BuildRequires:  libuuid-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib

@@ -1,13 +1,10 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           xcp-networkd
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.9.6
+Release:        1%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
-Source0:        git://github.com/xapi-project/xcp-networkd#ea1254
+Source0:        https://github.com/xapi-project/xcp-networkd/archive/v%{version}/xcp-networkd-%{version}.tar.gz
 Source1:        xcp-networkd-init
 Source2:        xcp-networkd-conf
 Source3:        xcp-networkd-network-conf

@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
-Source0:        git://github.com/xapi-project/rrd-transport
+Source0:        https://github.com/xapi-project/rrd-transport/archive/v0.8.0/rrd-transport-0.8.0.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cstruct-devel

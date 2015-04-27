@@ -1,15 +1,11 @@
 # -*- rpm-spec -*-
-
-%define planex_version 0.0.0
-%define planex_release 1
-
 Summary: Command-line tools for manipulating and streaming .vhd format files
 Name:    vhd-tool
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version: 0.7.5
+Release: 1%{?dist}
 License: LGPL+linking exception
 URL:  https://github.com/xapi-project/vhd-tool
-Source0: git://github.com/xapi-project/vhd-tool#trunk-ring3
+Source0: https://github.com/xapi-project/vhd-tool/archive/v%{version}/vhd-tool-%{version}.tar.gz
 Source1: vhd-tool-sparse_dd-conf
 BuildRequires: ocaml
 BuildRequires: ocaml-findlib
