@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xenops
+Version:        0.9.6
+Release:        1%{?dist}
 Summary:        Low-level xen control operations OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/xenops
-Source0:        git://github.com/xapi-project/xenops
+Source0:        https://github.com/xapi-project/xenops/archive/%{version}/xenops-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib

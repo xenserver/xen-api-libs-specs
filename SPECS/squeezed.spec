@@ -1,14 +1,10 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 Name:           squeezed
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
-Source0:        git://github.com/xapi-project/squeezed
+Source0:        https://github.com/xapi-project/squeezed/archive/v%{version}/squeezed-%{version}.tar.gz
 Source1:        squeezed-init
 Source2:        squeezed-conf
 BuildRequires:  ocaml

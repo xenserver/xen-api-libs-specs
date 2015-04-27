@@ -1,17 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
-
 %global debug_package %{nil}
 
 Name:           ocaml-xenstore-clients
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        Unix xenstore clients for OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/ocaml-xenstore-clients
-Source0:        git://github.com/xapi-project/ocaml-xenstore-clients
+Source0:        https://github.com/xapi-project/ocaml-xenstore-clients/archive/%{version}/ocaml-xenstore-clients-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib

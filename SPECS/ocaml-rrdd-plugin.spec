@@ -1,16 +1,13 @@
-%define planex_version 0.0.0
-%define planex_release 1
 %define debug_package %{nil}
 
 Name:           ocaml-rrdd-plugin
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        Plugin library for the XenServer RRD daemon
 License:        LGPL2.1 + OCaml linking exception
 Group:          Development/Other
 URL:            https://github.com/xapi-project/ocaml-rrdd-plugin/
-Source0:        git://github.com/xapi-project/ocaml-rrdd-plugin
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+Source0:        https://github.com/xapi-project/ocaml-rrdd-plugin/archive/v0.7.0/ocaml-rrdd-plugin-0.7.0.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-xcp-rrd-devel

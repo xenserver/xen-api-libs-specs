@@ -1,16 +1,12 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
-Version:        %{planex_version}
-Release:        %{planex_release}
-
 %global debug_package %{nil}
 
 Name:           ocaml-xen-api-libs-transitional
+Version:        0.9.7
+Release:        1%{?dist}
 Summary:        Deprecated standard library extension for OCaml
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/xen-api-libs-transitional
-Source0:        git://github.com/xapi-project/xen-api-libs-transitional
+Source0:        https://github.com/xapi-project/xen-api-libs-transitional/archive/v%{version}/xen-api-libs-transitional-%{version}.tar.gz
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
