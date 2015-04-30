@@ -1,0 +1,61 @@
+From 3b017cc138b36736fdcd42d0e2f3eb23570b9794 Mon Sep 17 00:00:00 2001
+From: Si Beaumont <simon.beaumont@citrix.com>
+Date: Wed, 8 Apr 2015 14:39:28 +0100
+Subject: [PATCH] CA-157286: Use `xl pci-attach` for passthrough to HVM guests
+
+Signed-off-by: Si Beaumont <simon.beaumont@citrix.com>
+---
+ xc/device.ml            | 16 +++-------------
+ xc/xenops_server_xen.ml |  5 +----
+ 2 files changed, 4 insertions(+), 17 deletions(-)
+
+diff --git a/xc/device.ml b/xc/device.ml
+index c29c030..76fe2c5 100644
+--- a/xc/device.ml
++++ b/xc/device.ml
+@@ -1110,14 +1110,8 @@ let add_xl = xl_pci "pci-attach"
+ let release_xl = xl_pci "pci-detach"
+ 
+ let add ~xc ~xs ~hvm ~msitranslate ~pci_power_mgmt ?flrscript pcidevs domid devid =
+-	try
+-		if hvm
+-		then add_noexn ~xc ~xs ~hvm ~msitranslate ~pci_power_mgmt ?flrscript pcidevs domid devid
+-		else
+-			(* Switch the PV path over to libxl since the code is better *)
+-			add_xl ~msitranslate ~pci_power_mgmt pcidevs domid
+-	with exn ->
+-		raise (Cannot_add (pcidevs, exn))
++	try add_xl ~msitranslate ~pci_power_mgmt pcidevs domid
++	with exn -> raise (Cannot_add (pcidevs, exn))
+ 
+ let release_exn ~xc ~xs ~hvm pcidevs domid devid =
+ 	let pcidevs = List.map (fun (domain, bus, slot, func) ->
+@@ -1139,11 +1133,7 @@ let release_exn ~xc ~xs ~hvm pcidevs domid devid =
+ 	()
+ 
+ let release ~xc ~xs ~hvm pcidevs domid devid =
+-	if hvm
+-	then release_exn ~xc ~xs ~hvm pcidevs domid devid
+-	else 
+-		(* Switch the PV path over to libxl since the code is better *)
+-		release_xl pcidevs domid
++	release_xl pcidevs domid
+ 
+ let write_string_to_file file s =
+ 	let fn_write_string fd = Unixext.really_write fd s 0 (String.length s) in
+diff --git a/xc/xenops_server_xen.ml b/xc/xenops_server_xen.ml
+index e91a808..40dfc57 100644
+--- a/xc/xenops_server_xen.ml
++++ b/xc/xenops_server_xen.ml
+@@ -1594,10 +1594,7 @@ module PCI = struct
+ 				end;
+ 
+ 				Device.PCI.bind [ device ] Device.PCI.Pciback;
+-				(* If the guest is HVM then we plug via qemu *)
+-				if hvm
+-				then Device.PCI.plug task ~xc ~xs device frontend_domid
+-				else Device.PCI.add ~xc ~xs ~hvm ~msitranslate ~pci_power_mgmt [ device ] frontend_domid 0
++				Device.PCI.add ~xc ~xs ~hvm ~msitranslate ~pci_power_mgmt [ device ] frontend_domid 0
+ 			) Newest vm
+ 
+ 	let unplug task vm pci =
