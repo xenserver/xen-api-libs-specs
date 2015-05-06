@@ -19,8 +19,18 @@ api-libs: buildrpms /output/api-libs/SOURCES/MANIFEST
 	mv -f /tmp/MANIFEST $@
 
 buildrpms:
+	make -f Makefile srpms
+	mkdir -p _build/RPMS/xen-mock
+	for i in $(shell /bin/ls /var/xen-mock/*.rpm); do \
+		cp -a `readlink $${i}` _build/RPMS/xen-mock || true; \
+	done
+	createrepo _build/RPMS
 	make -f Makefile
 	cp -r _build/RPMS /output/api-libs/
 	rm -rf /output/api-libs/RPMS/repodata
+	rm -rf /output/api-libs/RPMS/x86_64/*.src.rpm
+	rm -rf /output/api-libs/RPMS/x86_64/*.log
 	cp -r _build/SRPMS /output/api-libs/
+
+
 
