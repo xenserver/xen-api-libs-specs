@@ -13,6 +13,7 @@ Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
 Source7:        xenopsd-64-conf
 BuildRequires:  ocaml
+BuildRequires:  optcomp
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-rpc-devel
