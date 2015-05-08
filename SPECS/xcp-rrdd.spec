@@ -1,19 +1,17 @@
-%define planex_version 0.0.0
-%define planex_release 1
-
 Name:           xcp-rrdd
-Version:        %{planex_version}
-Release:        %{planex_release}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
-Source0:        git://github.com/xapi-project/xcp-rrdd
+Source0:        https://github.com/xapi-project/xcp-rrdd/archive/v%{version}/xcp-rrdd-%{version}.tar.gz
 Source1:        xcp-rrdd-init
 Source2:	xcp-rrdd-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-obuild
+BuildRequires:  ocaml-oclock-devel
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  ocaml-xcp-inventory-devel
