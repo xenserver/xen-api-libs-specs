@@ -24,7 +24,7 @@ sockets-group=wheel
 
 eliloader=/usr/bin/eliloader
 
-use-switch=false
+# use-switch=true
 
 default-vbd-backend-kind=vbd3
 
