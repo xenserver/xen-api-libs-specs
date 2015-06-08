@@ -26,6 +26,7 @@ buildrpms:
 	done
 	createrepo _build/RPMS
 	make -f Makefile
+	rm -rf _build/RPMS/xen-mock
 	cp -r _build/RPMS /output/api-libs/
 	rm -rf /output/api-libs/RPMS/repodata
 	rm -rf /output/api-libs/RPMS/x86_64/*.src.rpm
