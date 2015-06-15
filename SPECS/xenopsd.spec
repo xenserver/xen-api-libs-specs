@@ -12,9 +12,6 @@ Source4:        xenopsd-xenlight-init
 Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
 Source7:        xenopsd-64-conf
-Source100:      xenopsd-3b017cc138b36736fdcd42d0e2f3eb23570b9794.patch
-Source101:      xenopsd-db861d900202928e81b036e8bad34ab0b5e945a1.patch
-Source102:      xenopsd-0cbc3478a6cfafa261a651522230b6c2e060fe21.patch
 BuildRequires:  ocaml
 BuildRequires:  optcomp
 BuildRequires:  ocaml-findlib
@@ -92,9 +89,6 @@ cp %{SOURCE4} xenopsd-xenlight-init
 cp %{SOURCE5} xenopsd.conf
 cp %{SOURCE6} xenopsd-network-conf
 cp %{SOURCE7} xenopsd-64-conf
-patch -p1 -R < %{SOURCE102}
-patch -p1 -R < %{SOURCE101}
-patch -p1 -R < %{SOURCE100}
 
 %build
 ./configure --libexecdir %{_libexecdir}/%{name}
