@@ -21,6 +21,7 @@ BuildRequires:  xen-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
 BuildRequires:  ocaml-xcp-idl-devel
+BuildRequires:  oasis
 Requires:       xen-libs
 Requires:       xen-dom0-libs
 
@@ -39,7 +40,6 @@ developing applications that use %{name}.
 %setup -q -n xen-api-libs-transitional-%{version}
 
 %build
-./configure
 make
 
 %install
