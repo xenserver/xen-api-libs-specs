@@ -26,6 +26,16 @@ eliloader=/usr/bin/eliloader
 
 # use-switch=true
 
+# After starting vgpu, xenopsd will wait this many seconds for vgpu to signal
+# via xenstore that it has started successfully. If xenopsd does not see the
+# signal within this time the VM startup sequence will be aborted.
+#vgpu-ready-timeout=30
+
+# When suspending vgpu, xenopsd sends it a SIGHUP and waits this many seconds
+# for vgpu to write its statefile and exit. If vgpu has not exited after this
+# time, xenopsd will send vgpu a SIGTERM and abort the VM suspend sequence.
+#vgpu-suspend-timeout=60
+
 default-vbd-backend-kind=vbd3
 
 ca-140252-workaround=true
