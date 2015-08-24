@@ -23,6 +23,7 @@ BuildRequires:  ocaml-uuidm-devel
 BuildRequires:  ocaml-shared-block-ring-devel
 BuildRequires:  ocaml-io-page-devel
 BuildRequires:  ocaml-ctypes-devel
+BuildRequires:  ocaml-rrdd-plugin-devel
 BuildRequires:  device-mapper-devel
 BuildRequires:  libffi-devel
 BuildRequires:  oasis
