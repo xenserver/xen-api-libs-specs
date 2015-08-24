@@ -31,6 +31,7 @@ Requires:       ocaml-stdext-devel%{?_isa}
 Requires:       ocaml-xcp-idl-devel%{?_isa}
 Requires:       ocaml-xcp-rrd-devel%{?_isa}
 Requires:       ocaml-rrd-transport-devel%{?_isa}
+Requires:       ocaml-xenstore-clients-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
