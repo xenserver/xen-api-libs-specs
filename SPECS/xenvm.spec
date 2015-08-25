@@ -1,12 +1,14 @@
 Name:           xenvm
 Version:        0.2.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A compatible replace for LVM supporting thinly provisioned volumes
 License:        LGPL
 URL:            https://github.com/xapi-project/xenvm
 Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        refresh-demo
 Source2:        resize-demo
+Source3:        xenvm-bugtool1.xml
+Source4:        xenvm-bugtool2.xml
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cmdliner-devel
@@ -33,6 +35,8 @@ A compatible replacement for LVM supporting thinly provisioned volumes.
 
 %prep
 %setup -q -n xenvm-%{version}
+cp %{SOURCE3} xenvm.xml
+cp %{SOURCE4} stuff.xml
 
 %build
 make
@@ -48,6 +52,9 @@ cp %{SOURCE1} %{buildroot}/opt/xensource/sm
 cp %{SOURCE2} %{buildroot}/opt/xensource/sm
 mkdir -p %{buildroot}/etc/xenvm.d
 mkdir -p %{buildroot}/var/lib/xenvmd
+mkdir -p %{buildroot}/etc/xensource/bugtool/xenvm
+install -m 0644 xenvm.xml %{buildroot}/etc/xensource/bugtool/xenvm.xml
+install -m 0644 stuff.xml %{buildroot}/etc/xensource/bugtool/xenvm/stuff.xml
 
 %files
 %doc README.md 
@@ -58,8 +65,13 @@ mkdir -p %{buildroot}/var/lib/xenvmd
 /opt/xensource/sm/refresh-demo
 /opt/xensource/sm/resize-demo
 /var/lib/xenvmd
+/etc/xensource/bugtool/xenvm/stuff.xml
+/etc/xensource/bugtool/xenvm.xml
 
 %changelog
+* Tue Aug 11 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.2.0-4
+- Add xen-bugtool plugin
+
 * Mon Jul 27 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.2.0-3
 - Create /var/lib/xenvmd
 
