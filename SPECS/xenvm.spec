@@ -9,6 +9,7 @@ Source1:        refresh-demo
 Source2:        resize-demo
 Source3:        xenvm-bugtool1.xml
 Source4:        xenvm-bugtool2.xml
+Source5:        xenvm_diagnostics
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cmdliner-devel
@@ -37,6 +38,7 @@ A compatible replacement for LVM supporting thinly provisioned volumes.
 %setup -q -n xenvm-%{version}
 cp %{SOURCE3} xenvm.xml
 cp %{SOURCE4} stuff.xml
+cp %{SOURCE5} xenvm_diagnostics
 
 %build
 make
@@ -55,6 +57,8 @@ mkdir -p %{buildroot}/var/lib/xenvmd
 mkdir -p %{buildroot}/etc/xensource/bugtool/xenvm
 install -m 0644 xenvm.xml %{buildroot}/etc/xensource/bugtool/xenvm.xml
 install -m 0644 stuff.xml %{buildroot}/etc/xensource/bugtool/xenvm/stuff.xml
+mkdir -p %{buildroot}/opt/xensource/libexec
+install -m 0755 xenvm_diagnostics %{buildroot}/opt/xensource/libexec/xenvm_diagnostics
 
 %files
 %doc README.md 
