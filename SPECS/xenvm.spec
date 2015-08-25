@@ -71,6 +71,7 @@ install -m 0755 xenvm_diagnostics %{buildroot}/opt/xensource/libexec/xenvm_diagn
 /var/lib/xenvmd
 /etc/xensource/bugtool/xenvm/stuff.xml
 /etc/xensource/bugtool/xenvm.xml
+/opt/xensource/libexec/xenvm_diagnostics
 
 %changelog
 * Tue Aug 11 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.2.0-4
