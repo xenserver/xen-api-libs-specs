@@ -14,5 +14,7 @@ ALL=$(ls -1 $XENVM_D | grep "^VG_" | cut -f 1 -d '.' | sort | uniq)
 cd $scratch
 for i in $ALL; do
   xenvm host-dump $i $INSTALLATION_UUID
+  DEVICE=$(cat $XENVM_D/$i.xenvmd.config | grep devices | sed -r 's/\(devices \((.+)\)\)/\1/g')
+  xenvm dump $DEVICE > lvm.meta
 done
 tar -cj *
