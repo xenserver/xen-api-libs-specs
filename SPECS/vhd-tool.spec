@@ -39,6 +39,7 @@ make
 mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_libexecdir}/xapi
 mkdir -p %{buildroot}/etc
+./configure --bindir %{buildroot}/%{_bindir} --libexecdir %{buildroot}/%{_libexecdir}/xapi --etcdir %{buildroot}/etc
 make install
 
 
