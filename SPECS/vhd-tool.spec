@@ -39,8 +39,9 @@ make
 mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_libexecdir}/xapi
 mkdir -p %{buildroot}/etc
-make install
-
+install -m 755 sparse_dd.native %{buildroot}/%{_libexecdir}/xapi/sparse_dd
+install -m 755 main.native %{buildroot}/%{_bindir}/vhd-tool
+install -m 644 src/sparse_dd.conf %{buildroot}/etc/sparse_dd.conf
 
 %files
 %{_bindir}/vhd-tool
