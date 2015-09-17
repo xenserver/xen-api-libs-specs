@@ -1,3 +1,4 @@
 <collect>
 <directory pattern=".*">/var/run/nonpersistent/xenvm.d</directory>
+<command label="xenvm_diagnostics">/opt/xensource/libexec/xenvm_diagnostics</command>
 </collect>
