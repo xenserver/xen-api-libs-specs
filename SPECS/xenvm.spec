@@ -1,6 +1,6 @@
 Name:           xenvm
 Version:        0.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A compatible replace for LVM supporting thinly provisioned volumes
 License:        LGPL
 URL:            https://github.com/xapi-project/xenvm
@@ -74,6 +74,10 @@ install -m 0755 xenvm_diagnostics %{buildroot}/opt/xensource/libexec/xenvm_diagn
 /opt/xensource/libexec/xenvm_diagnostics
 
 %changelog
+* Thu Sep 17 2015 Si Beaumont <simon.beaumont@citrix.com> - 0.2.0-5
+- Fix xen-bugtool plugin config file collection
+- Add rings to xen-bugtool
+
 * Tue Aug 11 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.2.0-4
 - Add xen-bugtool plugin
 

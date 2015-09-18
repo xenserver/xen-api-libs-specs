@@ -2,7 +2,7 @@
 set -e
 
 . /etc/xensource-inventory
-XENVM_D=/etc/xenvm.d
+XENVM_D=/var/run/nonpersistent/xenvm.d
 
 scratch=$(mktemp -d -t tmp.XXXXXXXXXX)
 function finish {
