@@ -1,5 +1,5 @@
 Name:           xenopsd
-Version:        0.10.1
+Version:        0.12.0
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
@@ -140,6 +140,7 @@ install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 %{_sbindir}/xenopsd-xc
 %{_sysconfdir}/init.d/xenopsd-xc
 %{_mandir}/man1/xenopsd-xc.1.gz
+%{_libexecdir}/%{name}/set-domain-uuid
 
 %post xc
 /sbin/chkconfig --add xenopsd-xc
@@ -180,6 +181,9 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Thu Sep 24 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.0-1
+- New upstream release, and an extra file
+
 * Thu Apr 30 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - UNRELEASED
 - Revert some PCI passthrough patches
 
