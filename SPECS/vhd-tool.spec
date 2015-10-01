@@ -2,7 +2,7 @@
 Summary: Command-line tools for manipulating and streaming .vhd format files
 Name:    vhd-tool
 Version: 0.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL+linking exception
 URL:  https://github.com/xapi-project/vhd-tool
 Source0: https://github.com/xapi-project/vhd-tool/archive/v%{version}/vhd-tool-%{version}.tar.gz
@@ -42,13 +42,18 @@ mkdir -p %{buildroot}/etc
 install -m 755 sparse_dd.native %{buildroot}/%{_libexecdir}/xapi/sparse_dd
 install -m 755 main.native %{buildroot}/%{_bindir}/vhd-tool
 install -m 644 src/sparse_dd.conf %{buildroot}/etc/sparse_dd.conf
+install -m 755 get_vhd_vsize.native %{buildroot}/%{_libexecdir}/xapi/get_vhd_vsize
 
 %files
 %{_bindir}/vhd-tool
 /etc/sparse_dd.conf
 %{_libexecdir}/xapi/sparse_dd
+%{_libexecdir}/xapi/get_vhd_vsize
 
 %changelog
+* Thu Oct 1 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.7.5-2
+- Add get_vhd_vsize
+
 * Fri Jun 6 2014 Jonathan Ludlam <jonathan.ludlam@citrix.com> - 0.7.5-1
 - Update to 0.7.5
 
