@@ -2,7 +2,7 @@
 #
 #  xcp-networkd        Startup script for network management service
 #
-# chkconfig: 2345 13 88
+# chkconfig: 2345 14 88
 # description: Manages host networking for VMs.
 ### BEGIN INIT INFO
 # Provides: xcp-networkd
