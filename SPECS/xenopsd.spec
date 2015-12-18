@@ -12,6 +12,7 @@ Source4:        xenopsd-xenlight-init
 Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
 Source7:        xenopsd-64-conf
+Patch0:         xenopsd-watch-attr-xenstore-key.patch
 BuildRequires:  ocaml
 BuildRequires:  optcomp
 BuildRequires:  ocaml-findlib
@@ -82,6 +83,7 @@ Simple VM manager for Xen using libxenlight
 
 %prep
 %setup -q
+%patch0 -p1
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
 cp %{SOURCE3} xenopsd-libvirt-init
