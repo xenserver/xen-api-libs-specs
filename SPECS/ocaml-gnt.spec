@@ -1,10 +1,10 @@
 %define debug_package %{nil}
 
 Name:           ocaml-gnt
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        2.2.2
+Release:        1%{?dist}
 Summary:        OCaml bindings for userspace Xen grant table controls
-License:        LGPL2.1 + OCaml linking exception
+License:        ISC
 URL:            https://github.com/xapi-project/ocaml-gnt/
 Source0:        https://github.com/xapi-project/ocaml-gnt/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
@@ -15,9 +15,8 @@ BuildRequires:  ocaml-cstruct-devel
 BuildRequires:  ocaml-io-page-devel
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-cmdliner-devel
-BuildRequires:  xen-devel
+BuildRequires:  ocaml-mirage-profile-devel
 BuildRequires:  xen-dom0-libs-devel
-BuildRequires:  xen-dom0-libs
 Requires:       ocaml
 Requires:       ocaml-findlib
 Requires:       xen-dom0-libs
@@ -30,10 +29,9 @@ or network backends.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       ocaml-io-page-devel
-Requires:       xen-devel
-Requires:       xen-dom0-libs-devel
-Requires:       xen-dom0-libs
+Requires:       ocaml-mirage-profile-devel%{?_isa}
+Requires:       ocaml-io-page-devel%{?_isa}
+Requires:       xen-dom0-libs-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -53,8 +51,7 @@ export OCAMLFIND_LDCONF=%{buildroot}%{_libdir}/ocaml/ld.conf
 ocaml setup.ml -install
 
 %files
-%doc LICENSE
-%doc ChangeLog README.md
+%doc CHANGES README.md
 %{_libdir}/ocaml/xen-gnt
 %exclude %{_libdir}/ocaml/xen-gnt/*.a
 %exclude %{_libdir}/ocaml/xen-gnt/*.cmxa
@@ -68,6 +65,9 @@ ocaml setup.ml -install
 %{_libdir}/ocaml/xen-gnt/*.mli
 
 %changelog
+* Thu Jan 28 2016 Andrew Cooper <andrew.cooper3@citrix.com> - 2.2.2-1
+- Update to version 2.2.2
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.0-2
 - Remove dependency on xen-missing-headers
 
