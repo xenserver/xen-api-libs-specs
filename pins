@@ -33,8 +33,5 @@
   },
   "SPECS/xenopsd.spec": {
     "0": "/repos/xenopsd#HEAD"
-  },
-  "SPECS/xenvm.spec": {
-    "0": "/repos/xenvm#HEAD"
   }
 }
