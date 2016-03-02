@@ -1,0 +1,14 @@
+[Unit]
+Description=XCP RRD daemon
+After=forkexecd.service xenstored.socket message-switch.service
+Wants=forkexecd.service xenstored.socket message-switch.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/xcp-rrdd.pid
+Environment=OCAMLRUNPARAM=b
+EnvironmentFile=-/etc/sysconfig/xcp-rrdd
+ExecStart=/usr/sbin/xcp-rrdd --daemon true --pidfile /var/run/xcp-rrdd.pid $XCP_RRDD_OPTIONS
+
+[Install]
+WantedBy=multi-user.target
