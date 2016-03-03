@@ -1,0 +1,15 @@
+[Unit]
+Description=XCP networking daemon
+Documentation=man:xcp-networkd(1)
+After=network-online.target forkexecd.service message-switch.service
+Wants=network-online.target forkexecd.service message-switch.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/xcp-networkd.pid
+Environment=OCAMLRUNPARAM=b
+EnvironmentFile=-/etc/sysconfig/xcp-networkd
+ExecStart=/usr/sbin/xcp-networkd --daemon true --pidfile /var/run/xcp-networkd.pid $XCP_NETWORKD_OPTIONS
+
+[Install]
+WantedBy=multi-user.target
