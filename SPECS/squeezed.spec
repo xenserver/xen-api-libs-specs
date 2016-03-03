@@ -1,12 +1,13 @@
 Name:           squeezed
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
 Source0:        https://github.com/xapi-project/squeezed/archive/v%{version}/squeezed-%{version}.tar.gz
-Source1:        squeezed-init
-Source2:        squeezed-conf
+Source1:        squeezed.service
+Source2:        squeezed-sysconfig
+Source3:        squeezed-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-re-devel
@@ -22,45 +23,51 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-dom0-libs
 BuildRequires:  xen-libs-devel
 BuildRequires:  xen-libs
-#Requires:       redhat-lsb-core
+BuildRequires:  systemd-devel
 Requires:       message-switch
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
 Memory ballooning daemon for the xapi toolstack.
 
 %prep
 %setup -q
-cp %{SOURCE1} squeezed-init
-cp %{SOURCE2} squeezed-conf
 
 %build
 ./configure --prefix %{_prefix} --destdir %{buildroot}
 make
 
 %install
-install -D -m 0755 squeezed.native %{buildroot}%{_sbindir}/squeezed
-install -D -m 0755 squeezed-init %{buildroot}%{_sysconfdir}/init.d/squeezed
-install -D -m 0644 squeezed-conf %{buildroot}%{_sysconfdir}/squeezed.conf
-
+%{__install} -D -m 0755 squeezed.native %{buildroot}%{_sbindir}/squeezed
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/squeezed.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/squeezed
+%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/squeezed.conf
 
 %files
 %doc README.md 
 %doc LICENSE 
 %doc MAINTAINERS
 %{_sbindir}/squeezed
-%{_sysconfdir}/init.d/squeezed
-%config %{_sysconfdir}/squeezed.conf
+%{_unitdir}/squeezed.service
+%config(noreplace) %{_sysconfdir}/sysconfig/squeezed
+%config(noreplace) %{_sysconfdir}/squeezed.conf
 
 %post
-/sbin/chkconfig --add squeezed
+%systemd_post squeezed.service
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service squeezed stop > /dev/null 2>&1
-  /sbin/chkconfig --del squeezed
-fi
+%systemd_preun squeezed.service
+
+%postun
+%systemd_postun_with_restart squeezed.service
 
 %changelog
+* Thu Mar 3 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.11.0-2
+- Package for systemd
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.10.6-2
 - Remove dependency on xen-missing-headers
 
