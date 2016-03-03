@@ -1,0 +1,13 @@
+[Unit]
+Description=Manages subprocesses independently from a multithreaded program.
+
+[Service]
+Type=forking
+KillMode=process
+PIDFile=/var/run/forkexecd.pid
+Environment=OCAMLRUNPARAM=b
+EnvironmentFile=-/etc/sysconfig/forkexecd
+ExecStart=/usr/sbin/forkexecd -daemon -pidfile /var/run/forkexecd.pid $FORKEXECD_OPTIONS
+
+[Install]
+WantedBy=multi-user.target

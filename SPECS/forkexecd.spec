@@ -1,12 +1,13 @@
 Version:        0.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
 URL:            https://github.com/xapi-project/forkexecd
 Source0:        https://github.com/xapi-project/forkexecd/archive/%{version}/forkexecd-%{version}.tar.gz
-Source1:        forkexecd-init
+Source1:        forkexecd.service
+Source2:        forkexecd-sysconfig
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fd-send-recv-devel
@@ -16,10 +17,11 @@ BuildRequires:  ocaml-stdext-devel
 BuildRequires:  ocaml-uuidm-devel
 BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  ocaml-oclock-devel
-#Requires:  redhat-lsb-core
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
+BuildRequires:  systemd-devel
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
 A service which starts and manages subprocesses, avoiding the need to manually
@@ -27,7 +29,6 @@ fork() and exec() in a multithreaded program.
 
 %prep
 %setup -q
-cp %{SOURCE1} forkexecd-init
 
 %build
 ocaml setup.ml -configure
@@ -37,26 +38,25 @@ ocaml setup.ml -build
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 ocaml setup.ml -install
-mkdir -p %{buildroot}/%{_sbindir}
-install fe_main.native %{buildroot}/%{_sbindir}/forkexecd
-install fe_cli.native %{buildroot}/%{_sbindir}/forkexecd-cli
-mkdir -p %{buildroot}/%{_sysconfdir}/init.d
-install -m 0755 forkexecd-init %{buildroot}%{_sysconfdir}/init.d/forkexecd
-
+%{__install} -D -m 0755 fe_main.native %{buildroot}%{_sbindir}/forkexecd
+%{__install} -D -m 0755 fe_cli.native %{buildroot}%{_sbindir}/forkexecd-cli
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/forkexecd.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/forkexecd
 
 %files
 %{_sbindir}/forkexecd
 %{_sbindir}/forkexecd-cli
-%{_sysconfdir}/init.d/forkexecd
+%{_unitdir}/forkexecd.service
+%{_sysconfdir}/sysconfig/forkexecd
 
 %post
-/sbin/chkconfig --add forkexecd
+%systemd_post forkexecd.service
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service forkexecd stop > /dev/null 2>&1
-  /sbin/chkconfig --del forkexecd
-fi
+%systemd_preun forkexecd.service
+
+%postun
+%systemd_postun_with_restart forkexecd.service
 
 %package        devel
 Summary:        Development files for %{name}
@@ -76,6 +76,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Thu Mar 3 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.2-2
+- Package for systemd
+
 * Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.2-1
 - Update to 0.9.2
 
