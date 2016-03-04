@@ -1,0 +1,3 @@
+# Additional options for the Xapi toolstack store and forward message switch.
+# MESSAGE_SWITCH_OPTIONS= : extra commandline startup arguments for message-switch
+MESSAGE_SWITCH_OPTIONS=
