@@ -7,7 +7,6 @@ URL:            https://github.com/xapi-project/xenopsd
 Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
 Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
-Source3:        xenopsd-libvirt-init
 Source4:        xenopsd-xenlight-init
 Source5:        xenopsd-conf
 Source6:        xenopsd-network-conf
@@ -67,7 +66,6 @@ Simple VM manager for Xen using libxenlight
 %setup -q
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
-cp %{SOURCE3} xenopsd-libvirt-init
 cp %{SOURCE4} xenopsd-xenlight-init
 cp %{SOURCE5} xenopsd.conf
 cp %{SOURCE6} xenopsd-network-conf
