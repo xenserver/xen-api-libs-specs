@@ -8,7 +8,6 @@ Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xeno
 Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
 Source4:        xenopsd-xenlight-init
-Source6:        xenopsd-network-conf
 Source7:        xenopsd-64-conf
 BuildRequires:  ocaml
 BuildRequires:  optcomp
@@ -66,7 +65,6 @@ Simple VM manager for Xen using libxenlight
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
 cp %{SOURCE4} xenopsd-xenlight-init
-cp %{SOURCE6} xenopsd-network-conf
 cp %{SOURCE7} xenopsd-64-conf
 
 %build
@@ -82,13 +80,11 @@ gzip %{buildroot}%{_mandir}/man1/*.1
 %{__install} -D -m 0755 xenopsd-xc-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-xc
 %{__install} -D -m 0755 xenopsd-simulator-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-simulator
 %{__install} -D -m 0644 xenopsd-64-conf %{buildroot}%{_sysconfdir}/xenopsd.conf
-%{__install} -D -m 0644 xenopsd-network-conf %{buildroot}%{_sysconfdir}/xapi/network.conf
 
 %files
 %doc README.md LICENSE
 %{_libexecdir}/%{name}
 %{_sysconfdir}/xenopsd.conf
-%{_sysconfdir}/xapi/network.conf
 %{_sysconfdir}/udev/rules.d/xen-backend.rules
 
 %files xc
