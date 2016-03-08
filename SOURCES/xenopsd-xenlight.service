@@ -1,0 +1,12 @@
+[Unit]
+Description=VM manager for Xen using libxenlight
+Documentation=man:xenopsd-xenlight(1)
+After=network-online.target message-switch.service xapi-storage-script.service
+Wants=network-online.target message-switch.service xapi-storage-script.service
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/xenopsd
+ExecStart=/usr/sbin/xenopsd-xenlight --config /etc/xenopsd.conf $XENOPSD_XENLIGHT_OPTIONS
+
+[Install]
+WantedBy=multi-user.target

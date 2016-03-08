@@ -1,0 +1,12 @@
+[Unit]
+Description=Simulated VM manager for testing
+Documentation=man:xenopsd-simulator(1)
+After=network-online.target message-switch.service
+Wants=network-online.target message-switch.service
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/xenopsd
+ExecStart=/usr/sbin/xenopsd-simulator --config /etc/xenopsd.conf $XENOPSD_SIMULATOR_OPTIONS
+
+[Install]
+WantedBy=multi-user.target

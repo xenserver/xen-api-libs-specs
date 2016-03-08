@@ -1,14 +1,15 @@
 Name:           xenopsd
 Version:        0.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
 Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
-Source1:        xenopsd-xc-init
-Source2:        xenopsd-simulator-init
-Source4:        xenopsd-xenlight-init
-Source7:        xenopsd-64-conf
+Source1:        xenopsd-xc.service
+Source2:        xenopsd-xenlight.service
+Source3:        xenopsd-simulator.service
+Source4:        xenopsd-sysconfig
+Source5:        xenopsd-64-conf
 BuildRequires:  ocaml
 BuildRequires:  optcomp
 BuildRequires:  ocaml-findlib
@@ -32,9 +33,14 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
+BuildRequires:  systemd-devel
 Requires:       message-switch
 Requires:       xenops-cli
 Requires:       xen-dom0-tools
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
 Simple VM manager for the xapi toolstack.
@@ -62,10 +68,6 @@ Simple VM manager for Xen using libxenlight
 
 %prep
 %setup -q
-cp %{SOURCE1} xenopsd-xc-init
-cp %{SOURCE2} xenopsd-simulator-init
-cp %{SOURCE4} xenopsd-xenlight-init
-cp %{SOURCE7} xenopsd-64-conf
 
 %build
 ./configure --libexecdir %{_libexecdir}/%{name}
@@ -73,64 +75,68 @@ make
 
 %install
 make install DESTDIR=%{buildroot} LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
-
 gzip %{buildroot}%{_mandir}/man1/*.1
-
-%{__install} -D -m 0755 xenopsd-xenlight-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-xenlight
-%{__install} -D -m 0755 xenopsd-xc-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-xc
-%{__install} -D -m 0755 xenopsd-simulator-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-simulator
-%{__install} -D -m 0644 xenopsd-64-conf %{buildroot}%{_sysconfdir}/xenopsd.conf
+%{__install} -D -m 0755 %{SOURCE1} %{buildroot}%{_unitdir}/xenopsd-xc.service
+%{__install} -D -m 0755 %{SOURCE2} %{buildroot}%{_unitdir}/xenopsd-xenlight.service
+%{__install} -D -m 0755 %{SOURCE3} %{buildroot}%{_unitdir}/xenopsd-simulator.service
+%{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/xenopsd
+%{__install} -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/xenopsd.conf
 
 %files
 %doc README.md LICENSE
 %{_libexecdir}/%{name}
 %{_sysconfdir}/xenopsd.conf
 %{_sysconfdir}/udev/rules.d/xen-backend.rules
+%config(noreplace) %{_sysconfdir}/sysconfig/xenopsd
+%config(noreplace) %{_sysconfdir}/xenopsd.conf
 
 %files xc
 %{_sbindir}/xenopsd-xc
-%{_sysconfdir}/init.d/xenopsd-xc
+%{_unitdir}/xenopsd-xc.service
 %{_mandir}/man1/xenopsd-xc.1.gz
 %{_libexecdir}/%{name}/set-domain-uuid
 
 %post xc
-/sbin/chkconfig --add xenopsd-xc
+%systemd_post xenopsd-xc.service
 
 %preun xc
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-xc stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-xc
-fi
+%systemd_preun xenopsd-xc.service
+
+%postun xc
+%systemd_postun_with_restart xenopsd-xc.service
 
 %files simulator
 %{_sbindir}/xenopsd-simulator
-%{_sysconfdir}/init.d/xenopsd-simulator
+%{_unitdir}/xenopsd-simulator.service
 %{_mandir}/man1/xenopsd-simulator.1.gz
 
 %post simulator
-/sbin/chkconfig --add xenopsd-simulator
+%systemd_post xenopsd-simulator.service
 
 %preun simulator
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-simulator stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-simulator
-fi
+%systemd_preun xenopsd-simulator.service
+
+%postun simulator
+%systemd_postun_with_restart xenopsd-simulator.service
 
 %files xenlight
 %{_sbindir}/xenopsd-xenlight
-%{_sysconfdir}/init.d/xenopsd-xenlight
+%{_unitdir}/xenopsd-xenlight.service
 %{_mandir}/man1/xenopsd-xenlight.1.gz
 
 %post xenlight
-#/sbin/chkconfig --add xenopsd-xenlight
+%systemd_post xenopsd-xenlight.service
 
 %preun xenlight
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-xenlight stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-xenlight
-fi
+%systemd_preun xenopsd-xenlight.service
+
+%postun xenlight
+%systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Tue Mar  8 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.0-2
+- Package for systemd
+
 * Thu Sep 24 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.0-1
 - New upstream release, and an extra file
 
