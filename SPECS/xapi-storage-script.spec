@@ -1,5 +1,3 @@
-# -*- rpm-spec -*-
-
 Summary: Xapi storage script plugin server
 Name:    xapi-storage-script
 Version: 0.12.1
@@ -7,8 +5,9 @@ Release: 1%{?dist}
 License: LGPL+linking exception
 URL:     https://github.com/xapi-project/xapi-storage-script
 Source0: https://github.com/xapi-project/xapi-storage-script/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1: xapi-storage-script-init
-Source2: xapi-storage-script-conf.in
+Source1: xapi-storage-script.service
+Source2: xapi-storage-script-sysconfig
+Source3: xapi-storage-script-conf.in
 BuildRequires: ocaml
 BuildRequires: ocaml-camlp4-devel
 BuildRequires: ocaml-findlib
@@ -19,55 +18,57 @@ BuildRequires: message-switch-devel
 BuildRequires: ocaml-rpc-devel
 BuildRequires: xapi-storage-ocaml-plugin-devel
 BuildRequires: ocaml-xcp-rrd-devel
+BuildRequires: systemd-devel
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
 Allows script-based Xapi storage adapters.
 
 %prep 
 %setup -q -n %{name}-%{version}
-cp %{SOURCE1} xapi-storage-script-init
-cp %{SOURCE2} xapi-storage-script-conf.in
 
 %build
 make
 mv main.native xapi-storage-script
-./xapi-storage-script --help=groff > xapi-storage-script.1
-sed -e "s|@LIBEXECDIR@|%{_libexecdir}|g" xapi-storage-script-conf.in > xapi-storage-script.conf
+./xapi-storage-script --help=groff > xapi-storage-script.1 && gzip xapi-storage-script.1
+sed -e "s|@LIBEXECDIR@|%{_libexecdir}|g" %{SOURCE3} > xapi-storage-script.conf
 
 %install
- 
-mkdir -p %{buildroot}/%{_sbindir}
-install -m 0755 xapi-storage-script %{buildroot}/%{_sbindir}/xapi-storage-script
-mkdir -p %{buildroot}%{_sysconfdir}/init.d
-install -m 0755 xapi-storage-script-init %{buildroot}%{_sysconfdir}/init.d/xapi-storage-script
-mkdir -p %{buildroot}/%{_libexecdir}/xapi-storage-script
-mkdir -p %{buildroot}/%{_libexecdir}/xapi-storage-script/volume
-mkdir -p %{buildroot}/%{_libexecdir}/xapi-storage-script/datapath
-mkdir -p %{buildroot}/etc
-install -m 0644 xapi-storage-script.conf %{buildroot}/etc/xapi-storage-script.conf
-mkdir -p %{buildroot}%{_mandir}/man2
-install -m 0644 xapi-storage-script.1 %{buildroot}%{_mandir}/man2/xapi-storage-script.1
-gzip %{buildroot}%{_mandir}/man2/xapi-storage-script.1
+mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script
+mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/volume
+mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/datapath
+%{__install} -D -m 0755 xapi-storage-script %{buildroot}%{_sbindir}/xapi-storage-script
+%{__install} -D -m 0644 xapi-storage-script.conf %{buildroot}%{_sysconfdir}/xapi-storage-script.conf
+%{__install} -D -m 0644 xapi-storage-script.1.gz %{buildroot}%{_mandir}/man2/xapi-storage-script.1.gz
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xapi-storage-script.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xapi-storage-script
 
 %post
-[ ! -x /sbin/chkconfig ] || chkconfig --add xapi-storage-script
+%systemd_post xapi-storage-script.service
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service xapi-storage-script stop > /dev/null 2>&1
-  /sbin/chkconfig --del xapi-storage-script
-fi
+%systemd_preun xapi-storage-script.service
+
+%postun
+%systemd_postun_with_restart xapi-storage-script.service
 
 %files
-%{_sbindir}/xapi-storage-script
-/etc/init.d/xapi-storage-script
-%config(noreplace) /etc/xapi-storage-script.conf
 %{_libexecdir}/xapi-storage-script
 %{_libexecdir}/xapi-storage-script/volume
 %{_libexecdir}/xapi-storage-script/datapath
+%{_sbindir}/xapi-storage-script
 %{_mandir}/man2/xapi-storage-script.1.gz
+%{_unitdir}/xapi-storage-script.service
+%config(noreplace) %{_sysconfdir}/sysconfig/xapi-storage-script
+%config(noreplace) %{_sysconfdir}/xapi-storage-script.conf
 
 %changelog
+* Thu Mar  8 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.1-2
+- Package for systemd
+
 * Wed Feb 03 2016 Euan Harris <euan.harris@citrix.com> - 0.12.1-1
 - Update to 0.12.1
 

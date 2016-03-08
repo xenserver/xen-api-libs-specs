@@ -1,0 +1,12 @@
+[Unit]
+Description=Xapi storage script plugin server
+After=network-online.target message-switch.service
+Wants=network-online.target message-switch.service
+
+[Service]
+Environment=OCAMLRUNPARAM=b
+EnvironmentFile=-/etc/sysconfig/xapi-storage-script
+ExecStart=/usr/sbin/xapi-storage-script $XAPI_STORAGE_SCRIPT_OPTIONS
+
+[Install]
+WantedBy=multi-user.target
