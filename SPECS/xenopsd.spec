@@ -23,8 +23,6 @@ BuildRequires:  ocaml-cohttp-devel
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml-oclock-devel
 BuildRequires:  ocaml-uuidm-devel
-#BuildRequires:  libvirt-devel
-#BuildRequires:  ocaml-libvirt-devel
 BuildRequires:  ocaml-qmp-devel
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  xen-ocaml-devel
@@ -38,38 +36,23 @@ BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
 Requires:       message-switch
-#Requires:       redhat-lsb-core
 Requires:       xenops-cli
-#Requires:       vncterm
-#Requires:       linux-guest-loader
 Requires:       xen-dom0-tools
 
 %description
 Simple VM manager for the xapi toolstack.
 
-#%package        libvirt
-#Summary:        Xenopsd using libvirt
-#Requires:       %{name} = %{version}-%{release}
-#Requires:       libvirt
-
-#%description    libvirt
-#Simple VM manager for Xen and KVM using libvirt.
-
-
 %package        xc
 Summary:        Xenopsd using xc
 Requires:       %{name} = %{version}-%{release}
 Requires:       forkexecd
-#Requires:       vncterm
 Requires:       xen-libs
-
 %description    xc
 Simple VM manager for Xen using libxc.
 
 %package        simulator
 Summary:        Xenopsd simulator
 Requires:       %{name} = %{version}-%{release}
-
 %description    simulator
 A synthetic VM manager for testing.
 
@@ -99,42 +82,18 @@ make install DESTDIR=%{buildroot} LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_s
 
 gzip %{buildroot}%{_mandir}/man1/*.1
 
-install -D -m 0755 xenopsd-xenlight-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xenlight
-install -m 0755 xenopsd-xc-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xc
-install -m 0755 xenopsd-simulator-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-simulator
-mkdir -p %{buildroot}/etc/xapi
-install -m 0644 xenopsd-64-conf %{buildroot}/etc/xenopsd.conf
-install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
-
+%{__install} -D -m 0755 xenopsd-xenlight-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-xenlight
+%{__install} -D -m 0755 xenopsd-xc-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-xc
+%{__install} -D -m 0755 xenopsd-simulator-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-simulator
+%{__install} -D -m 0644 xenopsd-64-conf %{buildroot}%{_sysconfdir}/xenopsd.conf
+%{__install} -D -m 0644 xenopsd-network-conf %{buildroot}%{_sysconfdir}/xapi/network.conf
 
 %files
 %doc README.md LICENSE
-%{_libexecdir}/%{name}/vif
-%{_libexecdir}/%{name}/vif-real
-%{_libexecdir}/%{name}/block
-%{_libexecdir}/%{name}/tap
-%{_libexecdir}/%{name}/qemu-dm-wrapper
-%{_libexecdir}/%{name}/qemu-vif-script
-%{_libexecdir}/%{name}/setup-vif-rules
-%{_libexecdir}/%{name}/common.py
-%{_libexecdir}/%{name}/common.pyo
-%{_libexecdir}/%{name}/common.pyc
-/etc/xenopsd.conf
-/etc/xapi/network.conf
-/etc/udev/rules.d/xen-backend.rules
-
-#%files libvirt
-#%{_sbindir}/xenopsd-libvirt
-#%{_sysconfdir}/init.d/xenopsd-libvirt
-
-#%post libvirt
-#/sbin/chkconfig --add xenopsd-libvirt
-
-#%preun libvirt
-#if [ $1 -eq 0 ]; then
-#  /sbin/service xenopsd-libvirt stop > /dev/null 2>&1
-#  /sbin/chkconfig --del xenopsd-libvirt
-#fi
+%{_libexecdir}/%{name}
+%{_sysconfdir}/xenopsd.conf
+%{_sysconfdir}/xapi/network.conf
+%{_sysconfdir}/udev/rules.d/xen-backend.rules
 
 %files xc
 %{_sbindir}/xenopsd-xc
@@ -166,7 +125,6 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files xenlight
-%defattr(-,root,root)
 %{_sbindir}/xenopsd-xenlight
 %{_sysconfdir}/init.d/xenopsd-xenlight
 %{_mandir}/man1/xenopsd-xenlight.1.gz
