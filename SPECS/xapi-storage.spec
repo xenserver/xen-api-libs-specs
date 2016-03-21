@@ -1,7 +1,7 @@
 Summary:       Xapi storage interface
 Name:          xapi-storage
 Version:       0.8.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           https://github.com/xapi-project/xapi-storage
 Source0:       https://github.com/xapi-project/xapi-storage/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:        xapi-storage.patch
@@ -18,17 +18,26 @@ BuildRequires: ocaml-rpc-devel
 %description
 Xapi storage inteface libraries
 
-%package        devel
+%package        ocaml-plugin-runtime
 Summary:        Development files for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
+
+%description    ocaml-plugin-runtime
+The %{name}-ocaml-plugin package contains runtime libraries for OCaml
+plugins for %{name}.
+
+%package        ocaml-plugin-devel
+Summary:        Development files for %{name}
+Group:          Development/Libraries
+Requires:       %{name}-ocaml-plugin-devel = %{version}-%{release}
 Requires:       ocaml-findlib
 Requires:       ocaml-cow-devel
 Requires:       ocaml-xmlm-devel
 Requires:       ocaml-cmdliner-devel
 Requires:       ocaml-rpc-devel
 
-%description    devel
+%description    ocaml-plugin-devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
@@ -70,9 +79,6 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 %files
 %defattr(-,root,root,-)
 %{_libdir}/ocaml/xapi-storage
-%exclude %{_libdir}/ocaml/xapi-storage/*.a
-%exclude %{_libdir}/ocaml/xapi-storage/*.cmxa
-%exclude %{_libdir}/ocaml/xapi-storage/*.ml
 %{python_sitelib}/xapi/__init__.py*
 %{python_sitelib}/xapi/storage/__init__.py*
 %{python_sitelib}/xapi/storage/common.py*
@@ -82,13 +88,30 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 %{python_sitelib}/xapi/storage/api/plugin.py*
 %{python_sitelib}/xapi/storage/api/__init__.py*
 
-%files devel
+%files ocaml-plugin-runtime
+%defattr(-,root,root,-)
+%exclude %{_libdir}/ocaml/xapi-storage/
+%exclude %{_libdir}/ocaml/xapi-storage/*.a
+%exclude %{_libdir}/ocaml/xapi-storage/*.cmxa
+%exclude %{_libdir}/ocaml/xapi-storage/*.cmx
+%exclude %{_libdir}/ocaml/xapi-storage/*.ml
+%exclude %{_libdir}/ocaml/xapi-storage/*.cmt
+%exclude %{_libdir}/ocaml/xapi-storage/*.annot
+%{_libdir}/ocaml/xapi-storage/*.cma
+%{_libdir}/ocaml/xapi-storage/*.cmxs
+%{_libdir}/ocaml/xapi-storage/*.cmi
+
+%files ocaml-plugin-devel
 %defattr(-,root,root,-)
 %{_libdir}/ocaml/xapi-storage/*.a
 %{_libdir}/ocaml/xapi-storage/*.cmxa
+%{_libdir}/ocaml/xapi-storage/*.cmx
 %{_libdir}/ocaml/xapi-storage/*.ml
 
 %changelog
+* Mon Mar 22 2016 Euan Harris <euan.harris@citrix.com> - 0.8.2-2
+- Move OCaml plugin libraries into a subcomponent
+
 * Mon Oct 5 2015 Robert Breker <robert.breker@citrix.com> - 0.8.2-1
 - Update to 0.8.2
 
