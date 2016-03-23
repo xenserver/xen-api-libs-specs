@@ -17,7 +17,7 @@ BuildRequires: ocaml-xcp-idl-devel
 BuildRequires: ocaml-async-inotify-devel
 BuildRequires: message-switch-devel
 BuildRequires: ocaml-rpc-devel
-BuildRequires: xapi-storage-devel
+BuildRequires: xapi-storage-ocaml-plugin-devel
 BuildRequires: ocaml-xcp-rrd-devel
 
 %description
