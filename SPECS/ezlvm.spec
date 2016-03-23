@@ -11,7 +11,7 @@ BuildRequires: ocaml
 BuildRequires: ocaml-camlp4-devel
 BuildRequires: ocaml-findlib
 BuildRequires: ocaml-findlib-devel
-BuildRequires: xapi-storage-devel
+BuildRequires: xapi-storage-ocaml-plugin-devel
 BuildRequires: xapi-storage
 BuildRequires: ocaml-re-devel
 BuildRequires: ocaml-cmdliner-devel
@@ -22,7 +22,7 @@ Requires: ocaml
 Requires: ocaml-camlp4-devel
 Requires: ocaml-findlib
 Requires: ocaml-findlib-devel
-Requires: xapi-storage-devel
+Requires: xapi-storage-ocaml-plugin-devel
 Requires: xapi-storage
 Requires: ocaml-re-devel
 Requires: ocaml-cmdliner-devel
