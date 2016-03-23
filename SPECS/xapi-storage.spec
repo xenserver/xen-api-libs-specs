@@ -30,7 +30,7 @@ plugins for %{name}.
 %package        ocaml-plugin-devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries
-Requires:       %{name}-ocaml-plugin-devel = %{version}-%{release}
+Requires:       %{name}-ocaml-plugin-runtime = %{version}-%{release}
 Requires:       ocaml-findlib
 Requires:       ocaml-cow-devel
 Requires:       ocaml-xmlm-devel
