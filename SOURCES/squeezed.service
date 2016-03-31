@@ -5,11 +5,9 @@ After=xenstored.socket message-switch.service
 Wants=xenstored.socket message-switch.service
 
 [Service]
-Type=forking
-PIDFile=/var/run/squeezed.pid
 Environment=OCAMLRUNPARAM=b
 EnvironmentFile=-/etc/sysconfig/squeezed
-ExecStart=/usr/sbin/squeezed -daemon true -pidfile /var/run/squeezed.pid $SQUEEZED_OPTIONS
+ExecStart=/usr/sbin/squeezed $SQUEEZED_OPTIONS
 
 [Install]
 WantedBy=multi-user.target
