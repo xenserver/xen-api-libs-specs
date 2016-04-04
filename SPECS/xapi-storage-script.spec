@@ -33,7 +33,7 @@ Allows script-based Xapi storage adapters.
 %build
 make
 mv main.native xapi-storage-script
-./xapi-storage-script --help=groff > xapi-storage-script.1 && gzip xapi-storage-script.1
+./xapi-storage-script --help=groff > xapi-storage-script.8 && gzip xapi-storage-script.8
 sed -e "s|@LIBEXECDIR@|%{_libexecdir}|g" %{SOURCE3} > xapi-storage-script.conf
 
 %install
@@ -42,7 +42,7 @@ mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/volume
 mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/datapath
 %{__install} -D -m 0755 xapi-storage-script %{buildroot}%{_sbindir}/xapi-storage-script
 %{__install} -D -m 0644 xapi-storage-script.conf %{buildroot}%{_sysconfdir}/xapi-storage-script.conf
-%{__install} -D -m 0644 xapi-storage-script.1.gz %{buildroot}%{_mandir}/man2/xapi-storage-script.1.gz
+%{__install} -D -m 0644 xapi-storage-script.8.gz %{buildroot}%{_mandir}/man8/xapi-storage-script.1.gz
 %{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xapi-storage-script.service
 %{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xapi-storage-script
 
