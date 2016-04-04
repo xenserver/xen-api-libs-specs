@@ -85,7 +85,6 @@ gzip %{buildroot}%{_mandir}/man1/*.1
 %files
 %doc README.md LICENSE
 %{_libexecdir}/%{name}
-%{_sysconfdir}/xenopsd.conf
 %{_sysconfdir}/udev/rules.d/xen-backend.rules
 %config(noreplace) %{_sysconfdir}/sysconfig/xenopsd
 %config(noreplace) %{_sysconfdir}/xenopsd.conf
