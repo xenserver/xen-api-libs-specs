@@ -1,8 +1,8 @@
 [Unit]
 Description=VM manager for Xen using libxenlight
 Documentation=man:xenopsd-xenlight(1)
-After=network-online.target xenstored.service squeezed.service message-switch.service xapi-storage-script.service
-Wants=network-online.target xenstored.service squeezed.service message-switch.service xapi-storage-script.service
+After=network-online.target xenstored.service squeezed.service message-switch.service xapi-storage-script.service syslog.target
+Wants=network-online.target xenstored.service squeezed.service message-switch.service xapi-storage-script.service syslog.target
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/xenopsd

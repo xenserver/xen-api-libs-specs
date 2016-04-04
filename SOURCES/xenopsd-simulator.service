@@ -1,8 +1,8 @@
 [Unit]
 Description=Simulated VM manager for testing
 Documentation=man:xenopsd-simulator(1)
-After=network-online.target message-switch.service
-Wants=network-online.target message-switch.service
+After=network-online.target message-switch.service syslog.target
+Wants=network-online.target message-switch.service syslog.target
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/xenopsd

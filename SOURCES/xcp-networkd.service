@@ -1,8 +1,8 @@
 [Unit]
 Description=XCP networking daemon
 Documentation=man:xcp-networkd(1)
-After=network-online.target forkexecd.service message-switch.service
-Wants=network-online.target forkexecd.service message-switch.service
+After=network-online.target forkexecd.service message-switch.service syslog.target
+Wants=network-online.target forkexecd.service message-switch.service syslog.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b

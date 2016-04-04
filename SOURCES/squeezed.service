@@ -1,8 +1,8 @@
 [Unit]
 Description=Manages host memory by ballooning VMs
 Description=XCP networking daemon
-After=xenstored.socket message-switch.service
-Wants=xenstored.socket message-switch.service
+After=xenstored.socket message-switch.service syslog.target
+Wants=xenstored.socket message-switch.service syslog.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b

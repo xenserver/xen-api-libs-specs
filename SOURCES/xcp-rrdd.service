@@ -1,7 +1,7 @@
 [Unit]
 Description=XCP RRD daemon
-After=forkexecd.service xenstored.socket message-switch.service
-Wants=forkexecd.service xenstored.socket message-switch.service
+After=forkexecd.service xenstored.socket message-switch.service syslog.target
+Wants=forkexecd.service xenstored.socket message-switch.service syslog.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b
