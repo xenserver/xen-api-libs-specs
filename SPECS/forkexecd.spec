@@ -47,7 +47,7 @@ ocaml setup.ml -install
 %{_sbindir}/forkexecd
 %{_sbindir}/forkexecd-cli
 %{_unitdir}/forkexecd.service
-%{_sysconfdir}/sysconfig/forkexecd
+%config(noreplace) %{_sysconfdir}/sysconfig/forkexecd
 
 %post
 %systemd_post forkexecd.service
