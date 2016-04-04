@@ -1,5 +1,7 @@
 [Unit]
 Description=Xapi toolstack store and forward message switch
+After=syslog.target
+Wants=syslog.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b
