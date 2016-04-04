@@ -1,7 +1,5 @@
 [Unit]
 Description=Xapi toolstack store and forward message switch
-After=network-online.target
-Wants=network-online.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b
