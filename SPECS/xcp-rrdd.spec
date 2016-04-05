@@ -1,12 +1,13 @@
 Name:           xcp-rrdd
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
 Source0:        https://github.com/xapi-project/xcp-rrdd/archive/v%{version}/xcp-rrdd-%{version}.tar.gz
-Source1:        xcp-rrdd-init
-Source2:	xcp-rrdd-conf
+Source1:        xcp-rrdd.service
+Source2:        xcp-rrdd-sysconfig
+Source3:        xcp-rrdd-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -25,15 +26,17 @@ BuildRequires:  xen-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
 BuildRequires:  blktap-devel
-#Requires:       redhat-lsb-core
+BuildRequires:  systemd-devel
+
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 
 %description
 Statistics gathering daemon for the xapi toolstack.
 
 %prep
 %setup -q
-cp %{SOURCE1} xcp-rrdd-init
-cp %{SOURCE2} xcp-rrdd-conf
 
 %build
 make
@@ -41,26 +44,30 @@ make
 %install
 mkdir -p %{buildroot}/%{_sbindir}
 make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
-mkdir -p %{buildroot}%{_sysconfdir}/init.d
-install -m 0755 xcp-rrdd-init %{buildroot}%{_sysconfdir}/init.d/xcp-rrdd
-install -m 0644 xcp-rrdd-conf %{buildroot}/etc/xcp-rrdd.conf
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xcp-rrdd.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xcp-rrdd
+%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/xcp-rrdd.conf
 
 %files
 %doc README.markdown LICENSE
 %{_sbindir}/xcp-rrdd
-%{_sysconfdir}/init.d/xcp-rrdd
-/etc/xcp-rrdd.conf
+%{_unitdir}/xcp-rrdd.service
+%config(noreplace) %{_sysconfdir}/sysconfig/xcp-rrdd
+%config(noreplace) %{_sysconfdir}/xcp-rrdd.conf
 
 %post
-/sbin/chkconfig --add xcp-rrdd
+%systemd_post xcp-rrdd.service
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service xcp-rrdd stop > /dev/null 2>&1
-  /sbin/chkconfig --del xcp-rrdd
-fi
+%systemd_preun xcp-rrdd.service
+
+%postun
+%systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
+* Thu Mar 3 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.10.0-2
+- Package for systemd
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.7-2
 - Remove xen-missing-headers dependency 
 

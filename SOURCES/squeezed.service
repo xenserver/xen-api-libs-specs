@@ -1,0 +1,13 @@
+[Unit]
+Description=Manages host memory by ballooning VMs
+Description=XCP networking daemon
+After=xenstored.socket message-switch.service syslog.target
+Wants=xenstored.socket message-switch.service syslog.target
+
+[Service]
+Environment=OCAMLRUNPARAM=b
+EnvironmentFile=-/etc/sysconfig/squeezed
+ExecStart=/usr/sbin/squeezed $SQUEEZED_OPTIONS
+
+[Install]
+WantedBy=multi-user.target
