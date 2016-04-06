@@ -109,7 +109,7 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 %{_libdir}/ocaml/xapi-storage/*.ml
 
 %changelog
-* Mon Mar 22 2016 Euan Harris <euan.harris@citrix.com> - 0.8.2-2
+* Mon Mar 21 2016 Euan Harris <euan.harris@citrix.com> - 0.8.2-2
 - Move OCaml plugin libraries into a subcomponent
 
 * Mon Oct 5 2015 Robert Breker <robert.breker@citrix.com> - 0.8.2-1
