@@ -78,7 +78,6 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/ocaml/xapi-storage
 %{python_sitelib}/xapi/__init__.py*
 %{python_sitelib}/xapi/storage/__init__.py*
 %{python_sitelib}/xapi/storage/common.py*
@@ -90,7 +89,7 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 
 %files ocaml-plugin-runtime
 %defattr(-,root,root,-)
-%exclude %{_libdir}/ocaml/xapi-storage/
+%{_libdir}/ocaml/xapi-storage
 %exclude %{_libdir}/ocaml/xapi-storage/*.a
 %exclude %{_libdir}/ocaml/xapi-storage/*.cmxa
 %exclude %{_libdir}/ocaml/xapi-storage/*.cmx
@@ -103,10 +102,10 @@ cp storage/api/__init__.py storage/api/datapath.py storage/api/volume.py storage
 
 %files ocaml-plugin-devel
 %defattr(-,root,root,-)
+%exclude %{_libdir}/ocaml/xapi-storage/*.ml
 %{_libdir}/ocaml/xapi-storage/*.a
 %{_libdir}/ocaml/xapi-storage/*.cmxa
 %{_libdir}/ocaml/xapi-storage/*.cmx
-%{_libdir}/ocaml/xapi-storage/*.ml
 
 %changelog
 * Mon Mar 21 2016 Euan Harris <euan.harris@citrix.com> - 0.8.2-2
