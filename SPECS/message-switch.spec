@@ -1,15 +1,14 @@
 Name:           message-switch
 Version:        0.12.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A store and forward message switch
 License:        FreeBSD
 URL:            https://github.com/djs55/message-switch
 Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        message-switch.service
-Source2:        message-switch-sysconfig
-Source3:        message-switch-conf
-Source4:        message-switch-bugtool1.xml
-Source5:        message-switch-bugtool2.xml
+Source1:        message-switch-init
+Source2:        message-switch-conf
+Source3:        message-switch-bugtool1.xml
+Source4:        message-switch-bugtool2.xml
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -24,17 +23,21 @@ BuildRequires: ocaml-mtime-devel
 BuildRequires: ocaml-pa-structural-sexp-devel
 
 BuildRequires: oasis
-BuildRequires: systemd-devel
-
-Requires(post):   systemd
-Requires(preun):  systemd
-Requires(postun): systemd
+# Not available in the build chroot
+#Requires:      redhat-lsb-core
+Requires(post): chkconfig
+Requires(preun): chkconfig
+Requires(preun): initscripts
 
 %description
 A store and forward message switch for OCaml.
 
 %prep
 %setup -q
+cp %{SOURCE1} message-switch-init
+cp %{SOURCE2} message-switch-conf
+cp %{SOURCE3} message-switch.xml
+cp %{SOURCE4} stuff.xml
 
 %build
 sed -i s/,\ bisect// _oasis
@@ -46,31 +49,32 @@ ocaml setup.ml -build
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 ocaml setup.ml -install
-%{__install} -D -m 0755 switch_main.native %{buildroot}%{_sbindir}/message-switch
-%{__install} -D -m 0755 main.native %{buildroot}/%{_sbindir}/message-cli
-%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/message-switch.service
-%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/message-switch
-%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/message-switch.conf
-%{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/xensource/bugtool/message-switch.xml
-%{__install} -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/xensource/bugtool/message-switch/stuff.xml
+mkdir -p %{buildroot}/%{_sbindir}
+install switch_main.native %{buildroot}/%{_sbindir}/message-switch
+install main.native %{buildroot}/%{_sbindir}/message-cli
+mkdir -p %{buildroot}/%{_sysconfdir}/init.d
+install -m 0755 message-switch-init %{buildroot}%{_sysconfdir}/init.d/message-switch
+install -m 0644 message-switch-conf %{buildroot}/etc/message-switch.conf
+mkdir -p %{buildroot}/etc/xensource/bugtool/message-switch
+install -m 0644 message-switch.xml %{buildroot}/etc/xensource/bugtool/message-switch.xml
+install -m 0644 stuff.xml %{buildroot}/etc/xensource/bugtool/message-switch/stuff.xml
 
 %files
 %{_sbindir}/message-switch
 %{_sbindir}/message-cli
-%{_unitdir}/message-switch.service
-%{_sysconfdir}/xensource/bugtool/message-switch.xml
-%{_sysconfdir}/xensource/bugtool/message-switch/stuff.xml
-%config(noreplace) %{_sysconfdir}/sysconfig/message-switch
-%config(noreplace) %{_sysconfdir}/message-switch.conf
+%{_sysconfdir}/init.d/message-switch
+%config(noreplace) /etc/message-switch.conf
+/etc/xensource/bugtool/message-switch/stuff.xml
+/etc/xensource/bugtool/message-switch.xml
 
 %post
-%systemd_post message-switch.service
+/sbin/chkconfig --add message-switch
 
 %preun
-%systemd_preun message-switch.service
-
-%postun
-%systemd_postun_with_restart message-switch.service
+if [ $1 -eq 0 ]; then
+  /sbin/service message-switch stop > /dev/null 2>&1
+  /sbin/chkconfig --del message-switch
+fi
 
 %package        devel
 Summary:        Development files for %{name}
@@ -88,9 +92,6 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
-* Fri Mar  4 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.0-2
-- Package for systemd
-
 * Thu Jul 16 2015 David Scott <dave.scott@citrix.com> - 0.12.0-1
 - Add bugtool collection
 - Several bugfixes
