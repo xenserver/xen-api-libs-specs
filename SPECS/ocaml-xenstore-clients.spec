@@ -1,17 +1,19 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xenstore-clients
-Version:        0.9.3
+Version:        0.9.4
 Release:        1%{?dist}
 Summary:        Unix xenstore clients for OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/ocaml-xenstore-clients
 Source0:        https://github.com/xapi-project/ocaml-xenstore-clients/archive/%{version}/ocaml-xenstore-clients-%{version}.tar.gz
 BuildRequires:  ocaml
+BuildRequires:  oasis
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-xenstore-devel
+BuildRequires:  ocaml-ounit-devel
 
 %description
 Unix xenstore clients for OCaml.
@@ -53,6 +55,10 @@ make install DESTDIR=${buildroot}
 %{_libdir}/ocaml/xenstore_transport/*.cmx
 
 %changelog
+* Tue Apr 12 2016 Si Beaumont <simon.beaumont@citrix.com> 0.9.4-1
+- Update to 0.9.3
+- New build dependencies on oasis and ocaml-ounit-devel
+
 * Mon Jun  2 2014 Euan Harris <euan.harris@citrix.com> - 0.9.3-2
 - Split files correctly between base and devel packages
 
@@ -64,4 +70,3 @@ make install DESTDIR=${buildroot}
 
 * Mon Jun  3 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
-
