@@ -4,9 +4,6 @@
   "SPECS/ocaml-libvhd.spec": {
     "0": "/repos/libvhd#HEAD"
   },
-  "SPECS/ocaml-rrd-transport.spec": {
-    "0": "/repos/rrd-transport#HEAD"
-  },
   "SPECS/ocaml-rrdd-plugin.spec": {
     "0": "/repos/ocaml-rrdd-plugin#HEAD"
   },
