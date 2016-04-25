@@ -16,9 +16,6 @@
   "SPECS/ocaml-xenops.spec": {
     "0": "/repos/xenops#HEAD"
   },
-  "SPECS/ocaml-xenstore-clients.spec": {
-    "0": "/repos/ocaml-xenstore-clients#HEAD"
-  },
   "SPECS/squeezed.spec": {
     "0": "/repos/squeezed#HEAD"
   },
