@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xen-api-libs-transitional
-Version:        0.9.9
+Version:        0.9.10
 Release:        1%{?dist}
 Summary:        Deprecated standard library extension for OCaml
 License:        LGPL2.1 + OCaml linking exception
@@ -166,6 +166,9 @@ make install DESTDIR=$OCAMLFIND_DESTDIR
 %{_libdir}/ocaml/xml-light2/*.mli
 
 %changelog
+* Tue Apr 26 2016 Euan Harris <euan.harris@citrix.com> - 0.9.10-1 
+- Add support for configuring stunnel's cipher suites
+
 * Fri Dec 11 2015 Euan Harris <euan.harris@citrix.com> - 0.9.9-1 
 - Remove cpuid
 - Remove xen-utils
