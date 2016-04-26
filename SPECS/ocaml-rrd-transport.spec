@@ -1,12 +1,12 @@
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
-Version:        0.8.0
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
-Source0:        https://github.com/xapi-project/rrd-transport/archive/v0.8.0/rrd-transport-0.8.0.tar.gz
+Source0:        https://github.com/xapi-project/rrd-transport/archive/v%{version}/rrd-transport-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cstruct-devel
@@ -85,6 +85,9 @@ ocaml setup.ml -install
 %{_libdir}/ocaml/rrd-transport/rrd_writer.mli
 
 %changelog
+* Mon Apr 25 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Sat Apr 26 2014 David Scott <dave.scott@citrix.com> - 0.7.1-1
 - Update to 0.7.1
 
