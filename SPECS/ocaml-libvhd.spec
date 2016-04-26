@@ -1,4 +1,4 @@
-Version:        0.9.1
+Version:        1.0.0
 Release:        1
 
 %global debug_package %{nil}
@@ -7,7 +7,7 @@ Name:           ocaml-libvhd
 Summary:        VHD manipulation via libvhd
 License:        BSD3
 URL:            https://github.com/xapi-project/libvhd
-Source0:        https://github.com/xapi-project/libvhd/archive/libvhd-0.9.1.tar.gz
+Source0:        https://github.com/xapi-project/libvhd/archive/v%{version}/libvhd-%{version}.tar.gz
 BuildRequires:  libuuid-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
@@ -59,6 +59,9 @@ make install
 %{_libdir}/ocaml/vhdlib/*.mli
 
 %changelog
+* Tue Apr 26 2015 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.1-3
 - Remove dependency on xen-missing-headers
 
