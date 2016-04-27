@@ -1,12 +1,12 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xenops
-Version:        0.9.6
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Low-level xen control operations OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/xenops
-Source0:        https://github.com/xapi-project/xenops/archive/%{version}/xenops-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/xenops/archive/v%{version}/xenops-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -76,6 +76,9 @@ make install BINDIR=%{buildroot}/%{_bindir}
 %{_bindir}/list_domains
 
 %changelog
+* Wed Apr 27 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.6-1
 - Update to 0.9.6
 
