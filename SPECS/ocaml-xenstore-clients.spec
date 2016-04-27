@@ -32,12 +32,12 @@ developing applications that use %{name}.
 %setup -q
 
 %build
-make
+make CONFIGUREFLAGS=--bindir=%{buildroot}/%{_libexecdir}
 
 %install
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR
-make install DESTDIR=${buildroot}
+make install DESTDIR=%{buildroot}
 
 
 %files
@@ -45,6 +45,7 @@ make install DESTDIR=${buildroot}
 %doc MAINTAINERS
 %doc README.md 
 %{_libdir}/ocaml/xenstore_transport
+%{_libexecdir}/xstest
 %exclude %{_libdir}/ocaml/xenstore_transport/*.a
 %exclude %{_libdir}/ocaml/xenstore_transport/*.cmxa
 %exclude %{_libdir}/ocaml/xenstore_transport/*.cmx
