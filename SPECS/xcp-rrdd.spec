@@ -1,5 +1,5 @@
 Name:           xcp-rrdd
-Version:        0.10.0
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
@@ -61,6 +61,9 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Apr 27 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.7-2
 - Remove xen-missing-headers dependency 
 
