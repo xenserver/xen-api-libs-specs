@@ -10,9 +10,6 @@
   "SPECS/xcp-networkd.spec": {
     "0": "/repos/xcp-networkd#HEAD"
   },
-  "SPECS/xcp-rrdd.spec": {
-    "0": "/repos/xcp-rrdd#HEAD"
-  },
   "SPECS/xenopsd.spec": {
     "0": "/repos/xenopsd#HEAD"
   }
