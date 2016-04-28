@@ -3,8 +3,8 @@ Version:        1.0.0
 Release:        1%{?dist}
 Summary:        A store and forward message switch
 License:        FreeBSD
-URL:            https://github.com/djs55/message-switch
-Source0:        https://github.com/djs55/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/xapi-project/message-switch
+Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        message-switch-init
 Source2:        message-switch-conf
 Source3:        message-switch-bugtool1.xml
