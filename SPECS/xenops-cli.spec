@@ -1,5 +1,5 @@
 Name:           xenops-cli
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        CLI for xenopsd, the xapi toolstack domain manager
 License:        LGPL
@@ -11,6 +11,7 @@ BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-uuidm-devel
 BuildRequires:  ocaml-xcp-idl-devel
+BuildRequires:  oasis
 
 %description
 Command-line interface for xenopsd, the xapi toolstack domain manager.
@@ -20,17 +21,22 @@ Command-line interface for xenopsd, the xapi toolstack domain manager.
 
 %build
 make
+./main.native --help=groff > xenops-cli.1 && gzip xenops-cli.1
 
 %install
-mkdir -p %{buildroot}/%{_sbindir}
-install main.native %{buildroot}/%{_sbindir}/xenops-cli
-
+%{__install} -D -m 0755 main.native %{buildroot}%{_sbindir}/xenops-cli
+%{__install} -D -m 0644 xenops-cli.1.gz %{buildroot}%{_mandir}/man1/xenops-cli.1.gz
 
 %files
 %doc README.md LICENSE MAINTAINERS
 %{_sbindir}/xenops-cli
 
 %changelog
+* Thu May 12 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.1-1
+- Update to 1.0.1
+- New build dependency on oasis
+- Install man page
+
 * Thu Apr 21 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
