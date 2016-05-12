@@ -30,6 +30,7 @@ make
 %files
 %doc README.md LICENSE MAINTAINERS
 %{_sbindir}/xenops-cli
+%{_mandir}/man1/xenops-cli.1.gz
 
 %changelog
 * Thu May 12 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.1-1
