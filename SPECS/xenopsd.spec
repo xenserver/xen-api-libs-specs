@@ -37,7 +37,7 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
-BuildRequires:  ocaml-bisect-ppx
+BuildRequires:  ocaml-bisect-ppx-devel
 Requires:       message-switch
 #Requires:       redhat-lsb-core
 Requires:       xenops-cli
