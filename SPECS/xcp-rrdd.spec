@@ -25,6 +25,7 @@ BuildRequires:  xen-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
 BuildRequires:  blktap-devel
+BuildRequires:  ocaml-bisect-ppx-devel
 #Requires:       redhat-lsb-core
 
 %description
