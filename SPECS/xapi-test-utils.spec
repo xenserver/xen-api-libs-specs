@@ -45,5 +45,5 @@ make install DESTDIR=%{buildroot}%{_libdir}/ocaml
 %{_libdir}/ocaml/%{name}/*.cmxa
 
 %changelog
-* Thu May 13 2016 Rob Hoes <rob.hoes@citrix.com> - 1.0.0-1
+* Fri May 13 2016 Rob Hoes <rob.hoes@citrix.com> - 1.0.0-1
 - Initial package
