@@ -29,7 +29,7 @@ developing applications that use %{name}.
 make
 
 %install
-mkdir -p %{buildroot}%{_libdir}
+mkdir -p %{buildroot}%{_libdir}/ocaml
 make install DESTDIR=%{buildroot}%{_libdir}/ocaml
 
 %files
