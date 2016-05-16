@@ -1,6 +1,6 @@
 Name:           xenopsd
 Version:        0.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -45,6 +45,10 @@ Requires:       xenops-cli
 #Requires:       linux-guest-loader
 Requires:       xen-dom0-tools
 
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
+
 %description
 Simple VM manager for the xapi toolstack.
 
@@ -55,7 +59,6 @@ Simple VM manager for the xapi toolstack.
 
 #%description    libvirt
 #Simple VM manager for Xen and KVM using libvirt.
-
 
 %package        xc
 Summary:        Xenopsd using xc
@@ -107,7 +110,6 @@ mkdir -p %{buildroot}/etc/xapi
 install -m 0644 xenopsd-64-conf %{buildroot}/etc/xenopsd.conf
 install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 
-
 %files
 %doc README.md LICENSE
 %{_libexecdir}/%{name}/vif
@@ -127,15 +129,27 @@ install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 #%files libvirt
 #%{_sbindir}/xenopsd-libvirt
 #%{_sysconfdir}/init.d/xenopsd-libvirt
-
+#
 #%post libvirt
-#/sbin/chkconfig --add xenopsd-libvirt
-
+#case $1 in
+#  1) # install
+#    /sbin/chkconfig --add xenopsd-libvirt
+#    ;;
+#  2) # upgrade
+#    /sbin/chkconfig --del xenopsd-libvirt
+#    /sbin/chkconfig --add xenopsd-libvirt
+#    ;;
+#esac
+#
 #%preun libvirt
-#if [ $1 -eq 0 ]; then
-#  /sbin/service xenopsd-libvirt stop > /dev/null 2>&1
-#  /sbin/chkconfig --del xenopsd-libvirt
-#fi
+#case $1 in
+#  0) # uninstall
+#    /sbin/service xenopsd-libvirt stop >/dev/null 2>&1 || :
+#    /sbin/chkconfig --del xenopsd-libvirt
+#    ;;
+#  1) # upgrade
+#    ;;
+#esac
 
 %files xc
 %{_sbindir}/xenopsd-xc
@@ -144,13 +158,25 @@ install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 %{_libexecdir}/%{name}/set-domain-uuid
 
 %post xc
-/sbin/chkconfig --add xenopsd-xc
+case $1 in
+  1) # install
+    /sbin/chkconfig --add xenopsd-xc
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xenopsd-xc
+    /sbin/chkconfig --add xenopsd-xc
+    ;;
+esac
 
 %preun xc
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-xc stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-xc
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xenopsd-xc stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xenopsd-xc
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %files simulator
 %{_sbindir}/xenopsd-simulator
@@ -158,13 +184,25 @@ fi
 %{_mandir}/man1/xenopsd-simulator.1.gz
 
 %post simulator
-/sbin/chkconfig --add xenopsd-simulator
+case $1 in
+  1) # install
+    /sbin/chkconfig --add xenopsd-simulator
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xenopsd-simulator
+    /sbin/chkconfig --add xenopsd-simulator
+    ;;
+esac
 
 %preun simulator
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-simulator stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-simulator
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xenopsd-simulator stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xenopsd-simulator
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %files xenlight
 %defattr(-,root,root)
@@ -173,15 +211,30 @@ fi
 %{_mandir}/man1/xenopsd-xenlight.1.gz
 
 %post xenlight
-#/sbin/chkconfig --add xenopsd-xenlight
+case $1 in
+  1) # install
+    # /sbin/chkconfig --add xenopsd-xenlight
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xenopsd-xenlight
+    /sbin/chkconfig --add xenopsd-xenlight
+    ;;
+esac
 
 %preun xenlight
-if [ $1 -eq 0 ]; then
-  /sbin/service xenopsd-xenlight stop > /dev/null 2>&1
-  /sbin/chkconfig --del xenopsd-xenlight
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xenopsd-xenlight stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xenopsd-xenlight
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.0-2
+- Re-run chkconfig on upgrade
+
 * Thu Sep 24 2015 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.0-1
 - New upstream release, and an extra file
 

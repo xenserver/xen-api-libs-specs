@@ -1,6 +1,6 @@
 Name:           xcp-rrdd
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
@@ -27,6 +27,10 @@ BuildRequires:  xen-libs-devel
 BuildRequires:  blktap-devel
 #Requires:       redhat-lsb-core
 
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
+
 %description
 Statistics gathering daemon for the xapi toolstack.
 
@@ -52,15 +56,30 @@ install -m 0644 xcp-rrdd-conf %{buildroot}/etc/xcp-rrdd.conf
 /etc/xcp-rrdd.conf
 
 %post
-/sbin/chkconfig --add xcp-rrdd
+case $1 in
+  1) # install
+    /sbin/chkconfig --add xcp-rrdd
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xcp-rrdd
+    /sbin/chkconfig --add xcp-rrdd
+    ;;
+esac
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service xcp-rrdd stop > /dev/null 2>&1
-  /sbin/chkconfig --del xcp-rrdd
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xcp-rrdd stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xcp-rrdd
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.0-2
+- Re-run chkconfig on upgrade
+
 * Wed Apr 27 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
