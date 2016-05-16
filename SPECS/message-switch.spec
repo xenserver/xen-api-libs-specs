@@ -1,6 +1,6 @@
 Name:           message-switch
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A store and forward message switch
 License:        FreeBSD
 URL:            https://github.com/xapi-project/message-switch
@@ -25,9 +25,10 @@ BuildRequires: ocaml-pa-structural-sexp-devel
 BuildRequires: oasis
 # Not available in the build chroot
 #Requires:      redhat-lsb-core
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
+
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
 
 %description
 A store and forward message switch for OCaml.
@@ -68,13 +69,25 @@ install -m 0644 stuff.xml %{buildroot}/etc/xensource/bugtool/message-switch/stuf
 /etc/xensource/bugtool/message-switch.xml
 
 %post
-/sbin/chkconfig --add message-switch
+case $1 in
+  1) # install
+    /sbin/chkconfig --add message-switch
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del message-switch
+    /sbin/chkconfig --add message-switch
+    ;;
+esac
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service message-switch stop > /dev/null 2>&1
-  /sbin/chkconfig --del message-switch
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service message-switch stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del message-switch
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %package        devel
 Summary:        Development files for %{name}
@@ -92,6 +105,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.0-2
+- Re-run chkconfig on upgrade
+
 * Wed Apr 13 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 

@@ -1,9 +1,7 @@
-# -*- rpm-spec -*-
-
 Summary: Xapi storage script plugin server
 Name:    xapi-storage-script
 Version: 0.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL+linking exception
 URL:     https://github.com/xapi-project/xapi-storage-script
 Source0: https://github.com/xapi-project/xapi-storage-script/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -19,6 +17,10 @@ BuildRequires: message-switch-devel
 BuildRequires: ocaml-rpc-devel
 BuildRequires: xapi-storage-ocaml-plugin-devel
 BuildRequires: ocaml-xcp-rrd-devel
+
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
 
 %description
 Allows script-based Xapi storage adapters.
@@ -50,13 +52,25 @@ install -m 0644 xapi-storage-script.1 %{buildroot}%{_mandir}/man2/xapi-storage-s
 gzip %{buildroot}%{_mandir}/man2/xapi-storage-script.1
 
 %post
-[ ! -x /sbin/chkconfig ] || chkconfig --add xapi-storage-script
+case $1 in
+  1) # install
+    /sbin/chkconfig --add xapi-storage-script
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xapi-storage-script
+    /sbin/chkconfig --add xapi-storage-script
+    ;;
+esac
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service xapi-storage-script stop > /dev/null 2>&1
-  /sbin/chkconfig --del xapi-storage-script
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xapi-storage-script stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xapi-storage-script
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %files
 %{_sbindir}/xapi-storage-script
@@ -68,6 +82,9 @@ fi
 %{_mandir}/man2/xapi-storage-script.1.gz
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.1-2
+- Re-run chkconfig on upgrade
+
 * Wed Feb 03 2016 Euan Harris <euan.harris@citrix.com> - 0.12.1-1
 - Update to 0.12.1
 
