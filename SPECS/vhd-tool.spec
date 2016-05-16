@@ -21,6 +21,7 @@ BuildRequires: ocaml-io-page-devel
 BuildRequires: ocaml-sha-devel
 BuildRequires: ocaml-tar-devel
 BuildRequires: ocaml-xenstore-clients-devel
+BuildRequires: ocaml-bisect-ppx-devel
 
 %description
 Simple command-line tools for manipulating and streaming .vhd format file.
