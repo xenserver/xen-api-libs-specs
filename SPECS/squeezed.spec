@@ -22,6 +22,7 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-dom0-libs
 BuildRequires:  xen-libs-devel
 BuildRequires:  xen-libs
+BuildRequires:  ocaml-bisect-ppx-devel
 #Requires:       redhat-lsb-core
 Requires:       message-switch
 

@@ -22,6 +22,7 @@ BuildRequires:  ocaml-xcp-inventory-devel
 BuildRequires:  ocaml-xen-api-client-devel
 BuildRequires:  ocaml-netlink-devel
 BuildRequires:  libffi-devel
+BuildRequires:  ocaml-bisect-ppx-devel
 Requires:       ethtool
 Requires:       libnl3
 #Requires:       redhat-lsb-core

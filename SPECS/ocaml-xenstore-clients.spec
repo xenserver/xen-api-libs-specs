@@ -14,6 +14,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-xenstore-devel
 BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-bisect-ppx-devel
 
 %description
 Unix xenstore clients for OCaml.
