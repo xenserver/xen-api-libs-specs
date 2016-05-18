@@ -1,6 +1,6 @@
 Name:           xcp-networkd
 Version:        0.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
@@ -25,6 +25,10 @@ BuildRequires:  libffi-devel
 Requires:       ethtool
 Requires:       libnl3
 #Requires:       redhat-lsb-core
+
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
 
 %description
 Simple host networking management service for the xapi toolstack.
@@ -62,15 +66,30 @@ mkdir -p %{buildroot}/etc/modprobe.d
 %config(noreplace) /etc/xcp-networkd.conf
 
 %post
-/sbin/chkconfig --add xcp-networkd
+case $1 in
+  1) # install
+    /sbin/chkconfig --add xcp-networkd
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del xcp-networkd
+    /sbin/chkconfig --add xcp-networkd
+    ;;
+esac
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service xcp-networkd stop > /dev/null 2>&1
-  /sbin/chkconfig --del xcp-networkd
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service xcp-networkd stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xcp-networkd
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-2
+- Re-run chkconfig on upgrade
+
 * Wed Jun 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.4-1
 - Update to 0.9.4
 - Add networkd_db CLI

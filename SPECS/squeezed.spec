@@ -1,6 +1,6 @@
 Name:           squeezed
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
@@ -24,6 +24,10 @@ BuildRequires:  xen-libs-devel
 BuildRequires:  xen-libs
 #Requires:       redhat-lsb-core
 Requires:       message-switch
+
+Requires(post): /sbin/chkconfig
+Requires(preun): /sbin/chkconfig
+Requires(preun): /sbin/service
 
 %description
 Memory ballooning daemon for the xapi toolstack.
@@ -52,15 +56,30 @@ install -D -m 0644 squeezed-conf %{buildroot}%{_sysconfdir}/squeezed.conf
 %config %{_sysconfdir}/squeezed.conf
 
 %post
-/sbin/chkconfig --add squeezed
+case $1 in
+  1) # install
+    /sbin/chkconfig --add squeezed
+    ;;
+  2) # upgrade
+    /sbin/chkconfig --del squeezed
+    /sbin/chkconfig --add squeezed
+    ;;
+esac
 
 %preun
-if [ $1 -eq 0 ]; then
-  /sbin/service squeezed stop > /dev/null 2>&1
-  /sbin/chkconfig --del squeezed
-fi
+case $1 in
+  0) # uninstall
+    /sbin/service squeezed stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del squeezed
+    ;;
+  1) # upgrade
+    ;;
+esac
 
 %changelog
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.11.0-2
+- Re-run chkconfig on upgrade
+
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.10.6-2
 - Remove dependency on xen-missing-headers
 
