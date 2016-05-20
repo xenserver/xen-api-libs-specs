@@ -36,6 +36,7 @@ BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
 BuildRequires:  ocaml-bisect-ppx-devel
+BuildRequires:  rsync
 Requires:       message-switch
 Requires:       xenops-cli
 Requires:       xen-dom0-tools
@@ -413,3 +414,5 @@ esac
 
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
+
+# vim: set ts=2 sw=2 et:
