@@ -1,6 +1,6 @@
 Name:           xenopsd
-Version:        0.12.0
-Release:        2%{?dist}
+Version:        0.12.1
+Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -23,8 +23,6 @@ BuildRequires:  ocaml-cohttp-devel
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml-oclock-devel
 BuildRequires:  ocaml-uuidm-devel
-#BuildRequires:  libvirt-devel
-#BuildRequires:  ocaml-libvirt-devel
 BuildRequires:  ocaml-qmp-devel
 BuildRequires:  ocaml-sexplib-devel
 BuildRequires:  xen-ocaml-devel
@@ -39,10 +37,7 @@ BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
 BuildRequires:  ocaml-bisect-ppx-devel
 Requires:       message-switch
-#Requires:       redhat-lsb-core
 Requires:       xenops-cli
-#Requires:       vncterm
-#Requires:       linux-guest-loader
 Requires:       xen-dom0-tools
 
 Requires(post): /sbin/chkconfig
@@ -52,23 +47,25 @@ Requires(preun): /sbin/service
 %description
 Simple VM manager for the xapi toolstack.
 
-#%package        libvirt
-#Summary:        Xenopsd using libvirt
-#Requires:       %{name} = %{version}-%{release}
-#Requires:       libvirt
-
-#%description    libvirt
-#Simple VM manager for Xen and KVM using libvirt.
-
 %package        xc
 Summary:        Xenopsd using xc
 Requires:       %{name} = %{version}-%{release}
 Requires:       forkexecd
-#Requires:       vncterm
 Requires:       xen-libs
 
 %description    xc
 Simple VM manager for Xen using libxc.
+
+%package        xc-cov
+Summary:        Xenopsd using xc
+Requires:       %{name} = %{version}-%{release}
+Requires:       forkexecd
+Requires:       xen-libs
+
+%description    xc-cov
+Simple VM manager for Xen using libxc with coverage
+profiling.
+
 
 %package        simulator
 Summary:        Xenopsd simulator
@@ -77,15 +74,34 @@ Requires:       %{name} = %{version}-%{release}
 %description    simulator
 A synthetic VM manager for testing.
 
+%package        simulator-cov
+Summary:        Xenopsd simulator
+Requires:       %{name} = %{version}-%{release}
+
+%description    simulator-cov
+A synthetic VM manager for testing with coverage profiling.
+
+
+
 %package        xenlight
 Summary:        Xenopsd using libxenlight
 Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
+
 %description    xenlight
 Simple VM manager for Xen using libxenlight
 
-%prep
-%setup -q
+%package        xenlight-cov
+Summary:        Xenopsd using libxenlight
+Group:          Development/Other
+Requires:       %{name} = %{version}-%{release}
+
+%description    xenlight-cov
+Simple VM manager for Xen using libxenlight with coverage profiling.
+
+
+%prep 
+%setup -q 
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
 cp %{SOURCE3} xenopsd-libvirt-init
@@ -95,20 +111,54 @@ cp %{SOURCE6} xenopsd-network-conf
 cp %{SOURCE7} xenopsd-64-conf
 
 %build
+# this is a hack: we build and install two builds into the source
+# directory under build-bin/ and build-cov/. In the install step all we do is
+# copying files from it.
+
+mkdir build-bin build-cov
 ./configure --libexecdir %{_libexecdir}/%{name}
+
+# regular build
 make
+make install DESTDIR=$PWD/build-bin LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
+make clean
+
+# now build for coverage profiling
+make coverage
+make
+make install DESTDIR=$PWD/build-cov LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
 
 %install
-make install DESTDIR=%{buildroot} LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
+# this installs the files from the bin build
+(cd build-bin/; tar cf - .) | (cd %{buildroot}; tar xf -)
 
+# rename regular binaries
+mv %{buildroot}%{_sbindir}/xenopsd-xc                     %{buildroot}%{_sbindir}/xenopsd-xc.bin
+mv %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid     %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid.bin
+# mv %{buildroot}%{_sbindir}/xenopsd-xenlight       %{buildroot}%{_sbindir}/xenopsd-xenlight.bin 
+# mv %{buildroot}%{_sbindir}/xenopsd-simulator      %{buildroot}%{_sbindir}/xenopsd-simulator.bin
+
+# install selected binaries with coverage profiling from coverage build
+install -D ./xenops_xc_main.native        %{buildroot}%{_sbindir}/xenopsd-xc.cov
+install -D ./set_domain_uuid.native       %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid.cov
+# install -D ./xenops_xl_main.native        %{buildroot}%{_sbindir}/xenopsd-xenlight.cov
+# install -D ./xenops_simulator_main.native %{buildroot}%{_sbindir}/xenopsd-simulator.cov
+
+# touch files that are created dynamically and are %ghost'ed in %files
+touch %{buildroot}%{_sbindir}/xenopsd-xenlight
+touch %{buildroot}%{_sbindir}/xenopsd-simulator
+touch %{buildroot}%{_sbindir}/xenopsd-xc
+touch %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid
+
+# this is the same for both builds - should really be in Makefile
 gzip %{buildroot}%{_mandir}/man1/*.1
 
-install -D -m 0755 xenopsd-xenlight-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xenlight
-install -m 0755 xenopsd-xc-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-xc
-install -m 0755 xenopsd-simulator-init %{buildroot}/%{_sysconfdir}/init.d/xenopsd-simulator
-mkdir -p %{buildroot}/etc/xapi
-install -m 0644 xenopsd-64-conf %{buildroot}/etc/xenopsd.conf
-install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
+install -D -m 0755 xenopsd-xenlight-init  %{buildroot}%{_sysconfdir}/init.d/xenopsd-xenlight
+install    -m 0755 xenopsd-xc-init        %{buildroot}%{_sysconfdir}/init.d/xenopsd-xc
+install    -m 0755 xenopsd-simulator-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-simulator
+mkdir -p                                  %{buildroot}/etc/xapi
+install    -m 0644 xenopsd-64-conf        %{buildroot}/etc/xenopsd.conf
+install    -m 0644 xenopsd-network-conf   %{buildroot}/etc/xapi/network.conf
 
 %files
 %doc README.md LICENSE
@@ -126,43 +176,30 @@ install -m 0644 xenopsd-network-conf %{buildroot}/etc/xapi/network.conf
 /etc/xapi/network.conf
 /etc/udev/rules.d/xen-backend.rules
 
-#%files libvirt
-#%{_sbindir}/xenopsd-libvirt
-#%{_sysconfdir}/init.d/xenopsd-libvirt
-#
-#%post libvirt
-#case $1 in
-#  1) # install
-#    /sbin/chkconfig --add xenopsd-libvirt
-#    ;;
-#  2) # upgrade
-#    /sbin/chkconfig --del xenopsd-libvirt
-#    /sbin/chkconfig --add xenopsd-libvirt
-#    ;;
-#esac
-#
-#%preun libvirt
-#case $1 in
-#  0) # uninstall
-#    /sbin/service xenopsd-libvirt stop >/dev/null 2>&1 || :
-#    /sbin/chkconfig --del xenopsd-libvirt
-#    ;;
-#  1) # upgrade
-#    ;;
-#esac
+# ---
 
 %files xc
-%{_sbindir}/xenopsd-xc
+%{_sbindir}/xenopsd-xc.bin
+%ghost %{_sbindir}/xenopsd-xc
 %{_sysconfdir}/init.d/xenopsd-xc
 %{_mandir}/man1/xenopsd-xc.1.gz
-%{_libexecdir}/%{name}/set-domain-uuid
+%{_libexecdir}/%{name}/set-domain-uuid.bin
+%ghost %{_libexecdir}/%{name}/set-domain-uuid
+
 
 %post xc
 case $1 in
   1) # install
+    ln -s %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
+    ln -s %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
     /sbin/chkconfig --add xenopsd-xc
     ;;
   2) # upgrade
+    rm -f %{_sbindir}/xenopsd-xc
+    ln -s %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
+    rm -f %{_libexecdir}/%{name}/set-domain-uuid
+    ln -s %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
+    
     /sbin/chkconfig --del xenopsd-xc
     /sbin/chkconfig --add xenopsd-xc
     ;;
@@ -177,6 +214,43 @@ case $1 in
   1) # upgrade
     ;;
 esac
+
+%files xc-cov
+%{_sbindir}/xenopsd-xc.cov
+%{_sysconfdir}/init.d/xenopsd-xc
+%{_mandir}/man1/xenopsd-xc.1.gz
+%{_libexecdir}/%{name}/set-domain-uuid.cov
+%ghost %{_sbindir}/xenopsd-xc
+
+%post xc-cov
+case $1 in
+  1) # install
+    ln -s %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
+    ln -s %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
+    /sbin/chkconfig --add xenopsd-xc
+    ;;
+  2) # upgrade
+    rm -f %{_sbindir}/xenopsd-xc
+    ln -s %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
+    rm -f %{_libexecdir}/%{name}/set-domain-uuid
+    ln -s %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
+    /sbin/chkconfig --del xenopsd-xc
+    /sbin/chkconfig --add xenopsd-xc
+    ;;
+esac
+
+%preun xc-cov
+case $1 in
+  0) # uninstall
+    /sbin/service xenopsd-xc stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del xenopsd-xc
+    ;;
+  1) # upgrade
+    ;;
+esac
+
+
+# -- simulator
 
 %files simulator
 %{_sbindir}/xenopsd-simulator
@@ -203,6 +277,9 @@ case $1 in
   1) # upgrade
     ;;
 esac
+
+
+# --- xenlight
 
 %files xenlight
 %defattr(-,root,root)
@@ -231,7 +308,12 @@ case $1 in
     ;;
 esac
 
+
 %changelog
+* Fri May 20 2016 Christian Lindig <christian.lindig@citrix.com> - 0.12.1-1
+- New upstream release that supports coverage analysis
+- Introduce subpackages *-cov for coverage analysis
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.12.0-2
 - Re-run chkconfig on upgrade
 
@@ -328,3 +410,4 @@ esac
 
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
+
