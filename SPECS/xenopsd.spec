@@ -100,8 +100,8 @@ Requires:       %{name} = %{version}-%{release}
 Simple VM manager for Xen using libxenlight with coverage profiling.
 
 
-%prep 
-%setup -q 
+%prep
+%setup -q
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
 cp %{SOURCE3} xenopsd-libvirt-init
@@ -120,13 +120,13 @@ mkdir build-bin build-cov
 
 # regular build
 make
-make install DESTDIR=$PWD/build-bin LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
+make install DESTDIR=$PWD/build-bin LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir}
 make clean
 
 # now build for coverage profiling
 make coverage
 make
-make install DESTDIR=$PWD/build-cov LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir} 
+make install DESTDIR=$PWD/build-cov LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{_sbindir} MANDIR=%{_mandir}
 
 %install
 # this installs the files from the bin build
@@ -135,7 +135,7 @@ make install DESTDIR=$PWD/build-cov LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{
 # rename regular binaries
 mv %{buildroot}%{_sbindir}/xenopsd-xc                     %{buildroot}%{_sbindir}/xenopsd-xc.bin
 mv %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid     %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid.bin
-# mv %{buildroot}%{_sbindir}/xenopsd-xenlight       %{buildroot}%{_sbindir}/xenopsd-xenlight.bin 
+# mv %{buildroot}%{_sbindir}/xenopsd-xenlight       %{buildroot}%{_sbindir}/xenopsd-xenlight.bin
 # mv %{buildroot}%{_sbindir}/xenopsd-simulator      %{buildroot}%{_sbindir}/xenopsd-simulator.bin
 
 # install selected binaries with coverage profiling from coverage build
@@ -190,16 +190,14 @@ install    -m 0644 xenopsd-network-conf   %{buildroot}/etc/xapi/network.conf
 %post xc
 case $1 in
   1) # install
-    ln -s %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
-    ln -s %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
+    ln -fs %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
+    ln -fs %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
     /sbin/chkconfig --add xenopsd-xc
     ;;
   2) # upgrade
-    rm -f %{_sbindir}/xenopsd-xc
-    ln -s %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
-    rm -f %{_libexecdir}/%{name}/set-domain-uuid
-    ln -s %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
-    
+    ln -fs %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
+    ln -fs %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
+
     /sbin/chkconfig --del xenopsd-xc
     /sbin/chkconfig --add xenopsd-xc
     ;;
@@ -225,17 +223,13 @@ esac
 %post xc-cov
 case $1 in
   1) # install
-    rm -f %{_sbindir}/xenopsd-xc
-    ln -s %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
-    rm -f %{_libexecdir}/%{name}/set-domain-uuid
-    ln -s %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
+    ln -fs %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
+    ln -fs %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
     /sbin/chkconfig --add xenopsd-xc
     ;;
   2) # upgrade
-    rm -f %{_sbindir}/xenopsd-xc
-    ln -s %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
-    rm -f %{_libexecdir}/%{name}/set-domain-uuid
-    ln -s %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
+    ln -fs %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
+    ln -fs %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
     /sbin/chkconfig --del xenopsd-xc
     /sbin/chkconfig --add xenopsd-xc
     ;;
@@ -370,7 +364,7 @@ esac
 - Update to 0.9.37
 
 * Fri Jan 17 2014 Euan Harris <euan.harris@eu.citrix.com> - 0.9.34-1
-- Update to 0.9.34, restoring fixes from the 0.9.32 line which were 
+- Update to 0.9.34, restoring fixes from the 0.9.32 line which were
   not merged to trunk before 0.9.33 was tagged
 
 * Wed Dec 4 2013 Euan Harris <euan.harris@eu.citrix.com> - 0.9.33-1
