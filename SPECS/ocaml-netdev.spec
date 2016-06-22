@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-netdev
-Version:        0.9.1
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Manipulate Linux bridges, network devices and openvswitch instances in OCaml
 License:        LGPL
@@ -11,6 +11,7 @@ BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-stdext-devel
+BuildRequires:  oasis
 
 %description
 Manipulate Linux bridges, network devices and openvswitch instances in OCaml.
@@ -29,6 +30,7 @@ developing applications that use %{name}.
 %setup -q -n netdev-%{version}
 
 %build
+oasis setup
 ./configure
 make
 
@@ -59,6 +61,9 @@ make install
 %{_libdir}/ocaml/netdev/*.mli
 
 %changelog
+* Wed Jun 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Fri Jun 6 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.1-1
 - Update to 0.9.1
 

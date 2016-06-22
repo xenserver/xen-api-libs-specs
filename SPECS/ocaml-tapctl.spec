@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-tapctl
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Manipulate running tapdisk instances
 License:        LGPL
@@ -13,6 +13,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  forkexecd-devel
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-stdext-devel
+BuildRequires:  oasis
 
 %description
 Manipulate running tapdisk instances on a xen host.
@@ -32,6 +33,7 @@ developing applications that use %{name}.
 %setup -q -n tapctl-%{version}
 
 %build
+oasis setup
 ./configure
 make
 
@@ -59,6 +61,9 @@ make install
 %{_libdir}/ocaml/tapctl/*.mli
 
 %changelog
+* Wed Jun 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Thu Apr 21 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
