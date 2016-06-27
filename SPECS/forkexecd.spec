@@ -1,11 +1,12 @@
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
 URL:            https://github.com/xapi-project/forkexecd
 Source0:        https://github.com/xapi-project/forkexecd/archive/v%{version}/forkexecd-%{version}.tar.gz
-Source1:        forkexecd-init
+Source1:        forkexecd.service
+Source2:        forkexecd-sysconfig
 BuildRequires:  ocaml
 BuildRequires:  oasis
 BuildRequires:  ocaml-findlib
@@ -16,11 +17,9 @@ BuildRequires:  ocaml-stdext-devel
 BuildRequires:  ocaml-uuidm-devel
 BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  ocaml-oclock-devel
-#Requires:  redhat-lsb-core
+BuildRequires:  ocaml-systemd-devel
 
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
+%{?systemd_requires}
 
 %description
 A service which starts and manages subprocesses, avoiding the need to manually
@@ -28,7 +27,6 @@ fork() and exec() in a multithreaded program.
 
 %prep
 %setup -q
-cp %{SOURCE1} forkexecd-init
 
 %build
 ocaml setup.ml -configure
@@ -38,38 +36,25 @@ ocaml setup.ml -build
 mkdir -p %{buildroot}/%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}/%{_libdir}/ocaml
 ocaml setup.ml -install
-mkdir -p %{buildroot}/%{_sbindir}
-install fe_main.native %{buildroot}/%{_sbindir}/forkexecd
-install fe_cli.native %{buildroot}/%{_sbindir}/forkexecd-cli
-mkdir -p %{buildroot}/%{_sysconfdir}/init.d
-install -m 0755 forkexecd-init %{buildroot}%{_sysconfdir}/init.d/forkexecd
-
+%{__install} -D -m 0755 fe_main.native %{buildroot}%{_sbindir}/forkexecd
+%{__install} -D -m 0755 fe_cli.native %{buildroot}%{_sbindir}/forkexecd-cli
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/forkexecd.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/forkexecd
 
 %files
 %{_sbindir}/forkexecd
 %{_sbindir}/forkexecd-cli
-%{_sysconfdir}/init.d/forkexecd
+%{_unitdir}/forkexecd.service
+%config(noreplace) %{_sysconfdir}/sysconfig/forkexecd
 
 %post
-case $1 in
-  1) # install
-    /sbin/chkconfig --add forkexecd
-    ;;
-  2) # upgrade
-    /sbin/chkconfig --del forkexecd
-    /sbin/chkconfig --add forkexecd
-    ;;
-esac
+%systemd_post forkexecd.service
 
 %preun
-case $1 in
-  0) # uninstall
-    /sbin/service forkexecd stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del forkexecd
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun forkexecd.service
+
+%postun
+%systemd_postun_with_restart forkexecd.service
 
 %package        devel
 Summary:        Development files for %{name}
@@ -79,6 +64,7 @@ Requires:       ocaml-rpc-devel%{?_isa}
 Requires:       ocaml-stdext-devel%{?_isa}
 Requires:       ocaml-uuidm-devel%{?_isa}
 Requires:       ocaml-xcp-idl-devel%{?_isa}
+Requires:       ocaml-systemd-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -89,6 +75,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 1.0.1-2
+- Package for systemd
+
 * Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.1-1
 - Update to 1.0.1
 
