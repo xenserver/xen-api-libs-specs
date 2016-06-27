@@ -1,12 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xen-api-client
-Version:        0.9.8
+Version:        0.9.11
 Release:        1%{?dist}
 Summary:        XenServer XenAPI Client Library for OCaml
 License:        LGPLv2
 URL:            https://github.com/xapi-project/xen-api-client
-Source0:        https://github.com/xapi-project/xen-api-client/archive/%{version}/xen-api-client-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/xen-api-client/archive/v%{version}/xen-api-client-%{version}.tar.gz
+BuildRequires:  oasis
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cohttp-devel
@@ -17,6 +18,8 @@ BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-uri-devel
 BuildRequires:  ocaml-xmlm-devel
 BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-uuidm-devel
+BuildRequires:  ocaml-xcp-rrd-devel
 
 %description
 XenAPI Client is an OCaml library implementing XenServer's XenAPI.
@@ -42,7 +45,6 @@ virtualization hosts.
 %setup -q -n xen-api-client-%{version}
 
 %build
-ocaml setup.ml -configure --disable-tests --enable-lwt
 make
 make doc
 
@@ -68,6 +70,9 @@ make install
 %{_libdir}/ocaml/xen-api-client/*.mli
 
 %changelog
+* Mon Jun 27 2016 Euan Harris <euan.harris@citrix.com> - 0.9.11-1
+- Update to 0.9.11
+
 * Thu Apr  2 2015 David Scott <dave.scott@citrix.com> - 0.9.8-1
 - Update to 0.9.8
 
