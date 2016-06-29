@@ -91,15 +91,6 @@ Requires:       %{name} = %{version}-%{release}
 %description    xenlight
 Simple VM manager for Xen using libxenlight
 
-%package        xenlight-cov
-Summary:        Xenopsd using libxenlight
-Group:          Development/Other
-Requires:       %{name} = %{version}-%{release}
-
-%description    xenlight-cov
-Simple VM manager for Xen using libxenlight with coverage profiling.
-
-
 %prep
 %setup -q
 cp %{SOURCE1} xenopsd-xc-init
