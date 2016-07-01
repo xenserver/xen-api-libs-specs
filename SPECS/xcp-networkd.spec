@@ -1,6 +1,6 @@
 Name:           xcp-networkd
-Version:        0.9.6
-Release:        2%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
@@ -11,7 +11,6 @@ Source3:        xcp-networkd-network-conf
 #Source4:        xcp-networkd-bridge-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-obuild
 BuildRequires:  ocaml-rpc-devel
 BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  forkexecd-devel
@@ -88,6 +87,9 @@ case $1 in
 esac
 
 %changelog
+* Mon Jun 27 2016 Euan Harris <euan.harris@citrix.com> - 0.11.0-1
+- Update to 0.11.0
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-2
 - Re-run chkconfig on upgrade
 
