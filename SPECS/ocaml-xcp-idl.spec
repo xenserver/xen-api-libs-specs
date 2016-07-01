@@ -36,7 +36,8 @@ Requires:       ocaml-rpc-devel%{?_isa}
 Requires:       ocaml-fd-send-recv-devel%{?_isa}
 Requires:       ocaml-xmlm-devel%{?_isa}
 Requires:       ocaml-sexplib-devel%{?_isa}
-Requires:       ocaml-xcp-inventory-devel
+Requires:       ocaml-xcp-inventory-devel%{?_isa}
+Requires:       ocaml-xcp-rrd-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
