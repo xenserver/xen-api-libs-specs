@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xenops
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Low-level xen control operations OCaml
 License:        LGPL
@@ -18,6 +18,7 @@ BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  ocaml-xen-api-libs-transitional-devel
 BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
+BuildRequires:  oasis
 
 %description
 Low-level xen control operations in OCaml.
@@ -76,6 +77,9 @@ make install BINDIR=%{buildroot}/%{_bindir}
 %{_bindir}/list_domains
 
 %changelog
+* Thu Jun 23 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Wed Apr 27 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
