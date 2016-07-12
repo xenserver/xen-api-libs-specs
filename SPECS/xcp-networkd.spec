@@ -24,7 +24,7 @@ BuildRequires:  ocaml-netlink-devel
 BuildRequires:  libffi-devel
 BuildRequires:  ocaml-bisect-ppx-devel
 BuildRequires:  ocaml-systemd-devel
-
+BuildRequires:  xapi-test-utils-devel
 Requires:       ethtool
 Requires:       libnl3
 
