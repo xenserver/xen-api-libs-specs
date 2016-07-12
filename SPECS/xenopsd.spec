@@ -150,6 +150,7 @@ gzip %{buildroot}%{_mandir}/man1/*.1
 %{_libexecdir}/%{name}/qemu-dm-wrapper
 %{_libexecdir}/%{name}/qemu-vif-script
 %{_libexecdir}/%{name}/setup-vif-rules
+%{_libexecdir}/%{name}/setup-pvs-proxy-rules
 %{_libexecdir}/%{name}/common.py
 %{_libexecdir}/%{name}/common.pyo
 %{_libexecdir}/%{name}/common.pyc
