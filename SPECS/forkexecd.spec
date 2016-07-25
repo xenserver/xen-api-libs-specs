@@ -1,10 +1,10 @@
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
 URL:            https://github.com/xapi-project/forkexecd
-Source0:        https://github.com/xapi-project/forkexecd/archive/%{version}/forkexecd-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/forkexecd/archive/v%{version}/forkexecd-%{version}.tar.gz
 Source1:        forkexecd-init
 BuildRequires:  ocaml
 BuildRequires:  oasis
@@ -89,6 +89,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.0-2
 - Re-run chkconfig on upgrade
 
