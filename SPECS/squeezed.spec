@@ -1,6 +1,6 @@
 Name:           squeezed
-Version:        0.11.0
-Release:        2%{?dist}
+Version:        0.12.1
+Release:        1%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
@@ -78,6 +78,9 @@ case $1 in
 esac
 
 %changelog
+* Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.1-1
+- New release
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.11.0-2
 - Re-run chkconfig on upgrade
 
