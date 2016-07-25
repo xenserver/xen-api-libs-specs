@@ -2,7 +2,7 @@
 
 Name:           ocaml-xcp-rrd
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Round-Robin Datasources in OCaml
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrd
@@ -12,7 +12,6 @@ BuildRequires:  oasis
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-rpc-devel
-BuildRequires:  ocaml-stdext-devel
 BuildRequires:  ocaml-uuidm-devel
 BuildRequires:  ocaml-ounit-devel
 
@@ -23,7 +22,6 @@ Round-Robin Datasources in OCaml.
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       ocaml-rpc-devel%{?_isa}
-Requires:       ocaml-stdext-devel%{?_isa}
 Requires:       ocaml-uuidm-devel%{?_isa}
 
 %description    devel
@@ -57,6 +55,9 @@ make install
 %{_libdir}/ocaml/rrd/*.cmx
 
 %changelog
+* Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.0-2
+- Remove unnecessary build dependency
+
 * Thu Apr 21 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
