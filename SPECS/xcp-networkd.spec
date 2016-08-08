@@ -1,14 +1,15 @@
 Name:           xcp-networkd
 Version:        0.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
 Source0:        https://github.com/xapi-project/xcp-networkd/archive/v%{version}/xcp-networkd-%{version}.tar.gz
-Source1:        xcp-networkd-init
-Source2:        xcp-networkd-conf
-Source3:        xcp-networkd-network-conf
-#Source4:        xcp-networkd-bridge-conf
+Source1:        xcp-networkd.service
+Source2:        xcp-networkd-sysconfig
+Source3:        xcp-networkd-conf
+Source4:        xcp-networkd-network-conf
+Source5:        init-xcp-networkd
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-rpc-devel
@@ -22,78 +23,61 @@ BuildRequires:  ocaml-xen-api-client-devel
 BuildRequires:  ocaml-netlink-devel
 BuildRequires:  libffi-devel
 BuildRequires:  ocaml-bisect-ppx-devel
+BuildRequires:  ocaml-systemd-devel
+
 Requires:       ethtool
 Requires:       libnl3
-#Requires:       redhat-lsb-core
 
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
+%{?systemd_requires}
 
 %description
 Simple host networking management service for the xapi toolstack.
 
 %prep
 %setup -q
-cp %{SOURCE1} xcp-networkd-init
-cp %{SOURCE2} xcp-networkd-conf
-cp %{SOURCE3} xcp-networkd-network-conf
-#cp %{SOURCE4} xcp-networkd-bridge-conf
 
 %build
 make
 
 %install
-mkdir -p %{buildroot}/%{_sbindir}
-mkdir -p %{buildroot}/%{_bindir}
 make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
-mkdir -p %{buildroot}%{_sysconfdir}/init.d
-install -m 0755 xcp-networkd-init %{buildroot}%{_sysconfdir}/init.d/xcp-networkd
-mkdir -p %{buildroot}/etc/xensource
-install -m 0644 xcp-networkd-network-conf %{buildroot}/etc/xensource/network.conf
-install -m 0644 xcp-networkd-conf %{buildroot}/etc/xcp-networkd.conf
-mkdir -p %{buildroot}/etc/modprobe.d
-#install -m 0644 xcp-networkd-bridge-conf %{buildroot}/etc/modprobe.d/bridge.conf
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xcp-networkd.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xcp-networkd
+%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/xcp-networkd.conf
+%{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/xensource/network.conf
+%{__install} -D -m 0755 %{SOURCE5} %{buildroot}%{_sysconfdir}/init.d/xcp-networkd
 
 %files
 %doc README.markdown LICENSE MAINTAINERS
 %{_sbindir}/xcp-networkd
 %{_bindir}/networkd_db
+%{_unitdir}/xcp-networkd.service
 %{_sysconfdir}/init.d/xcp-networkd
 %{_mandir}/man1/xcp-networkd.1.gz
-#/etc/modprobe.d/bridge.conf
-%config(noreplace) /etc/xensource/network.conf
-%config(noreplace) /etc/xcp-networkd.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/xcp-networkd
+%config(noreplace) %{_sysconfdir}/xcp-networkd.conf
+%config(noreplace) %{_sysconfdir}/xensource/network.conf
 
 %post
-case $1 in
-  1) # install
-    /sbin/chkconfig --add xcp-networkd
-    ;;
-  2) # upgrade
-    /sbin/chkconfig --del xcp-networkd
-    /sbin/chkconfig --add xcp-networkd
-    ;;
-esac
+%systemd_post xcp-networkd.service
 
 %preun
-case $1 in
-  0) # uninstall
-    /sbin/service xcp-networkd stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xcp-networkd
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xcp-networkd.service
+
+%postun
+%systemd_postun_with_restart xcp-networkd.service
 
 %changelog
+* Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 0.11.1-2
+- Package for systemd 
+
 * Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.11.1-1
 - Update to 0.11.1
 
 * Mon Jun 27 2016 Euan Harris <euan.harris@citrix.com> - 0.11.0-1
 - Update to 0.11.0
 
-* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-2
+* Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-1
 - Re-run chkconfig on upgrade
 
 * Wed Jun 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.4-1

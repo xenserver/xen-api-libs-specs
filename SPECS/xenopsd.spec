@@ -1,17 +1,15 @@
 Name:           xenopsd
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
 Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
-Source1:        xenopsd-xc-init
-Source2:        xenopsd-simulator-init
-Source3:        xenopsd-libvirt-init
-Source4:        xenopsd-xenlight-init
-Source5:        xenopsd-conf
-Source6:        xenopsd-network-conf
-Source7:        xenopsd-64-conf
+Source1:        xenopsd-xc.service
+Source2:        xenopsd-xenlight.service
+Source3:        xenopsd-simulator.service
+Source4:        xenopsd-sysconfig
+Source5:        xenopsd-64-conf
 BuildRequires:  ocaml
 BuildRequires:  optcomp
 BuildRequires:  ocaml-findlib
@@ -35,14 +33,12 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  ocaml-uutf-devel
 BuildRequires:  ocaml-xcp-rrd-devel
 BuildRequires:  python-devel
-BuildRequires:  ocaml-bisect-ppx-devel
+BuildRequires:  systemd ocaml-bisect-ppx-devel
 Requires:       message-switch
 Requires:       xenops-cli
 Requires:       xen-dom0-tools
 
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
+%{?systemd_requires}
 
 %description
 Simple VM manager for the xapi toolstack.
@@ -52,7 +48,6 @@ Summary:        Xenopsd using xc
 Requires:       %{name} = %{version}-%{release}
 Requires:       forkexecd
 Requires:       xen-libs
-
 %description    xc
 Simple VM manager for Xen using libxc.
 
@@ -70,7 +65,6 @@ profiling.
 %package        simulator
 Summary:        Xenopsd simulator
 Requires:       %{name} = %{version}-%{release}
-
 %description    simulator
 A synthetic VM manager for testing.
 
@@ -91,15 +85,17 @@ Requires:       %{name} = %{version}-%{release}
 %description    xenlight
 Simple VM manager for Xen using libxenlight
 
+%package        xenlight-cov
+Summary:        Xenopsd using libxenlight
+Group:          Development/Other
+Requires:       %{name} = %{version}-%{release}
+
+%description    xenlight-cov
+Simple VM manager for Xen using libxenlight with coverage profiling.
+
+
 %prep
 %setup -q
-cp %{SOURCE1} xenopsd-xc-init
-cp %{SOURCE2} xenopsd-simulator-init
-cp %{SOURCE3} xenopsd-libvirt-init
-cp %{SOURCE4} xenopsd-xenlight-init
-cp %{SOURCE5} xenopsd.conf
-cp %{SOURCE6} xenopsd-network-conf
-cp %{SOURCE7} xenopsd-64-conf
 
 %build
 # this is a hack: we build and install two builds into the source
@@ -144,15 +140,15 @@ touch %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid
 # this is the same for both builds - should really be in Makefile
 gzip %{buildroot}%{_mandir}/man1/*.1
 
-install -D -m 0755 xenopsd-xenlight-init  %{buildroot}%{_sysconfdir}/init.d/xenopsd-xenlight
-install    -m 0755 xenopsd-xc-init        %{buildroot}%{_sysconfdir}/init.d/xenopsd-xc
-install    -m 0755 xenopsd-simulator-init %{buildroot}%{_sysconfdir}/init.d/xenopsd-simulator
-mkdir -p                                  %{buildroot}/etc/xapi
-install    -m 0644 xenopsd-64-conf        %{buildroot}/etc/xenopsd.conf
-install    -m 0644 xenopsd-network-conf   %{buildroot}/etc/xapi/network.conf
+%{__install} -D -m 0755 %{SOURCE1} %{buildroot}%{_unitdir}/xenopsd-xc.service
+%{__install} -D -m 0755 %{SOURCE2} %{buildroot}%{_unitdir}/xenopsd-xenlight.service
+%{__install} -D -m 0755 %{SOURCE3} %{buildroot}%{_unitdir}/xenopsd-simulator.service
+%{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/xenopsd
+%{__install} -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/xenopsd.conf
 
 %files
 %doc README.md LICENSE
+%{_sysconfdir}/udev/rules.d/xen-backend.rules
 %{_libexecdir}/%{name}/vif
 %{_libexecdir}/%{name}/vif-real
 %{_libexecdir}/%{name}/block
@@ -163,50 +159,41 @@ install    -m 0644 xenopsd-network-conf   %{buildroot}/etc/xapi/network.conf
 %{_libexecdir}/%{name}/common.py
 %{_libexecdir}/%{name}/common.pyo
 %{_libexecdir}/%{name}/common.pyc
-/etc/xenopsd.conf
-/etc/xapi/network.conf
-/etc/udev/rules.d/xen-backend.rules
+%config(noreplace) %{_sysconfdir}/sysconfig/xenopsd
+%config(noreplace) %{_sysconfdir}/xenopsd.conf
 
 # ---
 
 %files xc
 %{_sbindir}/xenopsd-xc.bin
 %ghost %{_sbindir}/xenopsd-xc
-%{_sysconfdir}/init.d/xenopsd-xc
+%{_unitdir}/xenopsd-xc.service
 %{_mandir}/man1/xenopsd-xc.1.gz
 %{_libexecdir}/%{name}/set-domain-uuid.bin
 %ghost %{_libexecdir}/%{name}/set-domain-uuid
-
 
 %post xc
 case $1 in
   1) # install
     ln -fs %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
     ln -fs %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
-    /sbin/chkconfig --add xenopsd-xc
     ;;
   2) # upgrade
     ln -fs %{_sbindir}/xenopsd-xc.bin %{_sbindir}/xenopsd-xc
     ln -fs %{_libexecdir}/%{name}/set-domain-uuid.bin %{_libexecdir}/%{name}/set-domain-uuid
-
-    /sbin/chkconfig --del xenopsd-xc
-    /sbin/chkconfig --add xenopsd-xc
     ;;
 esac
+%systemd_post xenopsd-xc.service
 
 %preun xc
-case $1 in
-  0) # uninstall
-    /sbin/service xenopsd-xc stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xenopsd-xc
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xenopsd-xc.service
+
+%postun xc
+%systemd_postun_with_restart xenopsd-xc.service
 
 %files xc-cov
 %{_sbindir}/xenopsd-xc.cov
-%{_sysconfdir}/init.d/xenopsd-xc
+%{_unitdir}/xenopsd-xc.service
 %{_mandir}/man1/xenopsd-xc.1.gz
 %{_libexecdir}/%{name}/set-domain-uuid.cov
 %ghost %{_sbindir}/xenopsd-xc
@@ -216,87 +203,52 @@ case $1 in
   1) # install
     ln -fs %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
     ln -fs %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
-    /sbin/chkconfig --add xenopsd-xc
     ;;
   2) # upgrade
     ln -fs %{_sbindir}/xenopsd-xc.cov %{_sbindir}/xenopsd-xc
     ln -fs %{_libexecdir}/%{name}/set-domain-uuid.cov %{_libexecdir}/%{name}/set-domain-uuid
-    /sbin/chkconfig --del xenopsd-xc
-    /sbin/chkconfig --add xenopsd-xc
     ;;
 esac
+%systemd_post xenopsd-xc.service
 
 %preun xc-cov
-case $1 in
-  0) # uninstall
-    /sbin/service xenopsd-xc stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xenopsd-xc
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xenopsd-xc.service
 
-
-# -- simulator
+%postun xc-cov
+%systemd_postun_with_restart xenopsd-xc.service
 
 %files simulator
 %{_sbindir}/xenopsd-simulator
-%{_sysconfdir}/init.d/xenopsd-simulator
+%{_unitdir}/xenopsd-simulator.service
 %{_mandir}/man1/xenopsd-simulator.1.gz
 
 %post simulator
-case $1 in
-  1) # install
-    /sbin/chkconfig --add xenopsd-simulator
-    ;;
-  2) # upgrade
-    /sbin/chkconfig --del xenopsd-simulator
-    /sbin/chkconfig --add xenopsd-simulator
-    ;;
-esac
+%systemd_post xenopsd-simulator.service
 
 %preun simulator
-case $1 in
-  0) # uninstall
-    /sbin/service xenopsd-simulator stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xenopsd-simulator
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xenopsd-simulator.service
 
-
-# --- xenlight
+%postun simulator
+%systemd_postun_with_restart xenopsd-simulator.service
 
 %files xenlight
-%defattr(-,root,root)
 %{_sbindir}/xenopsd-xenlight
-%{_sysconfdir}/init.d/xenopsd-xenlight
+%{_unitdir}/xenopsd-xenlight.service
 %{_mandir}/man1/xenopsd-xenlight.1.gz
 
 %post xenlight
-case $1 in
-  1) # install
-    # /sbin/chkconfig --add xenopsd-xenlight
-    ;;
-  2) # upgrade
-    /sbin/chkconfig --del xenopsd-xenlight
-    /sbin/chkconfig --add xenopsd-xenlight
-    ;;
-esac
+%systemd_post xenopsd-xenlight.service
 
 %preun xenlight
-case $1 in
-  0) # uninstall
-    /sbin/service xenopsd-xenlight stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xenopsd-xenlight
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xenopsd-xenlight.service
 
+%postun xenlight
+%systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 0.13.0-2
+- Package for systemd
+
 * Fri Aug 12 2016 Christian Lindig <christian.lindig@citrix.com> - 0.13.0-1
 - Version bump; xenopsd maintains state for nested_virt, nomigrate
 
