@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
@@ -36,7 +36,7 @@ developing applications that use %{name}.
 %setup -q -n rrd-transport-%{version}
 
 %build
-ocaml setup.ml -configure --destdir %{buildroot}%{_libdir}/ocaml
+ocaml setup.ml -configure --libdir %{buildroot}%{_libdir}/ocaml
 ocaml setup.ml -build
 
 %install
@@ -45,6 +45,8 @@ mkdir -p %{buildroot}%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
 export OCAMLFIND_LDCONF=%{buildroot}%{_libdir}/ocaml/ld.conf
 ocaml setup.ml -install
+install -D reader.native %{buildroot}/usr/bin/rrdreader
+install -D writer.native %{buildroot}/usr/bin/rrdwriter
 
 %files
 %doc LICENSE
@@ -83,8 +85,13 @@ ocaml setup.ml -install
 %{_libdir}/ocaml/rrd-transport/rrd_rpc.mli
 %{_libdir}/ocaml/rrd-transport/rrd_writer.cmx
 %{_libdir}/ocaml/rrd-transport/rrd_writer.mli
+%{_bindir}/rrdreader
+%{_bindir}/rrdwriter
 
 %changelog
+* Tue Aug 09 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.1-1
+- install rrdreader, rrdwriter, update to 1.1.1
+
 * Mon Aug 08 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.0-1
 - Update to 1.1.0 after change of JSON format in f276692
 
