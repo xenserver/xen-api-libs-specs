@@ -1,6 +1,6 @@
 Name:           xenopsd
-Version:        0.12.1
-Release:        2%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -297,6 +297,9 @@ esac
 
 
 %changelog
+* Fri Aug 12 2016 Christian Lindig <christian.lindig@citrix.com> - 0.13.0-1
+- Version bump; xenopsd maintains state for nested_virt, nomigrate
+
 * Thu May 26 2016 Christian Lindig <christian.lindig@citrix.com> - 0.12.1-2
 - Fix %post xc-cov: have to rm existing symlink just like in upgrade
 
