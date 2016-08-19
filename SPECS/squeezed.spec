@@ -1,5 +1,5 @@
 Name:           squeezed
-Version:        0.12.1
+Version:        0.12.2
 Release:        1%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
@@ -78,6 +78,9 @@ case $1 in
 esac
 
 %changelog
+* Fri Aug 19 2016 Euan Harris <euan.harris@citrix.com> - 0.12.2-1
+- When determining dom0's total memory allocation, always ask Xen first
+
 * Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.1-1
 - New release
 
