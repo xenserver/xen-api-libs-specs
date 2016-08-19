@@ -77,6 +77,9 @@ make install
 * Wed Aug 17 2016 Christian Lindig <christian.lindig@citrix.com> - 1.3.0-1
 - Update to 1.3.0; the interface to xenopsd changed
 
+* Mon Jul 25 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Mon Jul 4 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
 - Update to 1.1.0
 
