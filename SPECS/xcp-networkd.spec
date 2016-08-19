@@ -1,5 +1,5 @@
 Name:           xcp-networkd
-Version:        0.11.0
+Version:        0.11.1
 Release:        1%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
@@ -87,6 +87,9 @@ case $1 in
 esac
 
 %changelog
+* Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.11.1-1
+- Update to 0.11.1
+
 * Mon Jun 27 2016 Euan Harris <euan.harris@citrix.com> - 0.11.0-1
 - Update to 0.11.0
 
