@@ -300,9 +300,6 @@ esac
 * Fri Aug 12 2016 Christian Lindig <christian.lindig@citrix.com> - 0.13.0-1
 - Version bump; xenopsd maintains state for nested_virt, nomigrate
 
-* Thu Aug 18 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.3-1
-- New release
-
 * Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.2-1
 - New release
 
