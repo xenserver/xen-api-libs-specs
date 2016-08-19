@@ -300,6 +300,12 @@ esac
 * Fri Aug 12 2016 Christian Lindig <christian.lindig@citrix.com> - 0.13.0-1
 - Version bump; xenopsd maintains state for nested_virt, nomigrate
 
+* Thu Aug 18 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.3-1
+- New release
+
+* Fri Jul 22 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.12.2-1
+- New release
+
 * Thu May 26 2016 Christian Lindig <christian.lindig@citrix.com> - 0.12.1-2
 - Fix %post xc-cov: have to rm existing symlink just like in upgrade
 
