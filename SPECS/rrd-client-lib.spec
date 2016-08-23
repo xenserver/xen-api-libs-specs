@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           rrd-client-lib
-Version:        1.0.1
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        C library for writing RRDD plugins
 License:        MIT
@@ -49,6 +49,8 @@ install librrd.a   %{buildroot}%{_libdir}
 %{_libdir}/librrd.a
 
 %changelog
+* Thu Sep 01 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.0-1
+- New upstream release, compatible with xcp-rrdd plugin mechanism
 * Mon Aug 15 2016 Christian Lindig <christian.lindig@citrix.com> - 1.0.1
 - New upstream release that adds more tests
 * Wed Aug 10 2016 Christian Lindig <christian.lindig@citrix.com> - 1.0.0
