@@ -27,6 +27,7 @@ BuildRequires:  xen-dom0-libs-devel
 BuildRequires:  xen-libs-devel
 BuildRequires:  blktap-devel
 BuildRequires:  ocaml-bisect-ppx-devel
+BuildRequires:  ocaml-inotify-devel >= 2.3
 #Requires:       redhat-lsb-core
 BuildRequires:  ocaml-systemd-devel
 
@@ -65,8 +66,10 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
-* Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
-- Update to 1.1.0
+* Mon Aug 22 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.0-1
+- update to 1.1.0
+- xcp-rrdd implements a new mechanism to discover plugins
+- new build requirement: ocaml-inotify-devel
 
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 1.0.1-2
 - Package for systemd
