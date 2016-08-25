@@ -1,12 +1,13 @@
 Name:           xcp-rrdd
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
 Source0:        https://github.com/xapi-project/xcp-rrdd/archive/v%{version}/xcp-rrdd-%{version}.tar.gz
-Source1:        xcp-rrdd-init
-Source2:	xcp-rrdd-conf
+Source1:        xcp-rrdd.service
+Source2:        xcp-rrdd-sysconfig
+Source3:        xcp-rrdd-conf
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -27,18 +28,15 @@ BuildRequires:  xen-libs-devel
 BuildRequires:  blktap-devel
 BuildRequires:  ocaml-bisect-ppx-devel
 #Requires:       redhat-lsb-core
+BuildRequires:  ocaml-systemd-devel
 
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
+%{?systemd_requires}
 
 %description
 Statistics gathering daemon for the xapi toolstack.
 
 %prep
 %setup -q
-cp %{SOURCE1} xcp-rrdd-init
-cp %{SOURCE2} xcp-rrdd-conf
 
 %build
 make
@@ -46,38 +44,30 @@ make
 %install
 mkdir -p %{buildroot}/%{_sbindir}
 make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
-mkdir -p %{buildroot}%{_sysconfdir}/init.d
-install -m 0755 xcp-rrdd-init %{buildroot}%{_sysconfdir}/init.d/xcp-rrdd
-install -m 0644 xcp-rrdd-conf %{buildroot}/etc/xcp-rrdd.conf
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xcp-rrdd.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xcp-rrdd
+%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/xcp-rrdd.conf
 
 %files
 %doc README.markdown LICENSE
 %{_sbindir}/xcp-rrdd
-%{_sysconfdir}/init.d/xcp-rrdd
-/etc/xcp-rrdd.conf
+%{_unitdir}/xcp-rrdd.service
+%config(noreplace) %{_sysconfdir}/sysconfig/xcp-rrdd
+%config(noreplace) %{_sysconfdir}/xcp-rrdd.conf
 
 %post
-case $1 in
-  1) # install
-    /sbin/chkconfig --add xcp-rrdd
-    ;;
-  2) # upgrade
-    /sbin/chkconfig --del xcp-rrdd
-    /sbin/chkconfig --add xcp-rrdd
-    ;;
-esac
+%systemd_post xcp-rrdd.service
 
 %preun
-case $1 in
-  0) # uninstall
-    /sbin/service xcp-rrdd stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del xcp-rrdd
-    ;;
-  1) # upgrade
-    ;;
-esac
+%systemd_preun xcp-rrdd.service
+
+%postun
+%systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
+* Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 1.0.1-2
+- Package for systemd
+
 * Mon Jul 25 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.1-1
 - Update to 1.0.1
 
