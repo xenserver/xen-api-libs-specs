@@ -1,6 +1,6 @@
 Name:           xcp-networkd
-Version:        0.11.1
-Release:        2%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
@@ -68,6 +68,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-networkd.service
 
 %changelog
+* Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 0.12.0-1
+- Update to 0.12.0
+
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 0.11.1-2
 - Package for systemd 
 
