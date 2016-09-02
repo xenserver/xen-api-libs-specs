@@ -1,6 +1,6 @@
 Name:           xenopsd
-Version:        0.13.0
-Release:        2%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -240,6 +240,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 0.14.0-1
+- Update to 0.14.0
+
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 0.13.0-2
 - Package for systemd
 
