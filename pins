@@ -4,9 +4,6 @@
   "SPECS/squeezed.spec": {
     "0": "/repos/squeezed#HEAD"
   },
-  "SPECS/vhd-tool.spec": {
-    "0": "/repos/vhd-tool#HEAD"
-  },
   "SPECS/xcp-networkd.spec": {
     "0": "/repos/xcp-networkd#HEAD"
   },
