@@ -39,7 +39,7 @@ developing applications that use %{name}.
 %package        tools
 Summary:        Debugging tools for %{name}
 Requires:       xen-libs
-Requires:	xen-dom0-libs
+Requires:       xen-dom0-libs
 BuildRequires:  xen-devel
 
 %description   tools
