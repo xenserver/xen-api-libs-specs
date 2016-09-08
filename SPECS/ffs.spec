@@ -25,7 +25,7 @@ DESTDIR=%{buildroot} SCRIPTDIR=%{_libexecdir}/xapi-storage-script/ PYTHONDIR=/us
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.ffs/*
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.btrfs/*
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.rawnfs/*
-/usr/lib/python2.7/site-packages/xapi/storage/ffs/*.py*
+%{python_sitelib}/xapi/storage/ffs/*.py*
 /etc/xapi.d/plugins/ffs
 
 %changelog

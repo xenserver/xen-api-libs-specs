@@ -25,7 +25,7 @@ DESTDIR=%{buildroot} SCRIPTDIR=%{_libexecdir}/xapi-storage-script/ PYTHONDIR=/us
 %{_libexecdir}/xapi-storage-script/datapath/loop+blkback/*
 %{_libexecdir}/xapi-storage-script/datapath/tapdisk/*
 %{_libexecdir}/xapi-storage-script/datapath/raw+block/*
-/usr/lib/python2.7/site-packages/xapi/storage/datapath/*.py*
+%{python_sitelib}/xapi/storage/datapath/*.py*
 
 %changelog
 * Wed Sep 30 2015 Robert Breker <robert.breker@citrix.com> - 0.2.1-2
