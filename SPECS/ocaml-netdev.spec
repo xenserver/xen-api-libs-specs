@@ -19,8 +19,8 @@ Manipulate Linux bridges, network devices and openvswitch instances in OCaml.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-BuildRequires:  forkexecd-devel%{?_isa}
-BuildRequires:  ocaml-stdext-devel%{?_isa}
+Requires:       forkexecd-devel%{?_isa}
+Requires:       ocaml-stdext-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
