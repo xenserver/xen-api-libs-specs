@@ -20,7 +20,6 @@ Xapi storage inteface libraries
 
 %package        ocaml-plugin-runtime
 Summary:        Development files for %{name}
-Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
 %description    ocaml-plugin-runtime
@@ -29,7 +28,6 @@ plugins for %{name}.
 
 %package        ocaml-plugin-devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
 Requires:       %{name}-ocaml-plugin-runtime = %{version}-%{release}
 Requires:       ocaml-findlib
 Requires:       ocaml-cow-devel

@@ -5,7 +5,6 @@ Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Plugin library for the XenServer RRD daemon
 License:        LGPL2.1 + OCaml linking exception
-Group:          Development/Other
 URL:            https://github.com/xapi-project/ocaml-rrdd-plugin/
 Source0:        https://github.com/xapi-project/ocaml-rrdd-plugin/archive/v%{version}/ocaml-rrdd-plugin-%{version}.tar.gz
 BuildRequires:  ocaml
@@ -25,7 +24,6 @@ Plugin library for the XenServer RRD daemon.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 Requires:       forkexecd-devel%{?_isa}
 Requires:       ocaml-stdext-devel%{?_isa}

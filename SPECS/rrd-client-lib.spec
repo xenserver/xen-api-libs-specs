@@ -5,7 +5,6 @@ Version:        1.1.0
 Release:        1%{?dist}
 Summary:        C library for writing RRDD plugins
 License:        MIT
-Group:          Development/Other
 URL:            https://github.com/xapi-project/rrd-client-lib/
 Source0:        https://github.com/xapi-project/rrd-client-lib/archive/v%{version}/rrd-client-lib-%{version}.tar.gz
 BuildRequires:  zlib
@@ -16,7 +15,6 @@ Library for writing RRDD plugins in C. This package contains just the
 dynamic library but no header files or static libraries.
 
 %package devel
-Group:          Development/Libraries
 Summary:        Libraries and header files for rrd development
 Requires:       rrd-client-lib = %{version}-%{release}
 

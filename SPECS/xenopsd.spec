@@ -79,7 +79,6 @@ A synthetic VM manager for testing with coverage profiling.
 
 %package        xenlight
 Summary:        Xenopsd using libxenlight
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 
 %description    xenlight
@@ -87,7 +86,6 @@ Simple VM manager for Xen using libxenlight
 
 %package        xenlight-cov
 Summary:        Xenopsd using libxenlight
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 
 %description    xenlight-cov
