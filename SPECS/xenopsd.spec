@@ -79,7 +79,6 @@ A synthetic VM manager for testing with coverage profiling.
 
 %package        xenlight
 Summary:        Xenopsd using libxenlight
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 
 %description    xenlight
@@ -87,7 +86,6 @@ Simple VM manager for Xen using libxenlight
 
 %package        xenlight-cov
 Summary:        Xenopsd using libxenlight
-Group:          Development/Other
 Requires:       %{name} = %{version}-%{release}
 
 %description    xenlight-cov
@@ -122,16 +120,12 @@ make install DESTDIR=$PWD/build-cov LIBEXECDIR=%{_libexecdir}/%{name} SBINDIR=%{
 # rename regular binaries
 mv %{buildroot}%{_sbindir}/xenopsd-xc                     %{buildroot}%{_sbindir}/xenopsd-xc.bin
 mv %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid     %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid.bin
-# mv %{buildroot}%{_sbindir}/xenopsd-xenlight       %{buildroot}%{_sbindir}/xenopsd-xenlight.bin
-# mv %{buildroot}%{_sbindir}/xenopsd-simulator      %{buildroot}%{_sbindir}/xenopsd-simulator.bin
 
 # install selected binaries with coverage profiling from coverage build
 install -D ./xenops_xc_main.native        %{buildroot}%{_sbindir}/xenopsd-xc.cov
 install -D ./set_domain_uuid.native       %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid.cov
-# install -D ./xenops_xl_main.native        %{buildroot}%{_sbindir}/xenopsd-xenlight.cov
-# install -D ./xenops_simulator_main.native %{buildroot}%{_sbindir}/xenopsd-simulator.cov
 
-# touch files that are created dynamically and are %ghost'ed in %files
+# touch files that are created dynamically and are ghost'ed in files
 touch %{buildroot}%{_sbindir}/xenopsd-xenlight
 touch %{buildroot}%{_sbindir}/xenopsd-simulator
 touch %{buildroot}%{_sbindir}/xenopsd-xc
@@ -256,7 +250,7 @@ esac
 - New release
 
 * Thu May 26 2016 Christian Lindig <christian.lindig@citrix.com> - 0.12.1-2
-- Fix %post xc-cov: have to rm existing symlink just like in upgrade
+- Fix post xc-cov: have to rm existing symlink just like in upgrade
 
 * Fri May 20 2016 Christian Lindig <christian.lindig@citrix.com> - 0.12.1-1
 - New upstream release that supports coverage analysis

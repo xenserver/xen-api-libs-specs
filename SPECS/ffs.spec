@@ -7,7 +7,7 @@ URL:            https://github.com/xapi-project/ffs
 Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Requires:       xapi-storage
 Requires:       xapi-storage-datapath-plugins
-Requires:	btrfs-progs
+Requires:       btrfs-progs
 
 %description
 Simple flat file storage manager for the xapi toolstack.
@@ -25,7 +25,7 @@ DESTDIR=%{buildroot} SCRIPTDIR=%{_libexecdir}/xapi-storage-script/ PYTHONDIR=/us
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.ffs/*
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.btrfs/*
 %{_libexecdir}/xapi-storage-script/volume/org.xen.xapi.storage.rawnfs/*
-/usr/lib/python2.7/site-packages/xapi/storage/ffs/*.py*
+%{python_sitelib}/xapi/storage/ffs/*.py*
 /etc/xapi.d/plugins/ffs
 
 %changelog
