@@ -59,7 +59,7 @@ make install
 %{_libdir}/ocaml/vhdlib/*.mli
 
 %changelog
-* Tue Apr 26 2015 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
+* Mon Apr 25 2016 Euan Harris <euan.harris@citrix.com> - 1.0.0-1
 - Update to 1.0.0
 
 * Thu Sep 4 2014 Jon Ludlam <jonathan.ludlam@citrix.com> - 0.9.1-3
