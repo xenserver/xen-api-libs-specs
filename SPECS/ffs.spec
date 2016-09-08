@@ -5,6 +5,7 @@ Summary:        Simple flat file storage manager for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/ffs
 Source0:        https://github.com/xapi-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  python-devel
 Requires:       xapi-storage
 Requires:       xapi-storage-datapath-plugins
 Requires:       btrfs-progs
@@ -18,7 +19,7 @@ Simple flat file storage manager for the xapi toolstack.
 %build
 
 %install
-DESTDIR=%{buildroot} SCRIPTDIR=%{_libexecdir}/xapi-storage-script/ PYTHONDIR=/usr/lib/python2.7/site-packages/xapi/storage/ffs make install
+DESTDIR=%{buildroot} SCRIPTDIR=%{_libexecdir}/xapi-storage-script/ PYTHONDIR=%{python_sitelib}/xapi/storage/ffs make install
 
 %files
 %doc README.md LICENSE MAINTAINERS
