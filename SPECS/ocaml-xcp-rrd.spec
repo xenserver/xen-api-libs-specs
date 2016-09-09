@@ -29,7 +29,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xcp-rrd-%{version}
+%autosetup -n xcp-rrd-%{version}
 
 %build
 make

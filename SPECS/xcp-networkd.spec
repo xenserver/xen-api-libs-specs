@@ -34,7 +34,7 @@ Requires:       libnl3
 Simple host networking management service for the xapi toolstack.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 make

@@ -27,7 +27,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n netdev-%{version}
+%autosetup -n netdev-%{version}
 
 %build
 oasis setup

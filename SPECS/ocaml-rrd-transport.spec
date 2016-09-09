@@ -33,7 +33,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n rrd-transport-%{version}
+%autosetup -n rrd-transport-%{version}
 
 %build
 ocaml setup.ml -configure --libdir %{buildroot}%{_libdir}/ocaml

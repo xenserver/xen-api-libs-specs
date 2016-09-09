@@ -37,7 +37,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xen-api-libs-transitional-%{version}
+%autosetup -n xen-api-libs-transitional-%{version}
 
 %build
 make

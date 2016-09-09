@@ -33,7 +33,7 @@ Requires:       message-switch
 Memory ballooning daemon for the xapi toolstack.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 ./configure --prefix %{_prefix} --destdir %{buildroot}

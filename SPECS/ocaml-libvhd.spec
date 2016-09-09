@@ -28,7 +28,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n libvhd-%{version}
+%autosetup -n libvhd-%{version}
 
 %build
 ocaml setup.ml -configure

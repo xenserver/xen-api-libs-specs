@@ -46,7 +46,7 @@ BuildRequires:  xen-devel
 A set of debugging tools which showcase the features of %{name}-devel.
 
 %prep
-%setup -q -n xenops-%{version}
+%autosetup -n xenops-%{version}
 
 %build
 make

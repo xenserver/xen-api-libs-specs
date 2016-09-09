@@ -44,7 +44,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xcp-idl-%{version}
+%autosetup -n xcp-idl-%{version}
 
 %build
 ocaml setup.ml -configure

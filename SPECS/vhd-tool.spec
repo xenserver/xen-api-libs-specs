@@ -28,7 +28,7 @@ BuildRequires: ocaml-bisect-ppx-devel
 Simple command-line tools for manipulating and streaming .vhd format file.
 
 %prep 
-%setup -q
+%autosetup
 cp %{SOURCE1} vhd-tool-sparse_dd-conf
 
 

@@ -40,8 +40,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p1
+%autosetup -n %{name}-%{version}
 
 %build
 make

@@ -29,7 +29,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xcp-inventory-%{version}
+%autosetup -n xcp-inventory-%{version}
 
 %build
 oasis setup
