@@ -17,7 +17,7 @@ BuildRequires:  oasis
 Command-line interface for xenopsd, the xapi toolstack domain manager.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 make

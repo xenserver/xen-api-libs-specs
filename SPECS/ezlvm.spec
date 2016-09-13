@@ -35,7 +35,7 @@ Requires: xapi-storage-datapath-plugins
 Simple LVM storage adapter for xapi
 
 %prep 
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 cd src

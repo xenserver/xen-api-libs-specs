@@ -23,7 +23,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 make

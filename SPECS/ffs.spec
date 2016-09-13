@@ -14,7 +14,7 @@ Requires:       btrfs-progs
 Simple flat file storage manager for the xapi toolstack.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 

@@ -12,7 +12,7 @@ Requires:       xapi-storage
 Storage datapath plugins for the xapi toolstack.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 

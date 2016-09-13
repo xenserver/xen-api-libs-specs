@@ -36,7 +36,7 @@ BuildRequires:  ocaml-systemd-devel
 Statistics gathering daemon for the xapi toolstack.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 make

@@ -42,7 +42,7 @@ It is used for programmatically controlling a pool of XenServer
 virtualization hosts.
 
 %prep
-%setup -q -n xen-api-client-%{version}
+%autosetup -n xen-api-client-%{version}
 
 %build
 make

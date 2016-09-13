@@ -93,7 +93,7 @@ Simple VM manager for Xen using libxenlight with coverage profiling.
 
 
 %prep
-%setup -q
+%autosetup
 
 %build
 # this is a hack: we build and install two builds into the source

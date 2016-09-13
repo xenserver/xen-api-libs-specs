@@ -17,7 +17,7 @@ BuildRequires:  ocaml-xcp-idl-devel
 Command-line interface for xapi toolstack storage managers.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 make

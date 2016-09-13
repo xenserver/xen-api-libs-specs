@@ -34,7 +34,7 @@ Requires(preun): /sbin/service
 A store and forward message switch for OCaml.
 
 %prep
-%setup -q
+%autosetup
 cp %{SOURCE1} message-switch-init
 cp %{SOURCE2} message-switch-conf
 cp %{SOURCE3} message-switch.xml
