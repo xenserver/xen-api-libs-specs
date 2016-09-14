@@ -1,6 +1,6 @@
 Name:           xcp-rrdd
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
@@ -65,6 +65,9 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
+* Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 1.0.1-2
 - Package for systemd
 

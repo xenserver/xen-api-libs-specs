@@ -1,5 +1,5 @@
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 1.0.1-2
 - Package for systemd
 
