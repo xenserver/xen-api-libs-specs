@@ -1,6 +1,6 @@
 Name:           squeezed
-Version:        0.12.2
-Release:        2%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
@@ -64,6 +64,9 @@ make
 %systemd_postun_with_restart squeezed.service
 
 %changelog
+* Wed Sep 14 2016 Euan Harris <euan.harris@citrix.com> - 0.13.0-1
+- Do not try to work around domains which appear to be stuck
+
 * Mon Aug 22 2016 Rafal Mielniczuk <rafal.mielniczuk@citrix.com> - 0.12.2-2
 - Package for systemd
 
