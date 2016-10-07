@@ -1,5 +1,5 @@
 Name:           xcp-rrdd
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
@@ -8,6 +8,7 @@ Source0:        https://github.com/xapi-project/xcp-rrdd/archive/v%{version}/xcp
 Source1:        xcp-rrdd.service
 Source2:        xcp-rrdd-sysconfig
 Source3:        xcp-rrdd-conf
+Source4:        xcp-rrdd-tmp
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -30,6 +31,7 @@ BuildRequires:  ocaml-bisect-ppx-devel
 BuildRequires:  ocaml-inotify-devel >= 2.3
 #Requires:       redhat-lsb-core
 BuildRequires:  ocaml-systemd-devel
+Requires(pre):  shadow-utils
 
 %{?systemd_requires}
 
@@ -42,12 +44,17 @@ Statistics gathering daemon for the xapi toolstack.
 %build
 make
 
+%pre
+getent group rrdmetrics >/dev/null || groupadd -r rrdmetrics
+
 %install
-mkdir -p %{buildroot}/%{_sbindir}
+mkdir -p %{buildroot}%{_sbindir}
+mkdir -p %{buildroot}%{_tmpfilesdir}
 make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xcp-rrdd.service
 %{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xcp-rrdd
 %{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/xcp-rrdd.conf
+%{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %files
 %doc README.markdown LICENSE
@@ -55,9 +62,11 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %{_unitdir}/xcp-rrdd.service
 %config(noreplace) %{_sysconfdir}/sysconfig/xcp-rrdd
 %config(noreplace) %{_sysconfdir}/xcp-rrdd.conf
+%{_tmpfilesdir}/%{name}.conf
 
 %post
 %systemd_post xcp-rrdd.service
+%tmpfiles_create %{_tmpfilesdir}/%{name}.conf
 
 %preun
 %systemd_preun xcp-rrdd.service
@@ -66,6 +75,10 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
+* Thu Oct 06 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.1-1
+- create group rrdmetrics at installation for plugins to use
+- create /dev/shm/metrics on startup using tmpfiles.d service
+
 * Mon Aug 22 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.0-1
 - update to 1.1.0
 - xcp-rrdd implements a new mechanism to discover plugins
