@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-idl
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Common interface definitions for XCP services
 License:        LGPL
@@ -74,6 +74,9 @@ make install
 %{_libdir}/ocaml/xcp/*.mli
 
 %changelog
+* Thu Oct 13 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.5.0-1
+- New version - adds v6 interface
+
 * Wed Sep 14 2016 Euan Harris <euan.harris@citrix.com> - 1.4.0-1
 - Add force option to VM.start
 - Add device information in VIF.state
