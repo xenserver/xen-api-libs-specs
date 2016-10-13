@@ -1,5 +1,5 @@
 Name:           xcp-rrdd
-Version:        1.1.1
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
@@ -75,7 +75,7 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-rrdd.service
 
 %changelog
-* Thu Oct 06 2016 Christian Lindig <christian.lindig@citrix.com> - 1.1.1-1
+* Thu Oct 06 2016 Christian Lindig <christian.lindig@citrix.com> - 1.2.0-1
 - create group rrdmetrics at installation for plugins to use
 - create /dev/shm/metrics on startup using tmpfiles.d service
 
