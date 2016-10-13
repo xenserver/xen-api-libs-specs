@@ -1,5 +1,5 @@
 Name:           xenopsd
-Version:        0.15.0
+Version:        0.16.0
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
@@ -241,6 +241,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Thu Oct 13 2016 Euan Harris <euan.harris@citrix.com> - 0.16.0-1
+- Add PVS support
+
 * Wed Sep 14 2016 Euan Harris <euan.harris@citrix.com> - 0.15.0-1
 - Add force option to VM.start
 - Add device information in VIF.state
