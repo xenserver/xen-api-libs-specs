@@ -25,6 +25,9 @@
   "SPECS/xcp-rrdd.spec": {
     "0": "/repos/xcp-rrdd#HEAD"
   },
+  "SPECS/xenops-cli.spec": {
+    "0": "/repos/xenops-cli#HEAD"
+  },
   "SPECS/xenopsd.spec": {
     "0": "/repos/xenopsd#HEAD"
   }
