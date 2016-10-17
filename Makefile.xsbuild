@@ -3,6 +3,7 @@
 # problems.
 PATH:=/usr/bin:$(PATH)
 FETCH_EXTRA_FLAGS=--mirror file:///distfiles/ocaml2
+RPM_EXTRA_DEFINES=--define "_sourcedir %_topdir/SOURCES/%name"
 
 .PHONY: buildrpms api-libs
 
