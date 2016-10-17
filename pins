@@ -10,20 +10,23 @@
   "SPECS/ocaml-xcp-idl.spec": {
     "0": "/repos/xcp-idl#HEAD"
   },
-  "SPECS/ocaml-xen-api-client.spec": {
-    "0": "/repos/xen-api-client#HEAD"
-  },
   "SPECS/squeezed.spec": {
     "0": "/repos/squeezed#HEAD"
   },
   "SPECS/vhd-tool.spec": {
     "0": "/repos/vhd-tool#HEAD"
   },
+  "SPECS/xapi-storage-script.spec": {
+    "0": "/repos/xapi-storage-script#HEAD"
+  },
   "SPECS/xcp-networkd.spec": {
     "0": "/repos/xcp-networkd#HEAD"
   },
   "SPECS/xcp-rrdd.spec": {
     "0": "/repos/xcp-rrdd#HEAD"
+  },
+  "SPECS/xenops-cli.spec": {
+    "0": "/repos/xenops-cli#HEAD"
   },
   "SPECS/xenopsd.spec": {
     "0": "/repos/xenopsd#HEAD"
