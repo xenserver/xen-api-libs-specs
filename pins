@@ -16,6 +16,9 @@
   "SPECS/vhd-tool.spec": {
     "0": "/repos/vhd-tool#HEAD"
   },
+  "SPECS/xapi-storage-script.spec": {
+    "0": "/repos/xapi-storage-script#HEAD"
+  },
   "SPECS/xcp-networkd.spec": {
     "0": "/repos/xcp-networkd#HEAD"
   },
