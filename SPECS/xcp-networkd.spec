@@ -1,5 +1,5 @@
 Name:           xcp-networkd
-Version:        0.13.1
+Version:        0.13.2
 Release:        1%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
@@ -68,6 +68,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 %systemd_postun_with_restart xcp-networkd.service
 
 %changelog
+* Fri Nov 04 2016 Euan Harris <euan.harris@citrix.com> - 0.13.2-1
+- CA-225272: rate-limit calls to `ovs-vsctl`
+
 * Thu Oct 19 2016 Euan Harris <euan.harris@citrix.com> - 0.13.1-1
 - CA-225365: Call mod-port on parent bridge, not "fake" VLAN bridge
 
