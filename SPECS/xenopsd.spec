@@ -1,5 +1,5 @@
 Name:           xenopsd
-Version:        0.16.0
+Version:        0.17.0
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
@@ -241,6 +241,16 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Fri Nov 04 2016 Euan Harris <euan.harris@citrix.com> - 0.17.0-1
+- CA-226099: setup-vif-rules: drop all traffic on disabled VIFs
+- CA-223506: setup-pvs-proxy-rules: handle localhost migration
+- CA-225971: Bring up all netback devices, regardless of the locking mode
+- CP-18612: Introduce multiple flow tables for pvs vswitch rules
+- CA-225067: move qemu-dm to default cgroup slice
+- setup-pvs-proxy-rules: announce we are done only at the end
+- CA-225257: Fix XSRM typo in setup-pvs-proxy-rules
+- CA-203423: fail to parse ionice, error -> warn
+
 * Thu Oct 13 2016 Euan Harris <euan.harris@citrix.com> - 0.16.0-1
 - Add PVS support
 
