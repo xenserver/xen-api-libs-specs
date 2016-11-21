@@ -1,6 +1,6 @@
 Name:           xenopsd
 Version:        0.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -134,9 +134,9 @@ touch %{buildroot}%{_libexecdir}/%{name}/set-domain-uuid
 # this is the same for both builds - should really be in Makefile
 gzip %{buildroot}%{_mandir}/man1/*.1
 
-%{__install} -D -m 0755 %{SOURCE1} %{buildroot}%{_unitdir}/xenopsd-xc.service
-%{__install} -D -m 0755 %{SOURCE2} %{buildroot}%{_unitdir}/xenopsd-xenlight.service
-%{__install} -D -m 0755 %{SOURCE3} %{buildroot}%{_unitdir}/xenopsd-simulator.service
+%{__install} -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/xenopsd-xc.service
+%{__install} -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/xenopsd-xenlight.service
+%{__install} -D -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/xenopsd-simulator.service
 %{__install} -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/xenopsd
 %{__install} -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/xenopsd.conf
 
@@ -241,6 +241,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Mon Nov 21 2016 Rob Hoes <rob.hoes@citrix.com> - 0.17.0-2
+- Install systemd service files with 644 permissions (non-executable)
+
 * Fri Nov 04 2016 Euan Harris <euan.harris@citrix.com> - 0.17.0-1
 - CA-226099: setup-vif-rules: drop all traffic on disabled VIFs
 - CA-223506: setup-pvs-proxy-rules: handle localhost migration
