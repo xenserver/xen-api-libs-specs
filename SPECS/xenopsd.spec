@@ -1,10 +1,10 @@
 Name:           xenopsd
-Version:        0.17.0
+Version:        0.17.5
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
-Source0:        https://github.com/xapi-project/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
+Source0:        https://github.com/xenserver/xenopsd/archive/v%{version}/xenopsd-%{version}.tar.gz
 Source1:        xenopsd-xc.service
 Source2:        xenopsd-xenlight.service
 Source3:        xenopsd-simulator.service
@@ -241,6 +241,22 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Tue Nov 29 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.17.5-1
+- CA-226099: Revert previous fix; ensure that disabled VIFs are not put on a bridge
+- vif-real: log with a consistent tag
+
+* Fri Nov 25 2016 Rob Hoes <rob.hoes@citrix.com> - 0.17.4-1
+- CA-227605: Further bugfix
+
+* Fri Nov 25 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.17.3-1
+- CA-227605: Fix issues with PVS caching under stress tests
+
+* Wed Nov 23 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.17.2-1
+- CA-220466: bootloader: check kernel/ramdisk paths
+
+* Fri Nov 18 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.17.1-1
+- CA-227626: Look for VIF in all the pvs-proxy sites
+
 * Fri Nov 04 2016 Euan Harris <euan.harris@citrix.com> - 0.17.0-1
 - CA-226099: setup-vif-rules: drop all traffic on disabled VIFs
 - CA-223506: setup-pvs-proxy-rules: handle localhost migration
