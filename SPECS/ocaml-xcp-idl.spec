@@ -1,13 +1,14 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-idl
-Version:        1.10.0
+Version:        1.11.0
 Release:        1%{?dist}
 Summary:        Common interface definitions for XCP services
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-idl
 Source0:        https://github.com/xapi-project/xcp-idl/archive/v%{version}/xcp-idl-%{version}.tar.gz
 BuildRequires:  ocaml
+BuildRequires:  oasis
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-cmdliner-devel
 BuildRequires:  ocaml-findlib
@@ -47,7 +48,7 @@ developing applications that use %{name}.
 %autosetup -n xcp-idl-%{version}
 
 %build
-ocaml setup.ml -configure
+oasis setup
 make
 
 %install
@@ -74,6 +75,9 @@ make install
 %{_libdir}/ocaml/xcp/*.mli
 
 %changelog
+* Wed Jan 25 2017 Gabor Igloi <gabor.igloi@citrix.com> - 1.11.0-1
+- Automatically generate build files with OASIS at build-time
+
 * Mon Dec 12 2016 Gabor Igloi <gabor.igloi@citrix.com> - 1.10.0-1
 - Fix OCaml compiler warnings
 - Remove outdated INSTALL file; add INSTALL.md with generic build instructions
