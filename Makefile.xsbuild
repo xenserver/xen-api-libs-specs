@@ -7,17 +7,7 @@ RPM_EXTRA_DEFINES=--define "_sourcedir %_topdir/SOURCES/%name"
 
 .PHONY: buildrpms api-libs
 
-api-libs: buildrpms /output/api-libs/SOURCES/MANIFEST 
-
-/output/api-libs/SOURCES/MANIFEST: buildrpms
-	mkdir /output/api-libs/SOURCES
-	for i in $(shell /bin/ls -1 SRPMS/*.rpm); do \
-		path=$${i}; \
-		echo -n "api-libs "; \
-		rpm --qf %{License} -qp $${path} | sed -e 's/ /_/g'; \
-		echo " file $${path}"; \
-	done > /tmp/MANIFEST
-	mv -f /tmp/MANIFEST $@
+api-libs: buildrpms
 
 buildrpms:
 	make -f Makefile srpms
