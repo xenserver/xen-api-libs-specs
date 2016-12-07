@@ -1,6 +1,6 @@
 Name:           xenopsd
-Version:        0.17.0
-Release:        2%{?dist}
+Version:        0.20.0
+Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -241,6 +241,15 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Wed Dec 07 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.20.0-1
+- CA-227605: Fix issues with PVS caching under stress tests
+- CA-226099: Revert previous fix; ensure that disabled VIFs are not put on a bridge
+- vif-real: log with a consistent tag
+- CA-227626: Look for VIF in all the pvs-proxy sites
+- CA-227101: Increase timeout from 0 to 60 seconds when squeezing domains.
+- CP-19645: qemu-dm-wrapper: Allow QEMU to be optionally used when starting a guest
+- CA-220466: bootloader: check kernel/ramdisk paths
+
 * Mon Nov 21 2016 Rob Hoes <rob.hoes@citrix.com> - 0.17.0-2
 - Install systemd service files with 644 permissions (non-executable)
 
