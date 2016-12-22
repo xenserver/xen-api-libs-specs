@@ -1,5 +1,5 @@
 Name:           xenopsd
-Version:        0.17.5
+Version:        0.17.6
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
@@ -241,6 +241,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Tue Dec 20 2016 Rob Hoes <rob.hoes@citrix.com> - 0.17.6-1
+- CA-234037: Fix race in CDROM status checking
+
 * Tue Nov 29 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.17.5-1
 - CA-226099: Revert previous fix; ensure that disabled VIFs are not put on a bridge
 - vif-real: log with a consistent tag
