@@ -1,4 +1,4 @@
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Name:           forkexecd
 Summary:        A subprocess management service
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 1.1.1-1
+- git: Add metadata to the result of `git archive`
+
 * Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
 - Update to 1.1.0
 

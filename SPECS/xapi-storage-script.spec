@@ -1,6 +1,6 @@
 Summary: Xapi storage script plugin server
 Name:    xapi-storage-script
-Version: 0.12.2
+Version: 0.12.3
 Release: 1%{?dist}
 License: LGPL+linking exception
 URL:     https://github.com/xapi-project/xapi-storage-script
@@ -64,6 +64,9 @@ mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/datapath
 %config(noreplace) %{_sysconfdir}/xapi-storage-script.conf
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 0.12.3-1
+- git: Add metadata to the result of `git archive`
+
 * Thu Sep 22 2016 Rob Hoes <rob.hoes@citrix.com> - 0.12.2-1
 - Update to 0.12.2
 

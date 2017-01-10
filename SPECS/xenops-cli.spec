@@ -1,5 +1,5 @@
 Name:           xenops-cli
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        CLI for xenopsd, the xapi toolstack domain manager
 License:        LGPL
@@ -33,6 +33,9 @@ make
 %{_mandir}/man1/xenops-cli.1.gz
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 1.0.3-1
+- git: Add metadata to the result of `git archive`
+
 * Mon Sep 12 2016 Jon Ludlam <jonathan.ludlam@citrix.com> - 1.0.2-1
 - Update to 1.0.2
 

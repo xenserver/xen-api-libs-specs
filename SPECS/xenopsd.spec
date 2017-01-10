@@ -1,5 +1,5 @@
 Name:           xenopsd
-Version:        0.20.1
+Version:        0.21.0
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
@@ -241,6 +241,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 0.21.0-1
+- Build dbgring by default (but don't install it)
+
 * Mon Dec 19 2016 Rob Hoes <rob.hoes@citrix.com> - 0.20.1-1
 - CA-234037: Fix race in CDROM status checking
 

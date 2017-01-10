@@ -1,6 +1,6 @@
 Name:           message-switch
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        A store and forward message switch
 License:        FreeBSD
 URL:            https://github.com/xapi-project/message-switch
@@ -105,6 +105,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/message_switch/*
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 1.0.1-1
+- git: Add metadata to the result of `git archive`
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 1.0.0-2
 - Re-run chkconfig on upgrade
 

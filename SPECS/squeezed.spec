@@ -1,5 +1,5 @@
 Name:           squeezed
-Version:        0.13.0
+Version:        0.13.1
 Release:        1%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
@@ -64,6 +64,9 @@ make
 %systemd_postun_with_restart squeezed.service
 
 %changelog
+* Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 0.13.1-1
+- git: Add metadata to the result of `git archive`
+
 * Wed Sep 14 2016 Euan Harris <euan.harris@citrix.com> - 0.13.0-1
 - Do not try to work around domains which appear to be stuck
 
