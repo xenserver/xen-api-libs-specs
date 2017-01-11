@@ -1,6 +1,6 @@
 Name:           xenopsd
 Version:        0.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -68,14 +68,6 @@ Requires:       %{name} = %{version}-%{release}
 %description    simulator
 A synthetic VM manager for testing.
 
-%package        simulator-cov
-Summary:        Xenopsd simulator
-Requires:       %{name} = %{version}-%{release}
-
-%description    simulator-cov
-A synthetic VM manager for testing with coverage profiling.
-
-
 
 %package        xenlight
 Summary:        Xenopsd using libxenlight
@@ -84,16 +76,8 @@ Requires:       %{name} = %{version}-%{release}
 %description    xenlight
 Simple VM manager for Xen using libxenlight
 
-%package        xenlight-cov
-Summary:        Xenopsd using libxenlight
-Requires:       %{name} = %{version}-%{release}
-
-%description    xenlight-cov
-Simple VM manager for Xen using libxenlight with coverage profiling.
-
-
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # this is a hack: we build and install two builds into the source
@@ -241,9 +225,12 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Tue Jan 10 2017 Christian Lindig <christian.lindig@citrix.com> - 0.21.0-2
+- remove sub-packages simulator-cov, xenlight-cov for coverage builds
+  as they are not fully defined and we will need a general overhaul
+  how to build for coverage analysis in the Transformer build system.
 * Tue Jan 10 2017 Rob Hoes <rob.hoes@citrix.com> - 0.21.0-1
 - Build dbgring by default (but don't install it)
-
 * Mon Dec 19 2016 Rob Hoes <rob.hoes@citrix.com> - 0.20.1-1
 - CA-234037: Fix race in CDROM status checking
 
