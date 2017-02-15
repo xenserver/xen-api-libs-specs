@@ -1,5 +1,5 @@
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Name:           forkexecd
 Summary:        A subprocess management service
 License:        LGPL
@@ -54,7 +54,7 @@ ocaml setup.ml -install
 %systemd_preun forkexecd.service
 
 %postun
-%systemd_postun_with_restart forkexecd.service
+%systemd_postun forkexecd.service
 
 %package        devel
 Summary:        Development files for %{name}
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 %{_libdir}/ocaml/forkexec/*
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 1.1.0-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Fri Sep 02 2016 Euan Harris <euan.harris@citrix.com> - 1.1.0-1
 - Update to 1.1.0
 

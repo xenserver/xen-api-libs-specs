@@ -1,6 +1,6 @@
 Name:           xcp-rrdd
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-rrdd
@@ -72,9 +72,12 @@ make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir}
 %systemd_preun xcp-rrdd.service
 
 %postun
-%systemd_postun_with_restart xcp-rrdd.service
+%systemd_postun xcp-rrdd.service
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 1.2.0-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Thu Oct 06 2016 Christian Lindig <christian.lindig@citrix.com> - 1.2.0-1
 - create group rrdmetrics at installation for plugins to use
 - create /dev/shm/metrics on startup using tmpfiles.d service

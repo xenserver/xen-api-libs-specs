@@ -1,7 +1,7 @@
 Summary: Xapi storage script plugin server
 Name:    xapi-storage-script
 Version: 0.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL+linking exception
 URL:     https://github.com/xapi-project/xapi-storage-script
 Source0: https://github.com/xapi-project/xapi-storage-script/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -51,7 +51,7 @@ mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/datapath
 %systemd_preun xapi-storage-script.service
 
 %postun
-%systemd_postun_with_restart xapi-storage-script.service
+%systemd_postun xapi-storage-script.service
 
 %files
 %{_libexecdir}/xapi-storage-script
@@ -64,6 +64,9 @@ mkdir -p %{buildroot}%{_libexecdir}/xapi-storage-script/datapath
 %config(noreplace) %{_sysconfdir}/xapi-storage-script.conf
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.12.2-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Thu Sep 22 2016 Rob Hoes <rob.hoes@citrix.com> - 0.12.2-1
 - Update to 0.12.2
 

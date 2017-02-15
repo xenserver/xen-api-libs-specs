@@ -1,6 +1,6 @@
 Name:           xenopsd
 Version:        0.17.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 URL:            https://github.com/xapi-project/xenopsd
@@ -184,7 +184,7 @@ esac
 %systemd_preun xenopsd-xc.service
 
 %postun xc
-%systemd_postun_with_restart xenopsd-xc.service
+%systemd_postun xenopsd-xc.service
 
 %files xc-cov
 %{_sbindir}/xenopsd-xc.cov
@@ -241,6 +241,9 @@ esac
 %systemd_postun_with_restart xenopsd-xenlight.service
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.17.6-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Tue Dec 20 2016 Rob Hoes <rob.hoes@citrix.com> - 0.17.6-1
 - CA-234037: Fix race in CDROM status checking
 

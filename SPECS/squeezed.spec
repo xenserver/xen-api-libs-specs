@@ -1,6 +1,6 @@
 Name:           squeezed
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Memory ballooning daemon for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/squeezed
@@ -61,9 +61,12 @@ make
 %systemd_preun squeezed.service
 
 %postun
-%systemd_postun_with_restart squeezed.service
+%systemd_postun squeezed.service
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.13.0-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Wed Sep 14 2016 Euan Harris <euan.harris@citrix.com> - 0.13.0-1
 - Do not try to work around domains which appear to be stuck
 
