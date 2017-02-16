@@ -1,6 +1,6 @@
 Name:           xcp-networkd
 Version:        0.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
@@ -65,9 +65,12 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 %systemd_preun xcp-networkd.service
 
 %postun
-%systemd_postun_with_restart xcp-networkd.service
+%systemd_postun xcp-networkd.service
 
 %changelog
+* Wed Feb 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.13.3-2
+- CA-243676: Do not restart toolstack services on RPM upgrade
+
 * Tue Dec 06 2016 Gabor Igloi <gabor.igloi@citrix.com> - 0.13.3-1
 - CA-234506: Don't lose the port `kind` param in bridge.make_config
 
