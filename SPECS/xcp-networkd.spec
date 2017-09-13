@@ -1,6 +1,6 @@
 Name:           xcp-networkd
 Version:        0.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple host network management service for the xapi toolstack
 License:        LGPL
 URL:            https://github.com/xapi-project/xcp-networkd
@@ -87,6 +87,10 @@ case $1 in
 esac
 
 %changelog
+* Fri Sep 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.9.6-3
+- HFX-1986: Compile against new xen-api-libs-transitional which
+  contains the fix for CA-245559
+
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-2
 - Re-run chkconfig on upgrade
 
