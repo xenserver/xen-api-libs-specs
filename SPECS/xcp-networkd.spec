@@ -90,6 +90,7 @@ esac
 * Fri Sep 15 2017 Frederico Mazzone <frederico.mazzone@citrix.com> - 0.9.6-3
 - HFX-1986: Compile against new xen-api-libs-transitional which
   contains the fix for CA-245559
+- HFX-1984: CP-22034: read PIF speed & duplex from sysfs
 
 * Mon May 16 2016 Si Beaumont <simon.beaumont@citrix.com> - 0.9.6-2
 - Re-run chkconfig on upgrade
